@@ -2765,6 +2765,25 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
     word-wrap: break-word;
     margin-top: 8px;
   }
+  .cmt-popup-actions {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; justify-content: flex-end;
+  }
+  .cmt-popup-delete {
+    appearance: none; background: transparent; border: 0;
+    color: var(--ink-faint);
+    font: 11px 'Graphik','Inter',sans-serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: color 160ms, background 160ms;
+  }
+  .cmt-popup-delete:hover { color: #ff7a8a; background: rgba(255,122,138,0.08); }
+  .cmt-popup-delete.confirming { color: #ff7a8a; background: rgba(255,122,138,0.14); }
 </style>
 
 <button class="cmt-toggle active" id="cmt-toggle" aria-label="Toggle comments">
@@ -2791,7 +2810,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js';
-  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp }
+  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, doc, deleteDoc }
     from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
 
   const firebaseConfig = {
@@ -2878,6 +2897,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
         </div>
       </div>
       <div class="cmt-popup-body">${esc(c.body)}</div>
+      <div class="cmt-popup-actions">
+        <button class="cmt-popup-delete" data-id="${esc(c.id)}">Delete</button>
+      </div>
     `;
     const rect = pin.getBoundingClientRect();
     const popupW = 300;
@@ -2886,14 +2908,42 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
       left = Math.max(16, rect.left - popupW - 14);
     }
     let top = rect.top;
-    if (top + 220 > window.innerHeight) {
-      top = Math.max(16, window.innerHeight - 240);
+    if (top + 240 > window.innerHeight) {
+      top = Math.max(16, window.innerHeight - 260);
     }
     popup.style.left = left + 'px';
     popup.style.top  = top + 'px';
     popup.classList.remove('hidden');
     popup.querySelector('.cmt-popup-x').addEventListener('click', () => {
       popup.classList.add('hidden');
+    });
+    // Two-step delete: first click → "Click again to confirm", second click → delete
+    const delBtn = popup.querySelector('.cmt-popup-delete');
+    let confirmTimer = null;
+    delBtn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      if (!delBtn.classList.contains('confirming')) {
+        delBtn.classList.add('confirming');
+        delBtn.textContent = 'Click again to confirm';
+        confirmTimer = setTimeout(() => {
+          delBtn.classList.remove('confirming');
+          delBtn.textContent = 'Delete';
+        }, 3000);
+        return;
+      }
+      clearTimeout(confirmTimer);
+      delBtn.disabled = true;
+      delBtn.textContent = 'Deleting…';
+      try {
+        await deleteDoc(doc(db, 'pageComments', c.id));
+        popup.classList.add('hidden');
+      } catch (err) {
+        console.error('[comments] delete failed', err);
+        delBtn.classList.remove('confirming');
+        delBtn.disabled = false;
+        delBtn.textContent = 'Delete';
+        alert('Could not delete: ' + err.message);
+      }
     });
   }
 
