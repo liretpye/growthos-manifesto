@@ -1,0 +1,2595 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>GrowthOS Manifesto · 2027</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-Light.otf') format('opentype');
+    font-weight: 300; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-LightItalic.otf') format('opentype');
+    font-weight: 300; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-Regular.otf') format('opentype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-RegularItalic.otf') format('opentype');
+    font-weight: 400; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-Semibold.otf') format('opentype');
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-SemiboldItalic.otf') format('opentype');
+    font-weight: 600; font-style: italic; font-display: swap;
+  }
+  :root {
+    --bg: #120318;
+    --bg-2: #1c0826;
+    --accent: #6936F5;
+    --accent-soft: #A87CFF;
+    --accent-deep: #3D1F8F;
+    --warn: #F5A623;
+    --ink: #FFFFFF;
+    --ink-dim: rgba(255,255,255,0.65);
+    --ink-faint: rgba(255,255,255,0.32);
+    --ink-ghost: rgba(255,255,255,0.12);
+    --rule: rgba(255,255,255,0.10);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #120318; color: var(--ink); }
+  body {
+    font-family: 'Graphik', 'Inter', system-ui, sans-serif;
+    line-height: 1.55;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+  html { scroll-behavior: smooth; }
+  h1, h2, h3, .display { font-family: 'Graphik', 'Inter', sans-serif; letter-spacing: -0.025em; font-weight: 400; }
+  h1 { font-size: 72px; line-height: 1.06; margin: 0; letter-spacing: -0.04em; font-weight: 400; }
+  h2 { font-size: 56px; line-height: 1.08; margin: 0 0 20px; letter-spacing: -0.035em; font-weight: 400; }
+  h3 { font-size: 22px; line-height: 1.2; margin: 0; font-weight: 400; }
+  p  { margin: 0 0 14px; color: var(--ink-dim); }
+  a  { color: var(--accent-soft); text-decoration: none; }
+  .accent { color: var(--accent-soft); }
+  em { color: var(--accent-soft); font-style: italic; }
+
+  /* Exec summary strip */
+  .execSummary {
+    position: relative; z-index: 2;
+    max-width: 1320px; margin: 0 auto;
+    padding: 100px 56px 32px;
+  }
+  .execGrid {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 32px;
+    align-items: stretch;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .execFrameRule {
+    background: var(--rule);
+    width: 1px;
+    align-self: stretch;
+  }
+  .execFrame { padding: 0 4px; }
+  .execEyebrow {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 12px;
+  }
+  .execBody {
+    font-size: 15px; line-height: 1.55;
+    color: var(--ink-dim);
+  }
+  .execBody em { font-style: italic; color: var(--accent-soft); }
+  .execReadOn {
+    display: inline-block;
+    margin-top: 18px;
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 400;
+    text-decoration: none;
+    transition: color 200ms;
+  }
+  .execReadOn:hover { color: var(--accent-soft); }
+  @media (max-width: 880px) {
+    .execSummary { padding: 100px 32px 24px; }
+    .execGrid { grid-template-columns: 1fr; gap: 22px; }
+    .execFrameRule { display: none; }
+  }
+
+  /* Atmosphere — flat single color, no grid, no glow */
+  .glow, .grid { display: none; }
+
+  /* Nav */
+  nav.top {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(180deg, rgba(18,3,24,0.92), rgba(18,3,24,0.55) 80%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
+  nav.top * { pointer-events: auto; }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-dim); font-weight: 400;
+    font-family: 'Graphik', 'Inter', sans-serif;
+  }
+  .navmark { width: 20px; height: auto; display: block; }
+  .star {
+    width: 18px; height: 18px;
+    background: var(--accent-soft);
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><path d='M81.94 37.98L67.04 0H53.75H53.35L38.05 37.75L0 52.69V66.39L37.76 81.7L52.67 119.7H66.36L81.67 81.92L119.69 67V53.3L81.94 37.99V37.98Z' fill='black'/></svg>") center/contain no-repeat;
+    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><path d='M81.94 37.98L67.04 0H53.75H53.35L38.05 37.75L0 52.69V66.39L37.76 81.7L52.67 119.7H66.36L81.67 81.92L119.69 67V53.3L81.94 37.99V37.98Z' fill='black'/></svg>") center/contain no-repeat;
+  }
+  nav.top ul {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; gap: 24px;
+  }
+  nav.top a {
+    color: var(--ink-dim);
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 400; transition: color 200ms;
+  }
+  nav.top a:hover { color: var(--ink); }
+  nav.top .pill {
+    font-size: 11px; letter-spacing: 0.18em; font-weight: 600;
+    padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--accent-soft);
+    color: var(--accent-soft);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 200ms, color 200ms;
+  }
+  nav.top .pillLink:hover {
+    background: var(--accent-soft);
+    color: #120318;
+  }
+
+  section {
+    position: relative; z-index: 1;
+    padding: 140px 56px;
+    max-width: 1320px; margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 13px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 22px;
+  }
+  .lede { font-size: 20px; max-width: 780px; color: var(--ink-dim); line-height: 1.55; }
+  .secHeader { max-width: 900px; margin-bottom: 60px; }
+
+  /* Hero */
+  .hero { padding-top: 200px; padding-bottom: 120px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+  .hero .subhead {
+    margin-top: 36px;
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 26px; line-height: 1.4;
+    max-width: 900px; color: var(--ink);
+    letter-spacing: -0.015em; font-weight: 400;
+  }
+  .northStar {
+    margin-top: 56px;
+    padding: 32px 36px;
+    background: rgba(105,54,245,0.08);
+    border: 1px solid rgba(168,124,255,0.22);
+    border-left: 3px solid var(--accent-soft);
+    border-radius: 14px;
+    max-width: 960px;
+  }
+  .northStar .label {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 700; margin-bottom: 14px;
+  }
+  .northStar .body { font-size: 19px; color: var(--ink); line-height: 1.55; }
+  .northStar .body strong { color: var(--accent-soft); font-weight: 400; }
+  .ctaRow { margin-top: 44px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 22px; border-radius: 999px;
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 14px; letter-spacing: 0.04em; font-weight: 400;
+    text-decoration: none; cursor: pointer; border: none;
+    transition: transform 150ms, background 200ms;
+  }
+  .cta.primary { background: var(--accent); color: white; }
+  .cta.primary:hover { background: var(--accent-soft); transform: translateY(-1px); }
+  .cta.ghost { background: transparent; border: 1px solid var(--rule); color: var(--ink-dim); }
+  .cta.ghost:hover { color: var(--ink); border-color: var(--accent-soft); }
+
+  /* Truth pull-quote */
+  .pullQuote {
+    margin: 32px 0 0;
+    padding: 36px 40px;
+    border-left: 3px solid var(--accent-soft);
+    background: rgba(255,255,255,0.025);
+    border-radius: 10px;
+    max-width: 1000px;
+  }
+  .pullQuote .q {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 32px; line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+  .pullQuote .q .accent { font-style: italic; }
+  .pullQuote .cite {
+    margin-top: 18px;
+    font-size: 13px; letter-spacing: 0.24em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-family: 'Graphik', 'Inter', sans-serif;
+  }
+
+  /* Truth: numbered ledger of five forces */
+  .truthList {
+    margin: 56px 0 0;
+    display: flex; flex-direction: column;
+    border-top: 1px solid var(--rule);
+  }
+  .truthRow {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 32px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .truthNum {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--accent-soft);
+    font-weight: 300;
+  }
+  .truthBody { max-width: 760px; }
+  .truthHead {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+  .truthBody p {
+    margin: 0;
+    color: var(--ink-dim);
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  .truthBody p .accent {
+    color: var(--accent-soft);
+    font-style: normal;
+    font-weight: 400;
+  }
+  .srcRef {
+    color: var(--accent-soft);
+    font-size: 0.6em;
+    text-decoration: none;
+    vertical-align: super;
+    line-height: 0;
+    margin-left: 1px;
+    padding: 0 2px;
+    border-radius: 3px;
+    transition: background 150ms;
+  }
+  .srcRef:hover { background: rgba(168,124,255,0.12); }
+  .truthSources {
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    max-width: 900px;
+  }
+  .truthSources .srcLabel {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 14px;
+    font-weight: 400;
+  }
+  .truthSources ol {
+    list-style: none; margin: 0; padding: 0;
+    counter-reset: src;
+  }
+  .truthSources li {
+    font-size: 13px; line-height: 1.6;
+    color: var(--ink-faint);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    scroll-margin-top: 100px;
+  }
+  .truthSources li:last-child { border-bottom: none; }
+  .truthSources li:target {
+    color: var(--ink-dim);
+    background: rgba(168,124,255,0.04);
+  }
+  .truthSources .srcNum {
+    color: var(--accent-soft);
+    font-weight: 400;
+    margin-right: 8px;
+  }
+  .truthExamples {
+    margin-top: 14px !important;
+    padding-left: 14px;
+    border-left: 2px solid rgba(168, 124, 255, 0.25);
+    font-size: 14.5px !important;
+    line-height: 1.6 !important;
+    color: var(--ink-faint) !important;
+    font-style: italic;
+  }
+
+  /* Bet cards */
+  .betsHint {
+    margin-top: 28px;
+    font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+  }
+  .betCards {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 880px) { .betCards { grid-template-columns: 1fr; } }
+  .betCard {
+    appearance: none;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    padding: 32px 28px 28px;
+    text-align: left;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+  }
+  .betCard::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(168,124,255,0.08), transparent 70%);
+    opacity: 0;
+    transition: opacity 240ms ease;
+    pointer-events: none;
+  }
+  .betCard:hover, .betCard:focus-visible {
+    transform: translateY(-3px);
+    border-color: rgba(168,124,255,0.5);
+    background: rgba(168,124,255,0.04);
+    box-shadow: 0 18px 40px -24px rgba(105,54,245,0.6);
+  }
+  .betCard:hover::before, .betCard:focus-visible::before { opacity: 1; }
+  .betCard:focus-visible { outline: none; }
+  .betIcon {
+    width: 64px; height: 64px;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 320ms ease;
+  }
+  .betCard:hover .betIcon { transform: scale(1.06) rotate(-2deg); }
+  .betIcon svg { width: 100%; height: 100%; display: block; }
+  .betNum {
+    font-family: 'Graphik', 'Inter', monospace;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 400;
+  }
+  .betName {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 24px; line-height: 1.15;
+    color: var(--ink); font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+  .betTeaser {
+    font-size: 15px; line-height: 1.55;
+    color: var(--ink-dim);
+    flex-grow: 1;
+  }
+  .betCta {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 13px; letter-spacing: 0.02em;
+    color: var(--accent-soft);
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(168,124,255,0.18);
+  }
+  .betCtaArrow {
+    display: inline-block;
+    transition: transform 240ms ease;
+  }
+  .betCard:hover .betCtaArrow { transform: translateX(4px); }
+
+  /* Conviction divider + card */
+  .convictionDivider {
+    margin: 48px 0 28px;
+    display: flex; align-items: center; gap: 18px;
+  }
+  .convictionRule {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(168,124,255,0.32), transparent);
+  }
+  .convictionEyebrow {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    white-space: nowrap;
+  }
+  .convictionCard {
+    appearance: none;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(105,54,245,0.22), rgba(168,124,255,0.10));
+    border: 1px solid rgba(168,124,255,0.55);
+    border-radius: 22px;
+    padding: 36px 40px;
+    text-align: left;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 28px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+  }
+  .convictionCard:hover, .convictionCard:focus-visible {
+    transform: translateY(-3px);
+    border-color: var(--accent-soft);
+    box-shadow: 0 24px 56px -24px rgba(105,54,245,0.7);
+    outline: none;
+  }
+  .convictionIcon {
+    width: 80px; height: 80px;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 320ms ease;
+  }
+  .convictionCard:hover .convictionIcon { transform: scale(1.05) rotate(-2deg); }
+  .convictionIcon svg { width: 100%; height: 100%; display: block; }
+  .convictionBody { min-width: 0; }
+  .convictionNum {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .convictionName {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 30px; line-height: 1.15;
+    color: var(--ink); font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .convictionTeaser {
+    font-size: 16px; line-height: 1.55;
+    color: var(--ink-dim);
+    max-width: 680px;
+  }
+  .convictionCta {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 13px; letter-spacing: 0.02em;
+    color: var(--accent-soft);
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 20px;
+    border: 1px solid rgba(168,124,255,0.45);
+    border-radius: 999px;
+    background: rgba(168,124,255,0.06);
+    white-space: nowrap;
+  }
+  .convictionCtaArrow { display: inline-block; transition: transform 240ms ease; }
+  .convictionCard:hover .convictionCtaArrow { transform: translateX(4px); }
+  .betModalConviction {
+    background: linear-gradient(135deg, #1d0a2e, #1a0a26);
+    border-color: rgba(168,124,255,0.45);
+  }
+  @media (max-width: 880px) {
+    .convictionCard { grid-template-columns: 1fr; gap: 18px; padding: 28px 24px; }
+    .convictionIcon { width: 56px; height: 56px; }
+    .convictionName { font-size: 24px; }
+    .convictionDivider { flex-wrap: wrap; }
+    .convictionEyebrow { font-size: 11px; }
+  }
+
+  /* Bet modal */
+  @keyframes betModalIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes betModalSlide {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  .betModalOverlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(8,2,12,0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 48px 24px;
+    animation: betModalIn 200ms ease both;
+  }
+  .betModal {
+    position: relative;
+    background: #1a0a26;
+    border: 1px solid rgba(168,124,255,0.25);
+    border-radius: 22px;
+    max-width: 820px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 48px 52px 44px;
+    animation: betModalSlide 280ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    box-shadow: 0 32px 80px -16px rgba(0,0,0,0.6);
+  }
+  .betModalClose {
+    position: absolute; top: 18px; right: 18px;
+    width: 36px; height: 36px;
+    background: transparent; border: 1px solid var(--rule);
+    border-radius: 50%;
+    color: var(--ink-dim);
+    font-size: 22px; line-height: 1;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 160ms, border-color 160ms, background 160ms;
+  }
+  .betModalClose:hover { color: var(--ink); border-color: var(--accent-soft); background: rgba(168,124,255,0.08); }
+  .betModalNum {
+    font-family: 'Graphik', 'Inter', monospace;
+    font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 12px;
+  }
+  .betModalTitle {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 36px; line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink); font-weight: 400;
+    margin: 0 0 22px;
+  }
+  .betModalBody {
+    font-size: 17px; line-height: 1.65;
+    color: var(--ink-dim);
+    margin: 0 0 36px;
+    max-width: 660px;
+  }
+  .betModalReceiptsLabel {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 18px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+  }
+  .betModalReceipts {
+    display: flex; flex-direction: column;
+    gap: 18px;
+  }
+  .betReceipt {
+    padding: 16px 20px;
+    background: rgba(168,124,255,0.04);
+    border: 1px solid rgba(168,124,255,0.12);
+    border-radius: 12px;
+  }
+  .betReceiptHead {
+    display: flex; align-items: baseline; gap: 8px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .betReceiptWho {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    color: var(--ink); font-weight: 400;
+    font-size: 15px;
+    letter-spacing: -0.005em;
+  }
+  .betReceiptDot { color: var(--ink-faint); }
+  .betReceiptWhat {
+    font-size: 13px;
+    color: var(--accent-soft);
+    font-style: italic;
+  }
+  .betReceiptLine {
+    font-size: 14px; line-height: 1.55;
+    color: var(--ink-dim);
+    margin-bottom: 10px;
+  }
+  .betReceiptStats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(168,124,255,0.14);
+  }
+  .betReceiptStat {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    padding: 4px 10px;
+    background: rgba(168,124,255,0.07);
+    border: 1px solid rgba(168,124,255,0.18);
+    border-radius: 999px;
+    color: var(--accent-soft);
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  @media (max-width: 720px) {
+    .betModal { padding: 36px 24px 28px; border-radius: 18px; }
+    .betModalTitle { font-size: 28px; }
+  }
+  @media (max-width: 720px) {
+    .truthRow { grid-template-columns: 1fr; gap: 12px; }
+    .truthNum { font-size: 32px; }
+  }
+
+  /* Cards */
+  .cardGrid { display: grid; gap: 18px; }
+  .cardGrid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .cardGrid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 880px) { .cardGrid.cols-2, .cardGrid.cols-3 { grid-template-columns: 1fr; } }
+
+  .card {
+    padding: 30px 32px;
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.025);
+    border-radius: 18px;
+    transition: border-color 200ms, transform 200ms, background 200ms;
+  }
+  .card:hover { border-color: var(--accent-soft); background: rgba(168,124,255,0.04); transform: translateY(-2px); }
+  .card .num {
+    font-family: 'Graphik', 'Inter', monospace;
+    font-size: 12px; letter-spacing: 0.2em;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 14px;
+  }
+  .card h3 {
+    font-size: 26px; font-weight: 400; letter-spacing: -0.025em;
+    margin-bottom: 12px; color: var(--ink);
+  }
+  .card .body { font-size: 15px; color: var(--ink-dim); line-height: 1.55; }
+
+  /* Three Layers interactive */
+  .layers { background: rgba(255,255,255,0.02); border: 1px solid var(--rule); border-radius: 24px; padding: 38px 40px; }
+  .layerNav { display: flex; gap: 0; margin-bottom: 32px; border-bottom: 1px solid var(--rule); padding-bottom: 0; }
+  .layerBtn {
+    flex: 1;
+    appearance: none;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--ink-dim);
+    padding: 18px 12px 22px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 200ms;
+    font-family: 'Graphik', 'Inter', sans-serif;
+  }
+  .layerBtn .layerNum { font-size: 11px; letter-spacing: 0.24em; color: var(--ink-faint); font-weight: 600; }
+  .layerBtn .layerName { font-size: 22px; font-weight: 400; color: var(--ink-dim); margin-top: 6px; letter-spacing: -0.02em; }
+  .layerBtn:hover .layerName { color: var(--ink); }
+  .layerBtn.active { border-bottom-color: var(--accent-soft); }
+  .layerBtn.active .layerNum { color: var(--accent-soft); }
+  .layerBtn.active .layerName { color: var(--ink); }
+  .layerPanel { display: grid; grid-template-columns: 1.4fr 1fr; gap: 36px; align-items: start; }
+  @media (max-width: 980px) { .layerPanel { grid-template-columns: 1fr; } }
+  .layerBody h3 {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 38px; line-height: 1.1;
+    color: var(--ink); margin-bottom: 14px;
+    font-weight: 400; letter-spacing: -0.03em;
+  }
+  .layerBody .lede { font-size: 17px; max-width: 100%; line-height: 1.6; margin-bottom: 22px; }
+  .layerBody .needs { display: flex; flex-direction: column; gap: 10px; }
+  .layerBody .need {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 12px 0;
+  }
+  .layerBody .need .needDot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-soft); flex-shrink: 0; margin-top: 8px; }
+  .layerBody .need .needText { color: var(--ink-dim); font-size: 15px; line-height: 1.55; }
+  .layerBody .need .needText strong { color: var(--ink); font-weight: 400; }
+  .layerFailure {
+    margin-top: 26px;
+    padding: 16px 20px;
+    background: rgba(168,124,255,0.05);
+    border-left: 3px solid var(--accent-soft);
+    border-radius: 6px;
+  }
+  .layerFailureLabel {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .layerFailureLine {
+    font-size: 14px; line-height: 1.55;
+    color: var(--ink-dim);
+  }
+  .layerFailureLine strong {
+    color: var(--ink); font-weight: 500;
+    text-transform: lowercase;
+  }
+  .layerMock {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 26px;
+    aspect-ratio: 4/3;
+    display: flex; flex-direction: column; gap: 10px;
+    overflow: hidden;
+  }
+
+  /* Principle cards (01-03) */
+  .principleCard {
+    padding: 32px 34px;
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.025);
+    border-radius: 18px;
+    display: flex; flex-direction: column;
+    transition: border-color 200ms, background 200ms, transform 200ms;
+  }
+  .principleCard:hover { border-color: var(--accent-soft); background: rgba(168,124,255,0.04); transform: translateY(-2px); }
+  .principleCard .pcNum {
+    font-family: 'Graphik', 'Inter', monospace;
+    font-size: 12px; letter-spacing: 0.2em;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 14px;
+  }
+  .principleCard h3 {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 26px; font-weight: 400; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 14px; line-height: 1.15;
+  }
+  .principleCard .pcIntro {
+    font-size: 14px; color: var(--ink-dim);
+    line-height: 1.55; margin-bottom: 22px;
+  }
+  .principleCard .pcSub {
+    padding: 14px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .principleCard .pcSub:last-of-type { padding-bottom: 0; }
+  .principleCard .pcSubName {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600;
+    color: var(--accent-soft);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .principleCard .pcSubBody {
+    font-size: 13px; color: var(--ink-dim); line-height: 1.55;
+  }
+  .principleCard .pcSubBody strong { color: var(--ink); font-weight: 400; }
+
+  /* AI Principle interactive */
+  .aiPrinciple { background: rgba(105,54,245,0.06); border: 1px solid rgba(168,124,255,0.22); border-radius: 24px; padding: 42px 44px; }
+  .aiBanner {
+    display: flex; gap: 18px; align-items: center;
+    padding-bottom: 22px; margin-bottom: 22px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .aiBanner .badge {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); padding: 6px 10px;
+    background: rgba(168,124,255,0.12); border-radius: 6px;
+    font-weight: 600;
+  }
+  .aiBanner .motto {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 13px; letter-spacing: 0.04em;
+    color: var(--accent-soft); font-weight: 400;
+    margin-top: 10px;
+  }
+  .aiBanner .motto em { color: var(--ink); font-style: italic; }
+  .aiBanner .title {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 32px; line-height: 1.15;
+    color: var(--ink); letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+  .aiSubPrinciples { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  @media (max-width: 980px) { .aiSubPrinciples { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { .aiSubPrinciples { grid-template-columns: 1fr; } }
+  .aiSub {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 18px;
+    transition: all 200ms;
+    cursor: pointer;
+  }
+  .aiSub:hover { border-color: var(--accent-soft); background: rgba(168,124,255,0.06); transform: translateY(-2px); }
+  .aiSub .aiSubNum {
+    font-family: 'Graphik', 'Inter', monospace;
+    font-size: 11px; letter-spacing: 0.18em;
+    color: var(--accent-soft); font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .aiSub .aiSubName {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 18px; font-weight: 400;
+    color: var(--ink); letter-spacing: -0.015em;
+    margin-bottom: 10px; line-height: 1.2;
+  }
+  .aiSub .aiSubDesc {
+    font-size: 13px; color: var(--ink-dim); line-height: 1.5;
+  }
+
+  /* Adversarial demo */
+  .adversarialDemo {
+    margin-top: 40px;
+    padding: 24px 28px;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  }
+  @media (max-width: 800px) { .adversarialDemo { grid-template-columns: 1fr; } }
+  .adversarialDemo .demoCol .demoLabel {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .adversarialDemo .demoCol.user .demoLabel { color: var(--ink-dim); }
+  .adversarialDemo .demoCol.ai .demoLabel { color: var(--accent-soft); }
+  .adversarialDemo .demoText {
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 15px; line-height: 1.55;
+  }
+  .adversarialDemo .user .demoText {
+    background: rgba(255,255,255,0.06);
+    color: var(--ink);
+  }
+  .adversarialDemo .ai .demoText {
+    background: rgba(105,54,245,0.18);
+    color: var(--ink);
+    border: 1px solid rgba(168,124,255,0.3);
+  }
+  .adversarialDemo .ai .demoText strong { color: var(--accent-soft); font-weight: 400; }
+  .demoControls { margin-top: 18px; grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; }
+  .demoControls button {
+    background: transparent; border: 1px solid var(--rule);
+    color: var(--ink-dim);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 12px; font-weight: 400;
+    cursor: pointer;
+    transition: all 200ms;
+  }
+  .demoControls button:hover { color: var(--ink); border-color: var(--accent-soft); }
+  .demoControls button.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+  /* Future walkthrough */
+  .future { background: rgba(255,255,255,0.02); border: 1px solid var(--rule); border-radius: 24px; padding: 38px 40px; }
+  .stepNav {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 32px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .stepBtn {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-dim);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 13px; font-weight: 400;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: all 200ms;
+  }
+  .stepBtn .stepNum { font-family: 'Graphik', 'Inter', monospace; font-size: 11px; color: var(--accent-soft); letter-spacing: 0.1em; }
+  .stepBtn:hover { color: var(--ink); border-color: var(--accent-soft); }
+  .stepBtn.active { background: var(--accent); color: white; border-color: var(--accent); }
+  .stepBtn.active .stepNum { color: white; opacity: 0.7; }
+  .stepPanel { display: grid; grid-template-columns: 1.5fr 1fr; gap: 36px; align-items: start; }
+  @media (max-width: 980px) { .stepPanel { grid-template-columns: 1fr; } }
+  .stepBody h3 {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 42px; line-height: 1.08; margin-bottom: 14px;
+    font-weight: 400; letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  .stepBody .stepEyebrow {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .stepBody .stepEyebrow .stepCounter { color: var(--ink-faint); font-family: 'Graphik', 'Inter', monospace; }
+  .stepBody .whatif {
+    margin-top: 18px;
+    padding: 18px 22px;
+    background: rgba(168,124,255,0.08);
+    border: 1px solid rgba(168,124,255,0.22);
+    border-radius: 12px;
+    font-style: italic;
+    color: var(--ink);
+    font-size: 16px; line-height: 1.55;
+  }
+  .stepBody .whatif::before {
+    content: "WHAT IF";
+    display: block;
+    font-style: normal; font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 10px; letter-spacing: 0.32em;
+    color: var(--accent-soft); font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .stepBody .lede { font-size: 16px; max-width: 100%; line-height: 1.6; margin-top: 18px; }
+  .stepMock {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 26px;
+    aspect-ratio: 4/3;
+    display: flex; flex-direction: column; gap: 10px;
+    overflow: hidden;
+  }
+
+  /* List card (beliefs/challenges) */
+  .listCard { display: flex; gap: 22px; padding: 26px 28px; border: 1px solid var(--rule); background: rgba(255,255,255,0.02); border-radius: 16px; }
+  .listCard .idx { font-family: 'Graphik', 'Inter', monospace; font-size: 13px; color: var(--accent-soft); letter-spacing: 0.2em; min-width: 36px; padding-top: 4px; }
+  .listCard h3 { font-size: 20px; margin-bottom: 8px; font-weight: 400; }
+  .listCard p { color: var(--ink-dim); margin: 0; line-height: 1.55; font-size: 14px; }
+
+  /* Venn — competitive coverage map */
+  .vennWrap {
+    margin-top: 48px;
+    position: relative;
+    width: 100%; max-width: 760px;
+    margin-left: auto; margin-right: auto;
+    aspect-ratio: 7 / 5;
+  }
+  .vennSvg { width: 100%; height: 100%; display: block; }
+  .vennLabel {
+    position: absolute;
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 600;
+  }
+  .vennChips {
+    position: absolute;
+    display: flex; flex-direction: column; gap: 6px;
+    font-family: 'Graphik', 'Inter', sans-serif;
+  }
+  .vennChip {
+    font-size: 13px; font-weight: 400; letter-spacing: -0.005em;
+    color: var(--ink); line-height: 1;
+  }
+  .vennChip span { color: var(--ink-dim); font-size: 11px; margin-left: 4px; font-weight: 400; }
+  .vennCenter {
+    position: absolute;
+    left: 50%; top: 60%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    z-index: 2;
+  }
+  .vennCenter .star { width: 28px; height: 28px; }
+  .vennCenter .vennGOS {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 22px; font-weight: 600; color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .vennCenter .vennCap {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400; max-width: 160px; line-height: 1.4;
+  }
+
+  /* Opportunity */
+  .opportunity {
+    background: linear-gradient(135deg, rgba(105,54,245,0.12), rgba(105,54,245,0.04));
+    border: 1px solid rgba(168,124,255,0.22);
+    border-radius: 24px;
+    padding: 56px 60px;
+  }
+  .opportunity h2 { color: var(--ink); }
+  .opportunity .lede { color: var(--ink-dim); font-size: 19px; max-width: 880px; }
+  .compoundingMoat {
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(168,124,255,0.22);
+  }
+  .compoundingHead {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 30px; line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: var(--ink); font-weight: 400;
+    margin: 0 0 22px;
+    max-width: 920px;
+  }
+  .whyUs {
+    margin-top: 56px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(168,124,255,0.22);
+  }
+  .whyUsHead {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 30px; line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: var(--ink); font-weight: 400;
+    margin: 0 0 22px;
+    max-width: 920px;
+  }
+
+  /* Commitments — paired text + prototype-preview blocks */
+  .commitments {
+    margin: 56px 0 64px;
+    display: flex; flex-direction: column;
+    gap: 32px;
+  }
+  .commitBlock {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 56px;
+    align-items: center;
+    padding: 48px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .commitBlock:first-child { border-top: 1px solid rgba(168,124,255,0.32); }
+  .commitBlock.textRight .commitText { order: 2; }
+  .commitBlock.textRight .commitMockWrap { order: 1; }
+  .commitText { max-width: 520px; }
+  .commitLabel {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 16px;
+  }
+  .commitName {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 28px; line-height: 1.18;
+    color: var(--ink); font-weight: 400;
+    letter-spacing: -0.02em;
+    margin: 0 0 18px;
+  }
+  .commitBody {
+    font-size: 16px; line-height: 1.65;
+    color: var(--ink-dim);
+    margin: 0 0 24px;
+    white-space: pre-line;
+  }
+  .commitPreviewTag {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 400;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .commitPreviewDot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent-soft);
+    box-shadow: 0 0 0 3px rgba(168,124,255,0.18);
+  }
+  .commitMockWrap {
+    background: linear-gradient(135deg, rgba(105,54,245,0.06), rgba(168,124,255,0.02));
+    border: 1px solid rgba(168,124,255,0.18);
+    border-radius: 18px;
+    padding: 20px;
+    min-height: 320px;
+    display: flex; align-items: stretch;
+  }
+  @media (max-width: 880px) {
+    .commitBlock { grid-template-columns: 1fr; gap: 24px; padding: 36px 0; }
+    .commitBlock.textRight .commitText { order: 1; }
+    .commitBlock.textRight .commitMockWrap { order: 2; }
+    .commitName { font-size: 22px; }
+  }
+
+  /* CommitMock shared styles */
+  .cmock {
+    flex: 1;
+    background: rgba(0,0,0,0.32);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex; flex-direction: column;
+    gap: 14px;
+    font-size: 12px;
+    overflow: hidden;
+  }
+  .cmockEyebrow {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 400;
+  }
+  .cmockFoot {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px dashed rgba(168,124,255,0.18);
+  }
+
+  /* conversation mock */
+  .cmockChat { display: flex; flex-direction: column; gap: 6px; }
+  .cmockBubble {
+    padding: 7px 10px; border-radius: 10px; font-size: 11px; line-height: 1.4;
+    max-width: 85%;
+  }
+  .cmockBubble.user { align-self: flex-start; background: rgba(255,255,255,0.05); border: 1px solid var(--rule); color: var(--ink-dim); }
+  .cmockBubble.coach { align-self: flex-end; background: rgba(168,124,255,0.16); border: 1px solid rgba(168,124,255,0.32); color: var(--ink); }
+  .cmockArtifact {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(168,124,255,0.2);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .cmockArtifactLabel {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 9px; letter-spacing: 0.24em; color: var(--accent-soft); margin-bottom: 6px;
+  }
+  .cmockChips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .cmockChip {
+    font-size: 9px; padding: 3px 8px; border-radius: 6px;
+    background: rgba(168,124,255,0.16); color: var(--ink);
+  }
+  .cmockChip.evidenced { background: rgba(34,197,94,0.14); color: var(--ink-dim); }
+  .cmockChip.hypothesis { background: rgba(255,255,255,0.04); color: var(--ink-dim); border: 1px dashed rgba(168,124,255,0.32); }
+  .cmockChip.opportunity { background: rgba(245,166,35,0.18); color: #F5A623; }
+
+  /* activation mock */
+  .cmockSplit { display: grid; grid-template-columns: 1fr 24px 1fr; gap: 12px; align-items: center; flex: 1; }
+  .cmockSplitSide { display: flex; flex-direction: column; gap: 6px; padding: 12px; border-radius: 8px; }
+  .cmockSplitSide.before { background: rgba(0,0,0,0.3); border: 1px solid var(--rule); opacity: 0.65; }
+  .cmockSplitSide.after { background: rgba(168,124,255,0.08); border: 1px solid rgba(168,124,255,0.32); }
+  .cmockSplitLabel {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 4px;
+  }
+  .cmockSplitLabel.accent { color: var(--accent-soft); }
+  .cmockField {
+    font-size: 10px; padding: 5px 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+  }
+  .cmockField.muted { color: var(--ink-faint); }
+  .cmockEmpty {
+    font-size: 9px; color: var(--ink-faint); font-style: italic;
+    text-align: center; padding: 6px 0;
+  }
+  .cmockSplitArrow {
+    font-size: 18px; color: var(--accent-soft); text-align: center;
+  }
+  .cmockPrompt {
+    font-size: 11px; padding: 6px 8px;
+    background: rgba(168,124,255,0.16);
+    border: 1px solid rgba(168,124,255,0.32);
+    border-radius: 5px;
+    color: var(--ink);
+  }
+  .cmockBubbleMini {
+    font-size: 9px; padding: 5px 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 5px; color: var(--ink-dim); font-style: italic;
+  }
+  .cmockMapPreview {
+    display: flex; gap: 4px; padding-top: 4px; justify-content: center;
+  }
+  .cmockMapPreview .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(168,124,255,0.4);
+  }
+  .cmockMapPreview .dot.accent { background: var(--accent-soft); }
+
+  /* growthmentor mock */
+  .cmockScreens {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; flex: 1;
+  }
+  .cmockMini {
+    background: rgba(0,0,0,0.35); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 8px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .cmockMiniLabel {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 8px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .cmockMiniBody { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+  .cmockMiniRow {
+    height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px;
+  }
+  .cmockMiniRow.short { width: 60%; }
+  .cmockGmPill {
+    font-size: 8px; padding: 3px 6px;
+    background: rgba(168,124,255,0.18);
+    border: 1px solid rgba(168,124,255,0.32);
+    border-radius: 999px;
+    color: var(--accent-soft);
+    align-self: flex-start;
+  }
+
+  /* audiences mock */
+  .cmockPortfolio {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px; flex: 1;
+  }
+  .cmockProject {
+    display: grid; grid-template-columns: 6px 1fr; gap: 8px; align-items: center;
+    padding: 6px 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+  }
+  .cmockProjectStatus { width: 6px; height: 28px; border-radius: 2px; }
+  .cmockProjectStatus.evidence { background: #22c55e; }
+  .cmockProjectStatus.exploring { background: var(--accent-soft); }
+  .cmockProjectStatus.blocked { background: #F5A623; }
+  .cmockProjectName { font-size: 10px; color: var(--ink); }
+  .cmockProjectBar {
+    height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px;
+    margin-top: 4px;
+  }
+  .cmockProjectBar > div {
+    height: 100%; background: var(--accent-soft); border-radius: 2px;
+  }
+
+  /* collaboration mock */
+  .cmockCollab { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .cmockAvatars { display: flex; gap: -4px; }
+  .cmockAvatar {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 500; color: var(--ink);
+    margin-right: -6px;
+    border: 2px solid #0f0518;
+  }
+  .cmockAvatar.a1 { background: #6936F5; }
+  .cmockAvatar.a2 { background: #22c55e; }
+  .cmockAvatar.a3 { background: #F5A623; }
+  .cmockActivity {
+    background: rgba(0,0,0,0.3); border: 1px solid var(--rule); border-radius: 8px;
+    padding: 10px 12px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .cmockActLine {
+    font-size: 10px; color: var(--ink-dim); line-height: 1.4;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cmockActLine strong { color: var(--ink); font-weight: 500; }
+  .cmockActLine em { color: var(--accent-soft); font-style: italic; }
+  .cmockActLine .dot {
+    width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+  }
+  .cmockActLine .dot.a1 { background: #6936F5; }
+  .cmockActLine .dot.a2 { background: #22c55e; }
+  .cmockActLine .dot.a3 { background: #F5A623; }
+  .cmockActLine.subtle { opacity: 0.7; }
+  .cmockActLine.subtle .dot { background: var(--ink-faint); }
+
+  /* foundations mock */
+  .cmockSources { display: flex; flex-direction: column; gap: 10px; flex: 1; align-items: center; }
+  .cmockSourceRow {
+    display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+  }
+  .cmockSource {
+    font-size: 10px; padding: 4px 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    color: var(--ink-dim);
+  }
+  .cmockFunnel { width: 100%; }
+  .cmockFoundationsHub {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px; padding: 8px 16px;
+    background: rgba(168,124,255,0.16);
+    border: 1px solid rgba(168,124,255,0.4);
+    border-radius: 999px;
+    color: var(--ink);
+  }
+
+  /* udl mock */
+  .cmockNetwork {
+    flex: 1; min-height: 140px;
+    background: radial-gradient(circle at 50% 50%, rgba(168,124,255,0.08), transparent 70%);
+    border-radius: 8px;
+    position: relative;
+  }
+  .cmockUDLCaption {
+    display: flex; gap: 8px; align-items: center; justify-content: center;
+    font-size: 10px; color: var(--ink-dim);
+  }
+  .cmockUDLCaption .arrow { color: var(--accent-soft); }
+
+  /* depth mock */
+  .cmockDepth { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .cmockDepthRow {
+    display: grid; grid-template-columns: 70px 1fr 90px; gap: 10px; align-items: center;
+    font-size: 10px;
+  }
+  .cmockDepthFeature { color: var(--ink); font-weight: 500; }
+  .cmockDepthBar {
+    height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; position: relative;
+  }
+  .cmockDepthGrowth {
+    height: 100%; background: linear-gradient(to right, #6936F5, #A87CFF); border-radius: 4px;
+  }
+  .cmockDepthCompetitor {
+    position: absolute; top: -3px; width: 2px; height: 14px;
+    background: var(--ink-faint); border-radius: 1px;
+  }
+  .cmockDepthVs {
+    font-size: 9px; color: var(--ink-faint); text-align: right;
+  }
+
+  /* Coda */
+  .coda {
+    text-align: center;
+    padding: 200px 56px;
+    border-top: 1px solid var(--rule);
+  }
+  .coda .shipping {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 22px; color: var(--ink-dim); font-style: italic;
+    margin-bottom: 28px;
+  }
+  .coda .lockup { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 30px; flex-wrap: wrap; }
+  .coda .lockup .brandmark {
+    width: 88px; height: auto; display: block;
+  }
+  .coda .lockup .word {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 80px; font-weight: 400; letter-spacing: -0.04em;
+    color: var(--ink); line-height: 1;
+  }
+  .coda .rule { width: 280px; height: 1px; margin: 0 auto 24px; background: linear-gradient(to right, transparent, var(--accent-soft), transparent); }
+  .coda .tagline {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 28px; color: var(--ink-dim); font-weight: 400; letter-spacing: 0.02em;
+  }
+  .coda .tagline em { color: var(--accent-soft); font-style: italic; }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 28px 56px;
+    color: var(--ink-faint); font-size: 12px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="grid"></div>
+
+<nav class="top">
+  <div class="brand">
+    <img class="navmark" src="./GrowthOSLogo.png" alt=""/>
+    GrowthOS · Manifesto 2027
+  </div>
+  <ul>
+    <li><a href="#truth">Truth</a></li>
+    <li><a href="#layers">Roles</a></li>
+    <li><a href="#principles">Principles</a></li>
+    <li><a href="#judgment">AI &amp; Judgment</a></li>
+    <li><a href="#future">Future</a></li>
+    <li><a href="#opportunity">Opportunity</a></li>
+  </ul>
+  <a class="pill pillLink" href="./GrowthOS Manifesto 2027 - Full Argument.html">Read the article ↗</a>
+</nav>
+
+<div id="root"></div>
+
+<footer>
+  GrowthOS · Manifesto 2027 · Draft · The work is persuasion. The system is built to serve it.
+</footer>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+// ─────────────────────────────────────────────────────────
+// HERO
+// ─────────────────────────────────────────────────────────
+function Hero() {
+  return (
+    <section className="hero" id="hero">
+      <div className="eyebrow">GrowthOS Manifesto · 2027</div>
+      <h1>
+        Close the gap between<br/>
+        <span className="accent">what customers want</span> and<br/>
+        <span className="accent">what companies make</span>.
+      </h1>
+      <div className="subhead">
+        Insight to <em>in-market</em>, fast.
+      </div>
+      <div className="northStar">
+        <div className="label">North Star</div>
+        <div className="body">
+          GrowthOS brings <strong>research, analysis, and the workflow</strong> together
+          to close the gap between what customers want and what companies make.
+        </div>
+      </div>
+      <div className="ctaRow">
+        <a className="cta primary" href="#opportunity">The opportunity →</a>
+        <a className="cta ghost" href="#future">What we're building</a>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// THE TRUTH — bets as interactive cards + modal
+// ─────────────────────────────────────────────────────────
+const BETS = [
+  {
+    id: "myopic",
+    num: "01",
+    name: "The myopic bet.",
+    teaser: "Built for what one office wanted. Missed the customer it was meant for.",
+    body: "The idea came from one person's office. It reflects what they noticed, who they talked to, what their team had been obsessing over for the last quarter. It looks defensible inside the building until it meets the customer it was meant for. Then it dies.",
+    icon: (
+      <svg viewBox="0 0 80 80" fill="none">
+        <circle cx="40" cy="40" r="30" stroke="rgba(168,124,255,0.28)" strokeWidth="1.5"/>
+        <path d="M 40 40 L 70 28 A 30 30 0 0 1 70 52 Z" fill="rgba(168,124,255,0.85)"/>
+        <circle cx="40" cy="40" r="3" fill="#A87CFF"/>
+      </svg>
+    ),
+    receipts: [
+      {
+        who: "Apple", what: "Project Titan",
+        line: "Built for an Apple version of mobility the mobility market never asked for. Cancelled February 2024.",
+        stats: ["2014–2024", "~$10B spent", "2,000+ engineers at peak", "600+ laid off at cancellation"],
+      },
+      {
+        who: "Humane", what: "AI Pin",
+        line: "Founders' conviction in wearable AI. Returns exceeded sales within months of the $699 launch.",
+        stats: ["$230M raised", "Launched Apr 2024", "Sold to HP for $116M (Feb 2025)", "Subscription required: $24/mo"],
+      },
+      {
+        who: "Amazon × Berkshire × JPMorgan", what: "Haven",
+        line: "Three CEOs' theory of how to fix US healthcare. Dissolved with no shipped product.",
+        stats: ["2018–2021", "Atul Gawande, CEO", "0 products launched", "1.2M employees covered in scope"],
+      },
+      {
+        who: "CNN", what: "CNN+",
+        line: "A premium streaming news product nobody had asked for. Killed 30 days after launch.",
+        stats: ["Mar 29 → Apr 28, 2022", "$300M+ spent pre-launch", "~10K DAU at peak", "350+ jobs cut"],
+      },
+    ],
+  },
+  {
+    id: "incremental",
+    num: "02",
+    name: "The incremental bet.",
+    teaser: "A 3% feature on a product already missing the 30%.",
+    body: "A 3% feature added to a product already missing the 30% the customer needed in the first place. The team is too busy keeping the boat in its lane to notice the lane is empty. Innovation budgets get spent defending the existing roadmap from the customer's actual reality.",
+    icon: (
+      <svg viewBox="0 0 80 80" fill="none">
+        <line x1="10" y1="30" x2="70" y2="30" stroke="rgba(168,124,255,0.3)" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="2 4"/>
+        <text x="10" y="22" fill="rgba(168,124,255,0.55)" fontSize="7" fontFamily="Graphik, Inter, sans-serif" letterSpacing="0.05em">NEEDED</text>
+        <line x1="10" y1="56" x2="20" y2="56" stroke="#A87CFF" strokeWidth="2.8" strokeLinecap="round"/>
+        <text x="24" y="59" fill="#A87CFF" fontSize="7" fontFamily="Graphik, Inter, sans-serif" letterSpacing="0.05em">SHIPPED</text>
+      </svg>
+    ),
+    receipts: [
+      {
+        who: "US banks", what: "AI chatbots",
+        line: "Conversational AI bolted into mobile apps while fraud-dispute hold times still run 30–50+ minutes.",
+        stats: ["$17B JPM tech spend (2024)", "Erica, Cora, et al.", "Wireline NPS at decade lows", "Hold-time complaints up YoY"],
+      },
+      {
+        who: "Salesforce, ServiceNow, Workday", what: "Agentic Copilot",
+        line: "AI agents bolted onto existing UIs while integration sprawl, configuration cost, and license complexity sit untouched.",
+        stats: ["Agentforce launched Sept 2024", "Avg enterprise: 100+ SaaS apps", "$30–40B GenAI spend, 95% zero P&L", "Customer NPS at multi-year lows"],
+      },
+      {
+        who: "Epic, Cerner (Oracle Health)", what: "AI scribe summaries",
+        line: "GPT-powered note summaries shipped 2023–24. Physician burnout still at record highs.",
+        stats: ["63% MD burnout (AMA, 2024)", "~75% of US hospital EHRs", "Abridge: $250M raised (2024)", "Suki, Ambience taking share"],
+      },
+      {
+        who: "Verizon, AT&T", what: "5G+ marketing tiers",
+        line: "'Next-gen' tier marketing while billing complexity and coverage reliability stay broken.",
+        stats: ["ACSI wireless at 10-yr lows", "Postpaid ARPU up 12–15% YoY", "Mid-band 5G still spotty in metros", "Verizon shed 68K postpaid (Q1 '24)"],
+      },
+    ],
+  },
+  {
+    id: "extractive",
+    num: "03",
+    name: "The extractive bet.",
+    teaser: "Innovation that takes from customers instead of giving them more.",
+    body: "Shrinkflation. Fee creep. Subscription stacking. Tier-stripping. Prior-authorization expansion. The \"innovation\" pipeline that ships only what improves the bottom line and not what changes what customers actually get. Customers can feel it, and they're saying so out loud.",
+    icon: (
+      <svg viewBox="0 0 80 80" fill="none">
+        <path d="M 14 18 L 66 18 L 50 50 L 50 62 L 30 62 L 30 50 Z" stroke="rgba(168,124,255,0.55)" strokeWidth="1.5" fill="rgba(168,124,255,0.12)" strokeLinejoin="round"/>
+        <path d="M 40 60 L 40 74" stroke="#A87CFF" strokeWidth="2.2" strokeLinecap="round"/>
+        <path d="M 35 69 L 40 74 L 45 69" stroke="#A87CFF" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    receipts: [
+      {
+        who: "BMW", what: "Heated-seat subscription",
+        line: "Monthly fee to use heated seats already installed in the car. Backlash forced a rollback in 2023.",
+        stats: ["$18/mo or $180/yr", "Launched July 2022", "Rolled back Sept 2023", "Other features still gated"],
+      },
+      {
+        who: "Mercedes-Benz", what: "Acceleration unlock",
+        line: "$1,200/year subscription to unlock 0–60 acceleration on EQ models customers had already paid for.",
+        stats: ["$1,200/yr 'Acceleration Increase'", "EQE 0–60: 6.0s → 5.1s when paid", "Still active in 2024", "Active class-action filings"],
+      },
+      {
+        who: "Ford, GM, Tesla", what: "Driver-assist as service",
+        line: "Hardware-already-paid-for driver-assist gated behind recurring fees.",
+        stats: ["Ford BlueCruise: $75/mo after 3yr", "GM Super Cruise: $25/mo after 3yr", "Tesla FSD: $99/mo or $8K", "All same hardware regardless"],
+      },
+      {
+        who: "Major streamers", what: "Price hikes + ad tiers + password crackdowns",
+        line: "Raised prices, added ads, cracked down on sharing, all at once. Cancellations hit industry records.",
+        stats: ["24M+ US cancellations (2024)", "Disney+ −4M subs after hike", "5–6% monthly churn vs 2–3% (2022)", "Netflix sharing crackdown: May 2023"],
+      },
+      {
+        who: "US airlines", what: "Basic economy",
+        line: "A smaller product, repackaged and sold for the same money. Ancillary revenue per passenger up sharply.",
+        stats: ["+50% ancillary/pax since 2020", "35–40% of bookings on some routes", "DOT moves to ban worst practices (2024)", "Bag/seat/boarding fees stack"],
+      },
+      {
+        who: "UnitedHealth & major insurers", what: "Prior authorization",
+        line: "Expanded denials to the point that denial-as-product became the news story of late 2024.",
+        stats: ["2.7B PA requests (2023, KFF)", "UHC ~9% denial rate (highest)", "Multiple state laws 2024–25", "Public backlash post-Dec 2024"],
+      },
+      {
+        who: "Adobe, Autodesk", what: "Annual price hikes",
+        line: "Year-over-year increases. Whole markets defected to Figma, Affinity, and Blender.",
+        stats: ["Creative Cloud: +15–25% (2020–24)", "Adobe–Figma blocked Dec 2023 ($20B)", "Affinity acquired by Canva (2024)", "Blender user base +50%+ same period"],
+      },
+    ],
+  },
+];
+
+const CONVICTION_BET = {
+  id: "conviction",
+  num: "✦",
+  name: "The conviction bet.",
+  teaser: "The data-backed bet, the persuasive case, the right audience. The only kind that closes the gap.",
+  body: "The bet that closes the gap shares three ingredients every time. Data on the table that makes the case defensible. A narrative sharp enough to convince an audience who can fund it. A specific person willing to put themselves on the record before the outcome is known. The three conventional bets miss because one or more of those ingredients is missing. The conviction bet does not.",
+  icon: (
+    <svg viewBox="0 0 80 80" fill="none">
+      <circle cx="18" cy="22" r="3.5" fill="rgba(168,124,255,0.7)"/>
+      <circle cx="62" cy="18" r="3.5" fill="rgba(168,124,255,0.7)"/>
+      <circle cx="20" cy="62" r="3.5" fill="rgba(168,124,255,0.7)"/>
+      <line x1="18" y1="22" x2="40" y2="42" stroke="rgba(168,124,255,0.45)" strokeWidth="1.2"/>
+      <line x1="62" y1="18" x2="40" y2="42" stroke="rgba(168,124,255,0.45)" strokeWidth="1.2"/>
+      <line x1="20" y1="62" x2="40" y2="42" stroke="rgba(168,124,255,0.45)" strokeWidth="1.2"/>
+      <circle cx="40" cy="42" r="16" fill="none" stroke="#A87CFF" strokeWidth="1" opacity="0.35"/>
+      <circle cx="40" cy="42" r="9" fill="#A87CFF"/>
+    </svg>
+  ),
+  receipts: [
+    {
+      who: "Netflix · Hastings",
+      what: "Streaming pivot",
+      line: "Bet broadband would kill the DVD before DVD revenue did. Survived a 75% stock collapse in 2011 when investors balked at the Qwikster split. Kept pouring capital into content while the bet remained unproven.",
+      stats: ["$19.1B streaming content obligations (Q3 2020)", "$17B+ annual content spend by early 2020s", "75% stock loss absorbed (2011)", "Stock 2010 → 2021: $10 → $600+ (split-adjusted)"],
+    },
+    {
+      who: "Figma · Field",
+      what: "Browser-native design",
+      line: "Bet designers wanted real-time collaboration in the browser, not desktop apps and file emails. Stayed in stealth for four years. Survived Adobe's attempt to absorb them and outlasted the deal.",
+      stats: ["~$330M raised across 9 years", "4 years in stealth (2012–2016)", "Adobe $20B acquisition blocked Dec 2023", "Valuation: $0 → $12.5B (2024 secondary)"],
+    },
+    {
+      who: "NVIDIA · Huang",
+      what: "The CUDA bet",
+      line: "Bet GPUs would matter for compute, not just graphics. Spent fifteen years building CUDA through analyst skepticism before the AI boom proved the bet right.",
+      stats: ["15+ years of sustained CUDA R&D", "Market cap 2014 → 2024: ~$10B → $3T+", "$30B+ annual R&D by 2024", "Powers ~80% of AI training workloads"],
+    },
+    {
+      who: "Best Buy · Joly",
+      what: "Renew Blue",
+      line: "Doubled down on stores when every analyst said close them. Matched online prices and ate the margin hit. Turned the showroom into the answer to showrooming.",
+      stats: ["$1B annual margin pressure from price-matching", "$1.5B+ in store and supply-chain investment", "Stock: $13 → $77 (2012 → 2019)", "Market cap recovery: ~$25B"],
+    },
+    {
+      who: "Stripe · Collisons",
+      what: "Developer-first payment infra",
+      line: "Bet that developers, not procurement teams, would choose payment infrastructure. Spent a decade competing on docs and API quality before adding sales motion.",
+      stats: ["~$9B raised over 13 years", "$95B private valuation (2021 peak)", "$1.4T processed in 2024", "~50% of US adults transacted via Stripe (2023)"],
+    },
+  ],
+};
+
+function Truth() {
+  const [activeBet, setActiveBet] = useState(null);
+
+  useEffect(() => {
+    if (!activeBet) return;
+    const onKey = (e) => { if (e.key === "Escape") setActiveBet(null); };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [activeBet]);
+
+  return (
+    <section id="truth">
+      <div className="secHeader">
+        <div className="eyebrow">The Truth</div>
+        <h2>The widest gap in business is between what customers want and what companies make.</h2>
+        <p className="lede">
+          The cost of being wrong just spiked. Capital is expensive, tariffs are unstable, the customer is
+          walking. <span className="accent">70%</span> of Americans say they're less brand loyal than a year
+          ago.<a href="#src-1" className="srcRef">¹</a> <span className="accent">95%</span> of enterprise
+          GenAI pilots have delivered zero measurable P&amp;L impact against $30–40B in
+          spend.<a href="#src-2" className="srcRef">²</a> Year-one product mortality runs
+          <span className="accent"> 70–90%</span> across every major industry, unchanged in a
+          generation.<a href="#src-3" className="srcRef">³</a> Companies have more telemetry on the customer
+          than at any point in history. The customer is leaving anyway.
+        </p>
+        <p className="lede" style={{ marginTop: 18 }}>
+          The gap isn't a data problem. The gap is a <em>bet</em> problem. Look at any product that missed
+          its market, in any industry, and the bet behind it landed in one of three conventional patterns.
+        </p>
+        <div className="betsHint">Click each bet to see the examples →</div>
+      </div>
+
+      <div className="betCards">
+        {BETS.map((b) => (
+          <button
+            key={b.id}
+            className="betCard"
+            onClick={() => setActiveBet(b)}
+            aria-label={`Explore ${b.name}`}
+          >
+            <div className="betIcon">{b.icon}</div>
+            <div className="betNum">{b.num}</div>
+            <div className="betName">{b.name}</div>
+            <div className="betTeaser">{b.teaser}</div>
+            <div className="betCta">
+              Read the case
+              <span className="betCtaArrow">→</span>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <div className="convictionDivider">
+        <div className="convictionRule"></div>
+        <div className="convictionEyebrow">Three conventional bets. One conviction bet.</div>
+        <div className="convictionRule"></div>
+      </div>
+
+      <button
+        className="convictionCard"
+        onClick={() => setActiveBet(CONVICTION_BET)}
+        aria-label="Explore the conviction bet"
+      >
+        <div className="convictionIcon">{CONVICTION_BET.icon}</div>
+        <div className="convictionBody">
+          <div className="convictionNum">The bet that closes the gap</div>
+          <div className="convictionName">{CONVICTION_BET.name}</div>
+          <div className="convictionTeaser">{CONVICTION_BET.teaser}</div>
+        </div>
+        <div className="convictionCta">
+          See the examples
+          <span className="convictionCtaArrow">→</span>
+        </div>
+      </button>
+
+      {activeBet && (
+        <div
+          className="betModalOverlay"
+          onClick={(e) => { if (e.target.classList.contains("betModalOverlay")) setActiveBet(null); }}
+        >
+          <div className={"betModal" + (activeBet.id === "conviction" ? " betModalConviction" : "")} role="dialog" aria-modal="true" aria-labelledby="betModalTitle">
+            <button className="betModalClose" onClick={() => setActiveBet(null)} aria-label="Close">×</button>
+            <div className="betModalNum">{activeBet.id === "conviction" ? "✦ The conviction bet" : (activeBet.num + " / 03")}</div>
+            <h3 id="betModalTitle" className="betModalTitle">{activeBet.name}</h3>
+            <p className="betModalBody">{activeBet.body}</p>
+
+            <div className="betModalReceiptsLabel">Examples</div>
+            <div className="betModalReceipts">
+              {activeBet.receipts.map((r, i) => (
+                <div key={i} className="betReceipt">
+                  <div className="betReceiptHead">
+                    <span className="betReceiptWho">{r.who}</span>
+                    <span className="betReceiptDot">·</span>
+                    <span className="betReceiptWhat">{r.what}</span>
+                  </div>
+                  <div className="betReceiptLine">{r.line}</div>
+                  {r.stats && r.stats.length > 0 && (
+                    <div className="betReceiptStats">
+                      {r.stats.map((s, si) => (
+                        <span key={si} className="betReceiptStat">{s}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="pullQuote">
+        <div className="q">
+          Innovation does not happen because the evidence is good.<br/>
+          It happens because <span className="accent">a specific person at a specific company decides to take a bet.</span>
+        </div>
+        <div className="cite">The tension</div>
+      </div>
+
+      <p className="lede" style={{ marginTop: 36 }}>
+        Historically, the bets that closed the gap had to invent workarounds to do it. 3M's 15% time, the
+        rule that made the Post-it possible. Sony's PlayStation, which survived a board veto only by being
+        incubated under Sony Music. Bill Hewlett launching the HP-35 calculator over the protest of his own
+        market research. Innovation kept reaching for tricks because the system itself never gave it
+        conviction. GrowthOS gives the conviction back. Confidence the case will hold, before the bet gets
+        placed.
+      </p>
+
+      <p className="lede" style={{ marginTop: 18 }}>
+        Which means the work of closing the gap is the work of helping that company make <em>the conviction
+        bet</em>. Feed them the customer's voice their team would have missed. Surface the market context
+        their incrementalism would have ignored. Generate the argument against the extractive option before
+        someone in finance makes it for them.
+      </p>
+
+      <p className="lede" style={{ marginTop: 18 }}>
+        Closing the gap is not a feature. It's the work of holding research, analysis, and the workflow in
+        one place, long enough for a team to see the case clearly, make the bet, and ship. That's the
+        promise. One workbench where the customer's voice sits next to the team's plan, from the first
+        signal through the analysis all the way to in-market. Not another tool in the stack. The system
+        that makes the stack unnecessary.
+      </p>
+
+      <div className="truthSources">
+        <div className="srcLabel">Sources</div>
+        <ol>
+          <li id="src-1"><span className="srcNum">1.</span> Loyalty Tax study, 2026. Survey of 1,010 US adults on inflation-driven brand-loyalty decline.</li>
+          <li id="src-2"><span className="srcNum">2.</span> MIT NANDA report, August 2025. <em>The State of AI in Business</em>; 95% of enterprise GenAI pilots show no measurable P&amp;L impact.</li>
+          <li id="src-3"><span className="srcNum">3.</span> Nielsen / MIT Professional Education / HBR. Long-run benchmarks on new-product launch failure rates across CPG, consumer tech, and enterprise software (70–90% year-one mortality, stable across decades).</li>
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// THREE LAYERS — interactive
+// ─────────────────────────────────────────────────────────
+const LAYERS = [
+  {
+    id: "practitioner",
+    num: "01",
+    name: "Practitioner",
+    headline: "The person doing the work.",
+    body: "Where ideation actually happens. Researchers, designers, product strategists, account leaders shaping concepts and gathering the evidence to validate them. They live in the Idea Container, the Insight Map, the experiment setup. They need flow, not friction. Every artifact they create should travel upstream automatically.",
+    needs: [
+      { strong: "Flow over friction.", t: "The seams between research, ideas, and tests have to disappear." },
+      { strong: "AI that argues back.", t: "Sharpens their thinking; doesn't replace it." },
+      { strong: "Every artifact travels.", t: "Insights become evidence. Evidence becomes the case." },
+    ],
+    failure: { bet: "myopic", line: "Defensible inside the building, dead when it meets the customer." },
+    mock: "practitioner",
+  },
+  {
+    id: "manager",
+    num: "02",
+    name: "Manager",
+    headline: "The person running the portfolio.",
+    body: "Holds a stable of innovation efforts. Needs operational truth about all of them at once, without forcing their teams to do separate reporting work. Status, evidence, blockers, next gates. The view should emerge as a real-time function of what's happening in the system underneath, not as a slide deck assembled on Friday afternoon.",
+    needs: [
+      { strong: "Operational truth, free.", t: "Reporting work the system does, not the team." },
+      { strong: "Drill into any project.", t: "What evidence exists, who's working, where it's stuck." },
+      { strong: "Joints exposed.", t: "Interrogate the data before passing it on." },
+    ],
+    failure: { bet: "incremental", line: "Teams defend the existing roadmap and never see the customer-shaped hole." },
+    mock: "manager",
+  },
+  {
+    id: "leader",
+    num: "03",
+    name: "Executive",
+    headline: "The person making the case upward.",
+    body: "Owns the strategy. Their job is to walk into a room and convince someone with power to fund the bets that matter. Today they live in slides and gut. Tomorrow they live in a system designed to help them construct the argument: mapping evidence to known objections, flagging soft spots, generating counter-arguments to defeat before someone else makes them.",
+    needs: [
+      { strong: "A system, not a slide deck.", t: "Constructing the case is the work; the system supports it." },
+      { strong: "Map evidence to objections.", t: "Know which doubts each piece of evidence answers." },
+      { strong: "Defeat the counter first.", t: "Adversarial AI generates the strongest argument against." },
+    ],
+    failure: { bet: "extractive", line: "Finance pre-drafted that case, and nobody else built a stronger one." },
+    mock: "leader",
+  },
+];
+
+function LayerMock({ kind }) {
+  if (kind === "practitioner") {
+    return (
+      <div className="layerMock">
+        <div style={{ fontFamily: 'Graphik, Inter, sans-serif', fontSize: 11, letterSpacing: '0.18em', color: 'var(--ink-faint)', textTransform: 'uppercase' }}>
+          Idea Container · Smart Sportswear
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1 }}>
+          {[
+            { l: "Insights", c: 14, p: 80 },
+            { l: "Experiments", c: 3, p: 40 },
+            { l: "Interviews", c: 28, p: 95 },
+            { l: "Documents", c: 22, p: 70 },
+          ].map((row, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12 }}>
+              <div style={{ width: 90, color: 'var(--ink-dim)', fontFamily: 'Graphik, Inter, sans-serif' }}>{row.l}</div>
+              <div style={{ flex: 1, height: 8, background: 'var(--ink-ghost)', borderRadius: 4, overflow: 'hidden' }}>
+                <div style={{ height: '100%', background: 'var(--accent-soft)', width: row.p + '%' }}/>
+              </div>
+              <div style={{ width: 28, textAlign: 'right', color: 'var(--ink)', fontFamily: 'Graphik, Inter, monospace', fontSize: 13 }}>{row.c}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ paddingTop: 10, borderTop: '1px solid var(--rule)', fontSize: 11, color: 'var(--ink-faint)', fontFamily: 'Graphik, Inter, sans-serif' }}>
+          <span style={{ color: 'var(--accent-soft)' }}>67 evidence items</span> · 3 hypotheses open
+        </div>
+      </div>
+    );
+  }
+  if (kind === "manager") {
+    return (
+      <div className="layerMock">
+        <div style={{ fontFamily: 'Graphik, Inter, sans-serif', fontSize: 11, letterSpacing: '0.18em', color: 'var(--ink-faint)', textTransform: 'uppercase' }}>
+          Portfolio · 12 active
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, flex: 1 }}>
+          {[
+            { name: "Smart Sportswear", status: "validated", color: "#22c55e" },
+            { name: "Heat Tech",        status: "exploring", color: "#A87CFF" },
+            { name: "Light Insulation", status: "blocked",   color: "#F5A623" },
+            { name: "Bio Fabric",       status: "validated", color: "#22c55e" },
+            { name: "Modular Sole",     status: "exploring", color: "#A87CFF" },
+            { name: "Climate Cushion",  status: "killed",    color: "rgba(255,255,255,0.3)" },
+          ].map((row, i) => (
+            <div key={i} style={{
+              padding: 10, background: 'rgba(255,255,255,0.04)',
+              border: '1px solid var(--rule)', borderRadius: 8,
+              display: 'flex', flexDirection: 'column', gap: 4,
+            }}>
+              <div style={{ fontSize: 11, color: 'var(--ink)', fontFamily: 'Graphik, Inter, sans-serif', fontWeight: 400 }}>{row.name}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: row.color }}/>
+                <span style={{ fontSize: 10, color: 'var(--ink-faint)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{row.status}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  if (kind === "leader") {
+    return (
+      <div className="layerMock">
+        <div style={{ fontFamily: 'Graphik, Inter, sans-serif', fontSize: 11, letterSpacing: '0.18em', color: 'var(--ink-faint)', textTransform: 'uppercase' }}>
+          Case Builder · Q3 Funding Ask
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
+          {[
+            { kind: "claim",    text: "Smart Sportswear is the strongest bet in the portfolio.", strength: "strong" },
+            { kind: "evidence", text: "28 interviews · 88 score · 4 supporting insights",        strength: "strong" },
+            { kind: "objection",text: "How do you know it scales beyond the early adopter cohort?", strength: "soft" },
+            { kind: "counter",  text: "Adversarial AI: 'No supply-chain stress test yet.'",       strength: "warn" },
+          ].map((row, i) => (
+            <div key={i} style={{
+              padding: '8px 10px', borderRadius: 6,
+              border: `1px solid ${row.strength === 'warn' ? 'rgba(245,166,35,0.3)' : 'var(--rule)'}`,
+              background: row.strength === 'warn' ? 'rgba(245,166,35,0.08)' : 'rgba(255,255,255,0.03)',
+              fontSize: 11, color: 'var(--ink-dim)', lineHeight: 1.45,
+            }}>
+              <div style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', color: row.strength === 'warn' ? '#F5A623' : 'var(--accent-soft)', marginBottom: 4, fontFamily: 'Graphik, Inter, sans-serif', fontWeight: 600 }}>
+                {row.kind}
+              </div>
+              <div style={{ color: 'var(--ink)' }}>{row.text}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  return null;
+}
+
+function Layers() {
+  const [idx, setIdx] = useState(0);
+  const layer = LAYERS[idx];
+  return (
+    <section id="layers">
+      <div className="secHeader">
+        <div className="eyebrow">Audience</div>
+        <h2>What are the roles of the <span className="accent">GrowthOS?</span></h2>
+        <p className="lede">
+          GrowthOS exists to help companies make the conviction bet. The bet has three ingredients:
+          data-backed evidence, a persuasive case, the right audience for it. Each ingredient comes from
+          a different job. The practitioner produces the evidence. The manager runs the portfolio those
+          bets live in. The executive constructs the case that wins the funding.
+        </p>
+        <p className="lede" style={{ marginTop: 16 }}>
+          Each FY27 commitment is a piece of the system those jobs need, so when the bet gets made it's
+          a conviction bet, not a conventional one.
+        </p>
+      </div>
+
+      <div className="layers">
+        <div className="layerNav">
+          {LAYERS.map((l, i) => (
+            <button key={l.id}
+              className={"layerBtn" + (i === idx ? " active" : "")}
+              onClick={() => setIdx(i)}>
+              <div className="layerNum">LAYER {l.num}</div>
+              <div className="layerName">{l.name}</div>
+            </button>
+          ))}
+        </div>
+
+        <div className="layerPanel">
+          <div className="layerBody">
+            <h3>{layer.headline}</h3>
+            <p className="lede">{layer.body}</p>
+            <div className="needs">
+              {layer.needs.map((n, i) => (
+                <div key={i} className="need">
+                  <div className="needDot"></div>
+                  <div className="needText"><strong>{n.strong}</strong> {n.t}</div>
+                </div>
+              ))}
+            </div>
+            {layer.failure && (
+              <div className="layerFailure">
+                <div className="layerFailureLabel">Without this job</div>
+                <div className="layerFailureLine">
+                  The bet goes <strong>{layer.failure.bet}</strong>. {layer.failure.line}
+                </div>
+              </div>
+            )}
+          </div>
+          <LayerMock kind={layer.mock} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// PRINCIPLES — the first three
+// ─────────────────────────────────────────────────────────
+const PRINCIPLES = [
+  {
+    num: "01",
+    name: "Elevate Ideas",
+    intro: "Every feature should expand and enhance ideas. Our tools must make ideas clearer, more actionable, and visibly better with each iteration.",
+    subs: [
+      { n: "Insight vs. Data", b: "We prioritize meaningful synthesis over raw information. GrowthOS should help users extract what matters most, not just collect more." },
+      { n: "Human Agency",     b: "Tools should enhance human decision-making, not replace it. GrowthOS reinforces the user's voice, judgment, and creativity." },
+      { n: "Intuitive Experiences", b: "Using GrowthOS should feel natural and fluid: each input, idea, insight, and piece of research driving and connecting to the next possible step." },
+    ],
+  },
+  {
+    num: "02",
+    name: "Intelligent Growth",
+    intro: "The system gets smarter as it's used, and honest about where it isn't yet. Inputs sharpen patterns. Patterns reveal gaps. Gaps become the next questions.",
+    subs: [
+      { n: "Compounding intelligence", b: "Every project leaves residue. Every test sharpens the next one. Foundations learns what this client cares about, what's already been tried, what the next bet should weigh." },
+      { n: "Honest sketchiness",       b: "A solid rectangle is evidence. A dashed one is a hypothesis. A '?' is a known unknown. The system surfaces what it doesn't know so the user can do something about it." },
+      { n: "Validated evidence",       b: "Decisions are driven by experimentation, robust insights, and measurable outcomes. The UDL carries the residue forward. Confidence is earned, not assumed." },
+    ],
+  },
+  {
+    num: "03",
+    name: "Extensible & Flexible Architecture",
+    intro: "We don't compete with the tools. We sell the behavioral and strategic knowledge that turns inputs into guidance. When something accelerates client value, we integrate it. When the novel pieces don't exist yet, we build them ourselves: the interfaces that shape understanding and human agency.",
+    subs: [
+      { n: "Best tool for the job", b: "Designed to integrate with diverse external tools and pick the strongest one for each moment. We don't build everything ourselves; we build the system that turns signals into actions." },
+      { n: "Collaboration",          b: "Frictionless collaborative experiences. Getting started and working together should feel as effortless as any mainstream tool." },
+    ],
+  },
+];
+
+function Principles() {
+  return (
+    <section id="principles">
+      <div className="secHeader">
+        <div className="eyebrow">Our Principles</div>
+        <h2>We're adding a new guiding principle to <span className="accent">shape FY27.</span></h2>
+        <p className="lede">
+          Three principles carry forward from prior manifestos. Sharpened, but the spirit holds.
+          A fourth, AI in Service of Judgment, is new, and it pushes against the grain of every other
+          AI product in market. We treat it separately because it deserves the space.
+        </p>
+      </div>
+      <div className="cardGrid cols-3">
+        {PRINCIPLES.map((pr) => (
+          <div key={pr.num} className="principleCard">
+            <div className="pcNum">PRINCIPLE {pr.num}</div>
+            <h3>{pr.name}</h3>
+            <div className="pcIntro">{pr.intro}</div>
+            {pr.subs.map((s, i) => (
+              <div key={i} className="pcSub">
+                <div className="pcSubName">{s.n}</div>
+                <div className="pcSubBody">{s.b}</div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// AI IN SERVICE OF JUDGMENT — interactive principle
+// ─────────────────────────────────────────────────────────
+const AI_SUBS = [
+  { num: "01", name: "Commit first",        desc: "User names their hypothesis or writes their first draft before AI is allowed to intervene. AI then pushes back." },
+  { num: "02", name: "Propose, don't generate", desc: "The failure mode of AI is the user becoming a passenger. GrowthOS treats every AI move as a proposal: fast enough to save the cold-start cost of drafting, slow enough to leave judgment in human hands. AI proposes; the user judges." },
+  { num: "03", name: "Long tail first",     desc: "AI surfaces the outlier, the unusual quote, the response that doesn't fit. The interesting answer is rarely the average." },
+  { num: "04", name: "Adversarial by default", desc: "AI generates the strongest argument against what the user is building, so the user can defeat it before someone else does." },
+  { num: "05", name: "Slow at decisions",   desc: "Ingest is fast. Judgment is deliberate. Friction at the thinking points is a design feature." },
+];
+
+const DEMO_PROMPTS = [
+  {
+    label: "Hypothesis",
+    user: "Smart Sportswear will unlock a $40M new revenue line by year two.",
+    ai: <span><strong>Counter:</strong> The $40M projection rests on category-leadership pricing and 18% market penetration. Comparable category entrants (Lululemon ABC tech 2019, Athleta Smart Layer 2022) achieved 4–7% in year two at lower price. What specifically makes our scenario different?</span>,
+  },
+  {
+    label: "Synthesis",
+    user: "Users want a sportswear product that adapts to weather.",
+    ai: <span><strong>Widen:</strong> 22 of 28 interviews supported that. The 6 that didn't said weather adaptation was secondary to durability and recovery support. Two cohorts surfaced: performance-first and recovery-first. The synthesis "adapts to weather" may be hiding a more interesting tension.</span>,
+  },
+  {
+    label: "Experiment",
+    user: "Run a preference test between Concept A and Concept B with 200 participants.",
+    ai: <span><strong>Push back:</strong> Both concepts share the same weather-sensing language. A preference test will surface presentation bias more than concept merit. Consider a concept-refinement step on each in isolation before running them side-by-side.</span>,
+  },
+];
+
+function AIJudgment() {
+  const [demoIdx, setDemoIdx] = useState(0);
+  const demo = DEMO_PROMPTS[demoIdx];
+  return (
+    <section id="judgment">
+      <div className="secHeader">
+        <div className="eyebrow">The Fourth Principle</div>
+        <h2>AI in service of <span className="accent">judgment</span>.</h2>
+        <p className="lede">
+          The grain of most AI products today is to do the work for the user. The signals are clear about
+          where that leads. Brain capacity lowers, creative power decreases, shortcuts replace mental
+          challenges. Having AI do the thinking for you is a first-class ticket to mediocrity for life.
+        </p>
+        <p className="lede" style={{ marginTop: 16 }}>
+          GrowthOS makes the opposite bet. AI here is a mental coach. It knows when to push and when to
+          pause. How to activate the brain's creative and problem-solving networks. Priming, gamification,
+          behavioral design, flow inducement, sentiment coaching. We use AI to make the human sharper, not
+          lazier.
+        </p>
+      </div>
+
+      <div className="aiPrinciple">
+        <div className="aiBanner">
+          <div className="badge">Principle 04</div>
+          <div className="title">AI sharpens human thinking. It does not replace it.</div>
+          <div className="motto"><em>Plus est en vous.</em> There is more in you.</div>
+        </div>
+
+        <div className="aiSubPrinciples">
+          {AI_SUBS.map((s) => (
+            <div key={s.num} className="aiSub">
+              <div className="aiSubNum">{s.num}</div>
+              <div className="aiSubName">{s.name}</div>
+              <div className="aiSubDesc">{s.desc}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="adversarialDemo">
+          <div className="demoCol user">
+            <div className="demoLabel">User commits</div>
+            <div className="demoText">{demo.user}</div>
+          </div>
+          <div className="demoCol ai">
+            <div className="demoLabel">
+              <span className="star" style={{ width: 10, height: 10 }}/>
+              AI pushes back
+            </div>
+            <div className="demoText">{demo.ai}</div>
+          </div>
+          <div className="demoControls">
+            {DEMO_PROMPTS.map((d, i) => (
+              <button key={i}
+                className={i === demoIdx ? "active" : ""}
+                onClick={() => setDemoIdx(i)}>
+                {d.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// THE FUTURE WE IMAGINE — three commitments + seven themes
+// ─────────────────────────────────────────────────────────
+const COMMITMENTS = [
+  {
+    id: "conversation",
+    num: "01",
+    name: "Make Growthmentor the conversational coach.",
+    body: "Every conversation with Growthmentor exists to make the user sharper. Each one proposes a reading the user can take or reshape. Each one surfaces an angle the team would have missed. Each one pushes back when the case is thin. The user thinks harder for having had it. The work is still theirs.\n\nUnderneath the conversation, Growthmentor is the orchestrator. A well-designed system of specialized LLMs and tools coordinated by the central core, your project. It picks the best tool for the job, whether that's OpenAI, Claude, Gemini, or whatever comes next. The intelligence is in the architecture, not any single model. GrowthOS stays LLM-agnostic on purpose.\n\nThe result is one always-on character. Proposing, judging-aloud, honest about what it doesn't know. There to make the human sharper, not lazier.",
+  },
+  {
+    id: "activation",
+    num: "02",
+    name: "Make activation the strongest moment in the product.",
+    body: "The first hour is where every enterprise platform loses its users. Forms, picklists, empty repositories, \"now what?\" GrowthOS reframes activation as the highest-leverage design surface we own. A user types a brief. Growthmentor proposes a structural read. An insight map fills in turn by turn, anchored to sources where they exist and explicitly marked sketchy where they don't. By the time the opening conversation ends, the user has a living artifact, not a static brief. The UDL is already on the case. The next action is already visible.",
+  },
+  {
+    id: "audiences",
+    num: "03",
+    name: "Build for the manager and the executive as deliberately as for the practitioner.",
+    body: "Practitioners have GrowthOS today. Managers and executives see slivers of it. That changes this year. Operational truth about every project, in real time, no Friday slide deck. Drill-into-any-project views that surface evidence, blockers, gates, owners. Portfolio-level patterns that show where bets are concentrated, where evidence is thin, where this year's bet matches a past pattern the UDL already knows about. Case-building for the moment of upward persuasion: map evidence to objections, surface counterarguments before someone else makes them, walk into the room with the case already constructed.",
+  },
+  {
+    id: "collaboration",
+    num: "04",
+    name: "Make collaboration effortless and continuous.",
+    body: "No bolt-on. The same surface adapts to multiple people working at once. Activity flows up automatically. Comments, mentions, decisions, evidence reviews, all attached to the artifact they pertain to, not scattered across Slack, email, and decks. Every change has an audit trail: who added what, when, and why. Getting started and working together should feel as effortless as any mainstream tool.",
+  },
+  {
+    id: "foundations",
+    num: "05",
+    name: "Make Foundations a live research stack.",
+    body: "Real connectors (Alphasense, web research, Accenture Thought Leadership, client internal systems). Drag-and-drop ingestion of decks, transcripts, PDFs. Structured data integrations with provenance preserved. Deep-research agents that run multi-step plans across multiple sources. Auditable end-to-end, so when the executive makes the case upward they can answer 'how do you know' without scrambling.",
+  },
+  {
+    id: "udl",
+    num: "06",
+    name: "Make the UDL the way GrowthOS grows smarter.",
+    body: "The moat we sell is combination. The moat that lasts is compounding. The Unified Data Layer is how everything ever learned in GrowthOS gets carried forward. A survey panel becomes a pattern library. A failed Proxi becomes a guardrail. A successful bet becomes a precedent. Surfaced when relevant. Hidden when not. Sharpened with use. Generic AI has no memory of your last project. GrowthOS does.",
+  },
+  {
+    id: "depth",
+    num: "07",
+    name: "Win the depth fight inside every named feature.",
+    body: "The combination of research, analysis, and workflow is the moat. But the combination only holds if every feature inside it can stand against the standalone competitor in its category. Activation, collaboration, the UDL, Foundations: each has to feel right against the best in market. Parity at minimum. Leadership where we can.",
+  },
+];
+
+
+function Future() {
+  return (
+    <section id="future">
+      <div className="secHeader">
+        <div className="eyebrow">The Future We Imagine</div>
+        <h2>What we're building. <span className="accent">FY27.</span></h2>
+        <p className="lede">
+          Each commitment below is a stake in the ground about what GrowthOS will be by year-end. Each
+          one will get its own working prototype to make the direction concrete before it ships.
+        </p>
+      </div>
+
+      <div className="commitments">
+        {COMMITMENTS.map((c, i) => (
+          <div key={c.id} className={"commitBlock " + (i % 2 === 0 ? "textLeft" : "textRight")}>
+            <div className="commitText">
+              <div className="commitLabel">Commitment {c.num}</div>
+              <h3 className="commitName">{c.name}</h3>
+              <p className="commitBody">{c.body}</p>
+              <div className="commitPreviewTag">
+                <span className="commitPreviewDot"></span>
+                Prototype preview
+              </div>
+            </div>
+            <div className="commitMockWrap">
+              <CommitMock kind={c.id} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// COMMIT MOCKS — one stylized preview per commitment
+// ─────────────────────────────────────────────────────────
+function CommitMock({ kind }) {
+  if (kind === "conversation") {
+    return (
+      <div className="cmock">
+        <div className="cmockEyebrow">Growthmentor · Setup</div>
+        <div className="cmockChat">
+          <div className="cmockBubble user">"Spotify platform risk in payouts to artists."</div>
+          <div className="cmockBubble coach">"I'd center on artist trust. Three themes feel acute. Which one first?"</div>
+        </div>
+        <div className="cmockArtifact">
+          <div className="cmockArtifactLabel">MAP PRODUCED</div>
+          <div className="cmockChips">
+            <span className="cmockChip">Artist trust</span>
+            <span className="cmockChip evidenced">✓ 4 evidenced</span>
+            <span className="cmockChip hypothesis">? 2 hypothesis</span>
+            <span className="cmockChip opportunity">★ Opportunity</span>
+          </div>
+        </div>
+        <div className="cmockFoot">DIALOGUE → ARTIFACT</div>
+      </div>
+    );
+  }
+  if (kind === "activation") {
+    return (
+      <div className="cmock">
+        <div className="cmockEyebrow">Day-one activation</div>
+        <div className="cmockSplit">
+          <div className="cmockSplitSide before">
+            <div className="cmockSplitLabel">Today</div>
+            <div className="cmockField muted">Project name</div>
+            <div className="cmockField muted">Category</div>
+            <div className="cmockField muted">KPIs</div>
+            <div className="cmockEmpty">Empty data repository</div>
+          </div>
+          <div className="cmockSplitArrow">→</div>
+          <div className="cmockSplitSide after">
+            <div className="cmockSplitLabel accent">FY27</div>
+            <div className="cmockPrompt">"What's the project about?"</div>
+            <div className="cmockBubbleMini">Growthmentor proposes themes...</div>
+            <div className="cmockMapPreview">
+              <span className="dot"></span><span className="dot"></span><span className="dot"></span>
+              <span className="dot accent"></span>
+            </div>
+          </div>
+        </div>
+        <div className="cmockFoot">FROM FORM TO LIVING ARTIFACT</div>
+      </div>
+    );
+  }
+  if (kind === "growthmentor") {
+    return (
+      <div className="cmock">
+        <div className="cmockEyebrow">Same character, every surface</div>
+        <div className="cmockScreens">
+          {["Project", "Insight panel", "Case Builder"].map((label, i) => (
+            <div key={i} className="cmockMini">
+              <div className="cmockMiniLabel">{label}</div>
+              <div className="cmockMiniBody">
+                <div className="cmockMiniRow"></div>
+                <div className="cmockMiniRow short"></div>
+                <div className="cmockMiniRow"></div>
+              </div>
+              <div className="cmockGmPill">✦ Growthmentor</div>
+            </div>
+          ))}
+        </div>
+        <div className="cmockFoot">PROPOSING. JUDGING ALOUD. HONEST.</div>
+      </div>
+    );
+  }
+  if (kind === "audiences") {
+    return (
+      <div className="cmock">
+        <div className="cmockEyebrow">Portfolio · Q3</div>
+        <div className="cmockPortfolio">
+          {[
+            { n: "Smart Sportswear", s: "evidence", v: 88 },
+            { n: "Connected Retail",  s: "exploring", v: 64 },
+            { n: "Wellness Studio",   s: "blocked",   v: 32 },
+            { n: "Subscription Box",  s: "evidence", v: 76 },
+            { n: "AR Try-On",         s: "exploring", v: 58 },
+            { n: "Loyalty Reboot",    s: "evidence", v: 90 },
+          ].map((p, i) => (
+            <div key={i} className="cmockProject">
+              <div className={"cmockProjectStatus " + p.s}></div>
+              <div className="cmockProjectName">{p.n}</div>
+              <div className="cmockProjectBar"><div style={{ width: p.v + '%' }}></div></div>
+            </div>
+          ))}
+        </div>
+        <div className="cmockFoot">PRACTITIONER · MANAGER · EXECUTIVE</div>
+      </div>
+    );
+  }
+  if (kind === "collaboration") {
+    return (
+      <div className="cmock">
+        <div className="cmockEyebrow">Shared artifact · 3 active</div>
+        <div className="cmockCollab">
+          <div className="cmockAvatars">
+            <span className="cmockAvatar a1">JS</span>
+            <span className="cmockAvatar a2">ML</span>
+            <span className="cmockAvatar a3">TH</span>
+          </div>
+          <div className="cmockActivity">
+            <div className="cmockActLine"><span className="dot a1"></span> <strong>JS</strong> added evidence to <em>Artist trust</em></div>
+            <div className="cmockActLine"><span className="dot a2"></span> <strong>ML</strong> commented on <em>Payout model</em></div>
+            <div className="cmockActLine"><span className="dot a3"></span> <strong>TH</strong> proposed a Proxi test</div>
+            <div className="cmockActLine subtle"><span className="dot"></span> AI counter surfaced on <em>Scale assumption</em></div>
+          </div>
+        </div>
+        <div className="cmockFoot">ATTACHED TO THE ARTIFACT, NOT THE INBOX</div>
+      </div>
+    );
+  }
+  if (kind === "foundations") {
+    return (
+      <div className="cmock">
+        <div className="cmockEyebrow">Live research sources</div>
+        <div className="cmockSources">
+          <div className="cmockSourceRow">
+            {["Alphasense", "Web", "Accenture", "Client Drive", "SharePoint", "PDFs"].map((s, i) => (
+              <span key={i} className="cmockSource">{s}</span>
+            ))}
+          </div>
+          <div className="cmockFunnel">
+            <svg viewBox="0 0 240 80" preserveAspectRatio="none" style={{ width: '100%', height: '64px' }}>
+              <path d="M 0 0 L 240 0 L 160 40 L 160 80 L 80 80 L 80 40 Z" fill="rgba(168,124,255,0.10)" stroke="rgba(168,124,255,0.5)" strokeWidth="1"/>
+            </svg>
+          </div>
+          <div className="cmockFoundationsHub">
+            Foundations · Provenance preserved
+          </div>
+        </div>
+        <div className="cmockFoot">REAL CONNECTORS · REAL PROVENANCE</div>
+      </div>
+    );
+  }
+  if (kind === "udl") {
+    return (
+      <div className="cmock">
+        <div className="cmockEyebrow">UDL · 12,847 artifacts indexed</div>
+        <div className="cmockNetwork">
+          <svg viewBox="0 0 200 140" style={{ width: '100%', height: '100%' }}>
+            {[
+              [100, 70, 35, 30], [100, 70, 165, 35], [100, 70, 25, 105], [100, 70, 175, 100],
+              [100, 70, 60, 20], [100, 70, 140, 115], [100, 70, 95, 25], [100, 70, 105, 120],
+              [35, 30, 60, 20], [165, 35, 140, 115], [25, 105, 95, 25],
+            ].map(([x1,y1,x2,y2], i) => (
+              <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(168,124,255,0.25)" strokeWidth="0.6"/>
+            ))}
+            {[
+              { x: 35, y: 30, r: 4 }, { x: 165, y: 35, r: 4 }, { x: 25, y: 105, r: 3 },
+              { x: 175, y: 100, r: 3.5 }, { x: 60, y: 20, r: 3 }, { x: 140, y: 115, r: 3 },
+              { x: 95, y: 25, r: 3 }, { x: 105, y: 120, r: 3 },
+            ].map((n, i) => (
+              <circle key={i} cx={n.x} cy={n.y} r={n.r} fill="rgba(168,124,255,0.7)"/>
+            ))}
+            <circle cx="100" cy="70" r="10" fill="#A87CFF"/>
+            <circle cx="100" cy="70" r="16" fill="none" stroke="#A87CFF" strokeWidth="0.6" opacity="0.4"/>
+          </svg>
+        </div>
+        <div className="cmockUDLCaption">
+          <span>New project</span>
+          <span className="arrow">←</span>
+          <span>Surfaces what prior projects learned</span>
+        </div>
+        <div className="cmockFoot">EVERY PROJECT MAKES THE NEXT ONE SHARPER</div>
+      </div>
+    );
+  }
+  if (kind === "depth") {
+    return (
+      <div className="cmock">
+        <div className="cmockEyebrow">Feature depth, head to head</div>
+        <div className="cmockDepth">
+          {[
+            { f: "Surveys",    g: 0.92, c: "Qualtrics" },
+            { f: "Proxi Tests", g: 0.88, c: "Wevo" },
+            { f: "Interviews", g: 0.78, c: "dscout" },
+            { f: "Idea Gen",   g: 0.85, c: "Coda + AI" },
+            { f: "Chat",       g: 0.80, c: "ChatGPT Ent." },
+          ].map((r, i) => (
+            <div key={i} className="cmockDepthRow">
+              <div className="cmockDepthFeature">{r.f}</div>
+              <div className="cmockDepthBar">
+                <div className="cmockDepthGrowth" style={{ width: (r.g * 100) + '%' }}></div>
+                <div className="cmockDepthCompetitor" style={{ left: (r.g * 100 - 1) + '%' }}></div>
+              </div>
+              <div className="cmockDepthVs">vs. {r.c}</div>
+            </div>
+          ))}
+        </div>
+        <div className="cmockFoot">PARITY AT MINIMUM · LEADERSHIP WHERE WE CAN</div>
+      </div>
+    );
+  }
+  return null;
+}
+
+// ─────────────────────────────────────────────────────────
+// OPPORTUNITY
+// ─────────────────────────────────────────────────────────
+function Opportunity() {
+  return (
+    <section id="opportunity">
+      <div className="opportunity">
+        <div className="eyebrow">The Opportunity</div>
+        <h2>The category has not been built yet.</h2>
+        <p className="lede">
+          Three categories of tool each cover a sliver of the work. Research platforms own evidence-gathering.
+          Analysis platforms own quantitative truth. Workflow tools own the work, with no native research or
+          data layer. None of them combine all three. None of them carries a POV about what good growth work
+          actually looks like.
+        </p>
+        <p className="lede" style={{ marginTop: 16 }}>
+          GrowthOS does. We bring <em>research, analysis, and the workflow</em> into one place, and we have
+          the conviction about how the work should go that turns the combination from a kit into a system.
+          That's the moat. That's the category. We will own it, internally at Accenture and externally
+          through scalable SaaS offerings.
+        </p>
+
+        <VennCoverage />
+
+        <div className="compoundingMoat">
+          <h3 className="compoundingHead">The moat we sell is combination. The moat that lasts is compounding.</h3>
+          <p className="lede">
+            Standing up research, analysis, and workflow with a point of view is the table-stakes argument.
+            It's true, and it closes generic AI tools out, but only as a snapshot. What makes GrowthOS
+            structurally defensible is what happens to that combination over time.
+          </p>
+          <p className="lede" style={{ marginTop: 16 }}>
+            Every project leaves residue. A survey panel becomes a pattern library. A failed Proxi becomes
+            a guardrail. A successful bet becomes a precedent. A counterargument that defeated a previous
+            case becomes a prompt that surfaces on the next one. The Unified Data Layer holds it all.
+            Foundations feeds it. Growthmentor reaches into it on every turn.
+          </p>
+          <p className="lede" style={{ marginTop: 16 }}>
+            Generic AI has no memory of your last project. GrowthOS does. The longer it's used, the smarter
+            the starting position gets, for the next project, for the next user, for the next client in the
+            same industry.
+          </p>
+        </div>
+
+        <div className="whyUs">
+          <h3 className="whyUsHead">Why us?</h3>
+          <p className="lede">
+            Commercial AI models will always be generic. No matter how many documents get uploaded, the
+            model has no focus, no context, no relationship to the work being done. The differentiator is
+            the institutional intelligence behind the system.
+          </p>
+          <p className="lede" style={{ marginTop: 16 }}>
+            GrowthOS puts that intelligence to work. Not as documents AI scrapes, but as the system inside
+            which AI is asked to think. The people who built the system know the work. The system carries
+            their judgment forward.
+          </p>
+          <p className="lede" style={{ marginTop: 16 }}>
+            Everybody can build a tool. Closing the gap between customers and companies is a different game.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function VennCoverage() {
+  // Ring colors echo accent palette but stay distinct for legibility
+  const R = { fill: "rgba(168, 124, 255, 0.18)", stroke: "rgba(168,124,255,0.55)" };  // research
+  const A = { fill: "rgba(105, 54, 245, 0.18)",  stroke: "rgba(105,54,245,0.55)"  };  // analysis
+  const W = { fill: "rgba(76, 29, 149, 0.20)",   stroke: "rgba(168,124,255,0.45)" };  // workflow
+
+  return (
+    <div className="vennWrap">
+      <svg viewBox="0 0 700 500" className="vennSvg" preserveAspectRatio="xMidYMid meet">
+        {/* Research — top left */}
+        <circle cx="245" cy="220" r="170" fill={R.fill} stroke={R.stroke} strokeWidth="1.5"/>
+        {/* Analysis — top right */}
+        <circle cx="455" cy="220" r="170" fill={A.fill} stroke={A.stroke} strokeWidth="1.5"/>
+        {/* Workflow — bottom center */}
+        <circle cx="350" cy="350" r="170" fill={W.fill} stroke={W.stroke} strokeWidth="1.5"/>
+      </svg>
+
+      {/* Category labels */}
+      <div className="vennLabel" style={{ left: '6%',  top: '6%' }}>Research</div>
+      <div className="vennLabel" style={{ right: '6%', top: '6%', textAlign: 'right' }}>Analysis</div>
+      <div className="vennLabel" style={{ left: '50%', bottom: '4%', transform: 'translateX(-50%)' }}>Workflow</div>
+
+      {/* Research-only chips */}
+      <div className="vennChips" style={{ left: '8%', top: '32%' }}>
+        <div className="vennChip">UserTesting</div>
+        <div className="vennChip">Qualtrics</div>
+        <div className="vennChip">dscout</div>
+      </div>
+
+      {/* Analysis-only chips */}
+      <div className="vennChips" style={{ right: '8%', top: '32%', alignItems: 'flex-end' }}>
+        <div className="vennChip">Amplitude</div>
+        <div className="vennChip">Tableau</div>
+        <div className="vennChip">Hex</div>
+      </div>
+
+      {/* Workflow-only chips */}
+      <div className="vennChips" style={{ left: '50%', bottom: '14%', transform: 'translateX(-50%)', alignItems: 'center' }}>
+        <div className="vennChip">Notion</div>
+        <div className="vennChip">Asana</div>
+        <div className="vennChip">Linear</div>
+      </div>
+
+      {/* Center — GrowthOS */}
+      <div className="vennCenter">
+        <span className="star"></span>
+        <div className="vennGOS">GrowthOS</div>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// CODA
+// ─────────────────────────────────────────────────────────
+function Coda() {
+  return (
+    <div className="coda">
+      <div className="shipping">FY27.</div>
+      <div className="lockup">
+        <img className="brandmark" src="./GrowthOSLogo.png" alt="GrowthOS"/>
+        <span className="word">GrowthOS</span>
+      </div>
+      <div className="rule"></div>
+      <div className="tagline">Insight to <em>in-market</em>, fast.</div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
+// APP
+// ─────────────────────────────────────────────────────────
+function App() {
+  return (
+    <div data-prototype-root>
+      <Hero />
+      <Truth />
+      <Layers />
+      <Principles />
+      <AIJudgment />
+      <Future />
+      <Opportunity />
+      <Coda />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

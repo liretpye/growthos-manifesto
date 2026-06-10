@@ -1,0 +1,1406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>GrowthOS Manifesto · Intro</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-Light.otf') format('opentype');
+    font-weight: 300; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-Regular.otf') format('opentype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-RegularItalic.otf') format('opentype');
+    font-weight: 400; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-Semibold.otf') format('opentype');
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+
+  :root {
+    --bg: #120318;
+    --accent: #A87CFF;
+    --accent-deep: #6936F5;
+    --ink: #FFFFFF;
+    --ink-dim: rgba(255,255,255,0.62);
+    --ink-faint: rgba(255,255,255,0.32);
+    --rule: rgba(255,255,255,0.10);
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Graphik', 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  #app {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+
+  /* ── Stage ── */
+  #stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: calc(100vh - 80px);
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  /* ── Poster (start screen) ── */
+  #poster {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    gap: 28px;
+    background: var(--bg);
+    z-index: 60;
+    transition: opacity 600ms ease;
+  }
+  #poster.hidden { opacity: 0; pointer-events: none; }
+  .posterTitle {
+    font-size: clamp(28px, 4vw, 56px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    text-align: center;
+    max-width: 80%;
+  }
+  .posterSub {
+    font-size: clamp(11px, 1vw, 14px);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .posterRule {
+    width: 220px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+    margin: 4px 0 20px;
+  }
+  #startBtn {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: inherit; font-size: 13px;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 220ms, color 220ms;
+  }
+  #startBtn:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* ── Scene stack ── */
+  #sceneStack {
+    position: absolute; inset: 0;
+  }
+  .scene {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+    transition: opacity 500ms ease;
+  }
+  .scene.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .sceneInner {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 4vw;
+  }
+
+  /* ── Reusable animation helpers ── */
+  .scene.active .fadeUp {
+    animation: fadeUp 900ms ease both;
+  }
+  .scene.active .fadeUp-1 { animation-delay: 100ms; }
+  .scene.active .fadeUp-2 { animation-delay: 600ms; }
+  .scene.active .fadeUp-3 { animation-delay: 1100ms; }
+  .scene.active .fadeUp-4 { animation-delay: 1600ms; }
+  .scene.active .fadeUp-5 { animation-delay: 2100ms; }
+  .scene.active .fadeUp-6 { animation-delay: 2600ms; }
+  .scene.active .fadeUp-7 { animation-delay: 3100ms; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes drawIn {
+    from { stroke-dashoffset: var(--len, 200); }
+    to   { stroke-dashoffset: 0; }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.7; transform: scale(1.05); }
+  }
+
+  /* ── Scene 1: Hook ── */
+  .scene-hook .row {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%;
+    gap: clamp(40px, 8vw, 140px);
+  }
+  .scene-hook .half {
+    font-size: clamp(28px, 3.8vw, 56px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    max-width: 36%;
+  }
+  .scene-hook .half-left  { text-align: right; }
+  .scene-hook .half-right { text-align: left; color: var(--accent); }
+  .scene-hook .preamble {
+    position: absolute;
+    top: 10%;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: clamp(11px, 1vw, 14px);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ── Scene: Stat ── */
+  .scene-stat .stat {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 18px;
+  }
+  .scene-stat .pct {
+    font-size: clamp(120px, 22vw, 320px);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    color: var(--accent);
+  }
+  .scene-stat .cap {
+    font-size: clamp(13px, 1.3vw, 18px);
+    color: var(--ink-dim);
+    max-width: 600px;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+  .scene-stat .src {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 8px;
+  }
+
+  /* ── Scene: Constellation ── */
+  .scene-constellation { position: relative; }
+  .constellation { position: relative; width: 70vw; height: 60vh; }
+  .constellation .dot {
+    position: absolute;
+    width: 4px; height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: dotGlow 4s ease-in-out infinite;
+  }
+  @keyframes dotGlow {
+    0%, 100% { opacity: 0.35; }
+    50%      { opacity: 0.65; }
+  }
+  .constellation .leaver {
+    width: 6px; height: 6px;
+    opacity: 0.9;
+  }
+  .scene.active .constellation .leaver {
+    animation: leave 4s ease-in 1s forwards;
+  }
+  @keyframes leave {
+    0%   { transform: translate(0, 0); opacity: 0.9; }
+    100% { transform: translate(60vw, -50vh); opacity: 0; }
+  }
+  .constellation-caption {
+    position: absolute;
+    bottom: 8%;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: clamp(14px, 1.6vw, 22px);
+    color: var(--ink-dim);
+    font-weight: 400;
+  }
+  .constellation-caption .accent { color: var(--accent); }
+
+  /* ── Scene: Three patterns ── */
+  .scene-patterns .grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3vw;
+    width: 90%; max-width: 1100px;
+    align-items: center;
+  }
+  .patternCol {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 20px;
+  }
+  .patternCol svg { width: 100%; height: auto; max-width: 200px; }
+  .patternCol .pname {
+    font-size: clamp(14px, 1.5vw, 20px);
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .patternCol .plabel {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .patternBlurb {
+    position: absolute;
+    bottom: 8%;
+    font-size: clamp(13px, 1.4vw, 18px);
+    color: var(--ink-dim);
+    text-align: center;
+  }
+  .patternBlurb .accent { color: var(--accent); }
+  .scene.active .patternDraw {
+    stroke-dasharray: var(--len, 300);
+    animation: drawIn 1200ms ease both;
+  }
+  .scene.active .pcol-1 .patternDraw { animation-delay: 200ms; }
+  .scene.active .pcol-2 .patternDraw { animation-delay: 700ms; }
+  .scene.active .pcol-3 .patternDraw { animation-delay: 1200ms; }
+  .scene.active .pcol-1 .pname { animation: fadeUp 700ms ease 1400ms both; }
+  .scene.active .pcol-2 .pname { animation: fadeUp 700ms ease 1900ms both; }
+  .scene.active .pcol-3 .pname { animation: fadeUp 700ms ease 2400ms both; }
+  .scene.active .patternBlurb { animation: fadeUp 800ms ease 3200ms both; }
+
+  /* ── Scene: Conviction ── */
+  .scene-conviction { position: relative; }
+  .conviction-wrap {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 32px;
+  }
+  .conviction-icon { width: clamp(180px, 22vw, 320px); height: auto; }
+  .conviction-title {
+    font-size: clamp(28px, 3.6vw, 56px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .conviction-title em { font-style: italic; color: var(--accent); font-weight: 400; }
+  .convictionLabels {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .convictionLabels .lbl {
+    position: absolute;
+    font-size: clamp(13px, 1.3vw, 18px);
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    opacity: 0;
+  }
+  .convictionLabels .lbl-data    { top: 10%; left: 22%; }
+  .convictionLabels .lbl-case    { top: 10%; right: 22%; }
+  .convictionLabels .lbl-audience{ bottom: 30%; left: 50%; transform: translateX(-50%); }
+
+  /* ── Scene: Historical bets ── */
+  .scene-bet .betLayout {
+    display: flex; align-items: center; gap: 60px;
+    width: 90%; max-width: 1100px;
+  }
+  .scene-bet .betLeft {
+    flex: 1;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .scene-bet .betCompany {
+    font-size: clamp(40px, 5vw, 80px);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+  }
+  .scene-bet .betLine {
+    font-size: clamp(16px, 1.6vw, 22px);
+    color: var(--ink-dim);
+    font-weight: 400;
+  }
+  .scene-bet .betLine em { color: var(--accent); font-style: italic; }
+  .scene-bet .betGeom {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    height: 200px;
+  }
+  .scene-bet .betGeom svg { width: 100%; max-width: 320px; }
+  .scene.active .geomBefore { animation: fadeOut 1500ms ease 800ms both; }
+  .scene.active .geomAfter  { animation: fadeIn 1500ms ease 1800ms both; }
+  @keyframes fadeOut {
+    from { opacity: 0.7; }
+    to   { opacity: 0; }
+  }
+
+  /* ── Scene: GrowthOS arrives ── */
+  .scene-arrives .arriveStack {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 28px;
+  }
+  .arriveStar {
+    width: clamp(60px, 7vw, 110px);
+    height: clamp(60px, 7vw, 110px);
+    background: var(--ink);
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><path d='M81.94 37.98L67.04 0H53.75H53.35L38.05 37.75L0 52.69V66.39L37.76 81.7L52.67 119.7H66.36L81.67 81.92L119.69 67V53.3L81.94 37.99V37.98Z' fill='black'/></svg>") center/contain no-repeat;
+    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><path d='M81.94 37.98L67.04 0H53.75H53.35L38.05 37.75L0 52.69V66.39L37.76 81.7L52.67 119.7H66.36L81.67 81.92L119.69 67V53.3L81.94 37.99V37.98Z' fill='black'/></svg>") center/contain no-repeat;
+  }
+  .arriveTitle {
+    font-size: clamp(48px, 6vw, 92px);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+  }
+  .arriveSub {
+    font-size: clamp(14px, 1.5vw, 20px);
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    font-style: italic;
+  }
+
+  /* ── Scene: One place ── */
+  .scene-onePlace { position: relative; }
+  .opStage { position: relative; width: 70vw; height: 60vh; }
+  .opCard {
+    position: absolute;
+    padding: 18px 28px;
+    border: 1px solid rgba(168,124,255,0.45);
+    border-radius: 14px;
+    background: rgba(168,124,255,0.06);
+    font-size: clamp(12px, 1.2vw, 16px);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0;
+  }
+  .opCard.research { top: 8%;  left: 8%; }
+  .opCard.analysis { top: 8%;  right: 8%; }
+  .opCard.workflow { bottom: 25%; left: 50%; transform: translateX(-50%); }
+  .opUnified {
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: clamp(160px, 18vw, 280px);
+    height: clamp(160px, 18vw, 280px);
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(168,124,255,0.16), transparent 70%);
+    opacity: 0;
+  }
+  .opUnified::before {
+    content: 'One place. One POV.';
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: clamp(14px, 1.4vw, 18px);
+    color: var(--ink);
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  .scene.active .opCard.research  { animation: fadeUp 700ms ease 200ms both, drift 2000ms ease 1500ms forwards; }
+  .scene.active .opCard.analysis  { animation: fadeUp 700ms ease 500ms both, drift 2000ms ease 1500ms forwards; }
+  .scene.active .opCard.workflow  { animation: fadeUp 700ms ease 800ms both, drift 2000ms ease 1500ms forwards; }
+  .scene.active .opUnified        { animation: fadeIn 1500ms ease 2800ms both; }
+  @keyframes drift {
+    to { opacity: 0.2; transform: translate(0, 0) scale(0.8); }
+  }
+  .scene.active .opCard.workflow {
+    animation: fadeUp 700ms ease 800ms both, driftCenter 2000ms ease 1500ms forwards;
+  }
+  @keyframes driftCenter {
+    to { opacity: 0.2; transform: translateX(-50%) scale(0.8); }
+  }
+
+  /* ── Scene: Three roles ── */
+  .scene-roles .rolesGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4vw;
+    width: 90%; max-width: 1100px;
+    position: relative;
+  }
+  .roleCol {
+    text-align: center;
+    display: flex; flex-direction: column;
+    gap: 28px;
+    align-items: center;
+  }
+  .roleLabel {
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .roleSlot {
+    width: 100%;
+    height: 200px;
+    border: 1px dashed rgba(168,124,255,0.22);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .artifact {
+    position: absolute;
+    top: 50%; left: 16.5%;
+    transform: translate(-50%, -50%);
+    width: clamp(80px, 10vw, 140px);
+    height: clamp(60px, 7vw, 100px);
+    background: rgba(168,124,255,0.18);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    opacity: 0;
+    z-index: 5;
+  }
+  .artifact .tag {
+    position: absolute;
+    font-size: 10px;
+    padding: 3px 8px;
+    background: rgba(168,124,255,0.32);
+    border-radius: 999px;
+    opacity: 0;
+    color: var(--ink);
+    letter-spacing: 0.18em;
+  }
+  .artifact .tag.t1 { top: -10px; right: -20px; }
+  .artifact .tag.t2 { bottom: -10px; left: -10px; background: rgba(245,166,35,0.28); color: #F5A623; }
+  .scene.active .artifact {
+    animation: artifactMove 6000ms ease 600ms forwards;
+  }
+  @keyframes artifactMove {
+    0%   { left: 16.5%; opacity: 0; }
+    8%   { opacity: 1; }
+    30%  { left: 50%; }
+    65%  { left: 83.5%; }
+    100% { left: 83.5%; opacity: 1; }
+  }
+  .scene.active .artifact .tag.t1 { animation: fadeIn 600ms ease 2400ms both; }
+  .scene.active .artifact .tag.t2 { animation: fadeIn 600ms ease 4400ms both; }
+
+  /* ── Scene: Compounding network ── */
+  .scene-network { position: relative; }
+  .networkStage { width: 80vw; height: 60vh; position: relative; }
+  .networkStage svg { width: 100%; height: 100%; }
+  .networkCaption {
+    position: absolute;
+    bottom: 8%;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: clamp(14px, 1.5vw, 20px);
+    color: var(--ink-dim);
+  }
+  .networkCaption .accent { color: var(--accent); }
+  .scene.active .netLine {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: drawIn 1500ms ease both;
+  }
+  .scene.active .netLine-1 { animation-delay: 400ms; }
+  .scene.active .netLine-2 { animation-delay: 700ms; }
+  .scene.active .netLine-3 { animation-delay: 1000ms; }
+  .scene.active .netLine-4 { animation-delay: 1300ms; }
+  .scene.active .netLine-5 { animation-delay: 1600ms; }
+  .scene.active .netLine-6 { animation-delay: 1900ms; }
+  .scene.active .netCenter { animation: fadeIn 1000ms ease 2200ms both; }
+  .scene.active .networkCaption { animation: fadeUp 800ms ease 2800ms both; }
+
+  /* ── Scene: Commitments grid ── */
+  .scene-commitments .commitmentsLayout {
+    width: 92%; max-width: 1200px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .commitmentsHeader {
+    text-align: center;
+    display: flex; flex-direction: column; gap: 6px;
+    margin-bottom: 6px;
+  }
+  .commitmentsEyebrow {
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .commitmentsTitle {
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+  }
+  .commitmentsTitle .accent { color: var(--accent); }
+  .commitGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr 1fr;
+    gap: 14px;
+  }
+  .commitGrid .cell {
+    padding: 16px 18px;
+    background: rgba(168,124,255,0.04);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    display: flex; flex-direction: column; gap: 8px;
+    opacity: 0;
+    min-height: 110px;
+  }
+  .commitGrid .cellNum {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .commitGrid .cellName {
+    font-size: clamp(13px, 1.2vw, 16px);
+    color: var(--ink);
+    font-weight: 400;
+    line-height: 1.25;
+  }
+  .scene.active .commitmentsHeader { animation: fadeUp 800ms ease 200ms both; }
+  .scene.active .commitGrid .cell:nth-child(1) { animation: fadeUp 700ms ease 1100ms both; }
+  .scene.active .commitGrid .cell:nth-child(2) { animation: fadeUp 700ms ease 1900ms both; }
+  .scene.active .commitGrid .cell:nth-child(3) { animation: fadeUp 700ms ease 2700ms both; }
+  .scene.active .commitGrid .cell:nth-child(4) { animation: fadeUp 700ms ease 3500ms both; }
+  .scene.active .commitGrid .cell:nth-child(5) { animation: fadeUp 700ms ease 4300ms both; }
+  .scene.active .commitGrid .cell:nth-child(6) { animation: fadeUp 700ms ease 5100ms both; }
+  .scene.active .commitGrid .cell:nth-child(7) { animation: fadeUp 700ms ease 5900ms both; }
+
+  /* ── Scene: Close ── */
+  .scene-close { position: relative; }
+  .closeStack {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 32px;
+  }
+  .closeLine {
+    font-size: clamp(24px, 3vw, 40px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    text-align: center;
+    max-width: 800px;
+  }
+  .closeLine .accent { color: var(--accent); }
+  .closeBrand {
+    margin-top: 24px;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 12px;
+    opacity: 0;
+  }
+  .closeBrand .word {
+    font-size: clamp(36px, 4vw, 64px);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+  }
+  .closeBrand .tag {
+    font-size: clamp(13px, 1.3vw, 18px);
+    color: var(--accent);
+    font-style: italic;
+  }
+  .scene.active .close1 { animation: fadeUp 900ms ease 200ms both, fadeOut 800ms ease 2200ms both; }
+  .scene.active .close2 { animation: fadeUp 900ms ease 3000ms both; }
+  .scene.active .closeBrand { animation: fadeIn 1200ms ease 4500ms both; }
+
+  /* ── Controls ── */
+  #controls {
+    height: 64px;
+    background: rgba(18,3,24,0.92);
+    border-top: 1px solid var(--rule);
+    display: flex; align-items: center;
+    padding: 0 24px;
+    gap: 16px;
+    backdrop-filter: blur(10px);
+  }
+  #controls.hidden { display: none; }
+  #controls button {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-dim);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 200ms, color 200ms;
+  }
+  #controls button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  #progress {
+    flex: 1;
+    height: 3px;
+    background: var(--rule);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  #progressBar {
+    height: 100%; width: 0%;
+    background: var(--accent);
+    transition: width 200ms linear;
+  }
+  #counter {
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    min-width: 60px;
+    text-align: right;
+  }
+
+  /* ── Comments section ── */
+  #commentSection {
+    padding: 80px 32px;
+    max-width: 760px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  #commentSection h2 {
+    font-size: 28px;
+    font-weight: 400;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  #commentSection .sub {
+    color: var(--ink-faint);
+    font-size: 13px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .commentForm {
+    display: flex; flex-direction: column; gap: 12px;
+    margin-bottom: 32px;
+  }
+  .commentForm input, .commentForm textarea {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 200ms;
+  }
+  .commentForm input:focus, .commentForm textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .commentForm textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  .commentForm button {
+    align-self: flex-start;
+    appearance: none;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  #commentList { display: flex; flex-direction: column; gap: 16px; }
+  .commentItem {
+    padding: 16px 18px;
+    background: rgba(168,124,255,0.04);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+  }
+  .commentItem .who {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .commentItem .name {
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 13px;
+  }
+  .commentItem .when {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .commentItem .body {
+    color: var(--ink-dim);
+    font-size: 14px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+  }
+  .commentItem .scene {
+    /* override the .scene class styles for this badge */
+    position: static;
+    opacity: 1;
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+    padding: 0;
+  }
+
+  @media (max-width: 720px) {
+    #stage { aspect-ratio: 4 / 5; }
+    .scene-bet .betLayout { flex-direction: column; gap: 24px; }
+    .commitGrid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div id="stage">
+
+    <!-- Poster (start screen) -->
+    <div id="poster">
+      <div class="posterSub">GrowthOS Manifesto 2027 · Intro</div>
+      <div class="posterTitle">A short intro to the FY27 plan.</div>
+      <div class="posterRule"></div>
+      <button id="startBtn">▶ Start</button>
+    </div>
+
+    <!-- Scene stack -->
+    <div id="sceneStack">
+
+      <!-- 1: Hook -->
+      <div class="scene scene-hook" data-id="hook" data-label="The gap">
+        <div class="sceneInner">
+          <div class="preamble fadeUp">The Tension</div>
+          <div class="row">
+            <div class="half half-left fadeUp fadeUp-1">what customers want</div>
+            <div class="half half-right fadeUp fadeUp-3">what companies make</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2: Stat 70% -->
+      <div class="scene scene-stat" data-id="stat-loyalty" data-label="Stat 1">
+        <div class="sceneInner">
+          <div class="stat">
+            <div class="pct fadeUp">70%</div>
+            <div class="cap fadeUp fadeUp-1">of Americans say they're less brand loyal than a year ago.</div>
+            <div class="src fadeUp fadeUp-2">Loyalty Tax Study · 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3: Stat 95% -->
+      <div class="scene scene-stat" data-id="stat-ai" data-label="Stat 2">
+        <div class="sceneInner">
+          <div class="stat">
+            <div class="pct fadeUp">95%</div>
+            <div class="cap fadeUp fadeUp-1">of enterprise GenAI pilots delivered zero P&amp;L impact against $30–40B in spend.</div>
+            <div class="src fadeUp fadeUp-2">MIT NANDA · The State of AI in Business · 2025</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4: Stat 70-90% -->
+      <div class="scene scene-stat" data-id="stat-launch" data-label="Stat 3">
+        <div class="sceneInner">
+          <div class="stat">
+            <div class="pct fadeUp">70–90%</div>
+            <div class="cap fadeUp fadeUp-1">of new products fail in their first year. The number hasn't moved in a generation.</div>
+            <div class="src fadeUp fadeUp-2">Nielsen · MIT Professional Education · HBR</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5: Customer leaves -->
+      <div class="scene scene-constellation" data-id="leaves" data-label="The customer leaves">
+        <div class="sceneInner">
+          <div class="constellation" id="constellation">
+            <!-- Dots generated by JS -->
+            <div class="dot leaver" style="top: 48%; left: 50%;"></div>
+          </div>
+          <div class="constellation-caption fadeUp fadeUp-1">
+            Companies have never had more data on the customer.
+            <br/><span class="accent">The customer is leaving anyway.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6: Three patterns -->
+      <div class="scene scene-patterns" data-id="patterns" data-label="The three patterns">
+        <div class="sceneInner">
+          <div class="grid3">
+            <div class="patternCol pcol-1">
+              <svg viewBox="0 0 200 160" fill="none">
+                <circle class="patternDraw" style="--len: 380" cx="100" cy="80" r="60"
+                        stroke="rgba(168,124,255,0.32)" stroke-width="1.5"/>
+                <path class="patternDraw" style="--len: 200" d="M 100 80 L 158 60 A 60 60 0 0 1 158 100 Z"
+                      fill="rgba(168,124,255,0.85)" stroke="rgba(168,124,255,0.85)" stroke-width="0"/>
+                <circle cx="100" cy="80" r="4" fill="#A87CFF"/>
+              </svg>
+              <div class="pname">The myopic bet.</div>
+            </div>
+            <div class="patternCol pcol-2">
+              <svg viewBox="0 0 200 160" fill="none">
+                <line class="patternDraw" style="--len: 180" x1="20" y1="60" x2="180" y2="60"
+                      stroke="rgba(168,124,255,0.32)" stroke-width="3" stroke-dasharray="4 6"/>
+                <line class="patternDraw" style="--len: 30" x1="20" y1="110" x2="50" y2="110"
+                      stroke="#A87CFF" stroke-width="3"/>
+                <text x="20" y="48" fill="rgba(168,124,255,0.55)" font-size="10" font-family="Graphik, Inter">NEEDED</text>
+                <text x="55" y="115" fill="#A87CFF" font-size="10" font-family="Graphik, Inter">SHIPPED</text>
+              </svg>
+              <div class="pname">The incremental bet.</div>
+            </div>
+            <div class="patternCol pcol-3">
+              <svg viewBox="0 0 200 160" fill="none">
+                <path class="patternDraw" style="--len: 460"
+                      d="M 30 30 L 170 30 L 130 90 L 130 120 L 70 120 L 70 90 Z"
+                      stroke="rgba(168,124,255,0.55)" stroke-width="1.5"
+                      fill="rgba(168,124,255,0.10)" stroke-linejoin="round"/>
+                <line class="patternDraw" style="--len: 30" x1="100" y1="115" x2="100" y2="145"
+                      stroke="#A87CFF" stroke-width="2" stroke-linecap="round"/>
+                <path class="patternDraw" style="--len: 20" d="M 92 138 L 100 145 L 108 138"
+                      stroke="#A87CFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div class="pname">The extractive bet.</div>
+            </div>
+          </div>
+          <div class="patternBlurb">All three <span class="accent">miss the gap.</span></div>
+        </div>
+      </div>
+
+      <!-- 7: Conviction bet -->
+      <div class="scene scene-conviction" data-id="conviction" data-label="The conviction bet">
+        <div class="sceneInner">
+          <div class="conviction-wrap">
+            <svg class="conviction-icon fadeUp" viewBox="0 0 200 200" fill="none">
+              <circle cx="50" cy="50" r="6" fill="rgba(168,124,255,0.85)"/>
+              <circle cx="150" cy="50" r="6" fill="rgba(168,124,255,0.85)"/>
+              <circle cx="100" cy="160" r="6" fill="rgba(168,124,255,0.85)"/>
+              <line x1="50" y1="50" x2="100" y2="100" stroke="rgba(168,124,255,0.45)" stroke-width="1.5"/>
+              <line x1="150" y1="50" x2="100" y2="100" stroke="rgba(168,124,255,0.45)" stroke-width="1.5"/>
+              <line x1="100" y1="160" x2="100" y2="100" stroke="rgba(168,124,255,0.45)" stroke-width="1.5"/>
+              <circle cx="100" cy="100" r="40" fill="none" stroke="#A87CFF" stroke-width="1" opacity="0.4"/>
+              <circle cx="100" cy="100" r="22" fill="#A87CFF" style="animation: pulse 2.5s ease-in-out infinite"/>
+            </svg>
+            <div class="conviction-title fadeUp fadeUp-1">The <em>conviction bet</em>.</div>
+          </div>
+          <div class="convictionLabels">
+            <div class="lbl lbl-data fadeUp fadeUp-3">data</div>
+            <div class="lbl lbl-case fadeUp fadeUp-4">case</div>
+            <div class="lbl lbl-audience fadeUp fadeUp-5">audience</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8: Netflix bet -->
+      <div class="scene scene-bet" data-id="bet-netflix" data-label="Netflix">
+        <div class="sceneInner">
+          <div class="betLayout">
+            <div class="betLeft">
+              <div class="betCompany fadeUp">Netflix.</div>
+              <div class="betLine fadeUp fadeUp-1">Bet broadband would kill the DVD <em>before DVD revenue did.</em></div>
+            </div>
+            <div class="betGeom fadeUp fadeUp-2">
+              <svg viewBox="0 0 320 120" fill="none">
+                <line class="geomBefore" x1="40" y1="60" x2="280" y2="60" stroke="rgba(255,255,255,0.5)" stroke-width="3"/>
+                <path class="geomAfter" d="M 40 60 Q 80 30 120 60 Q 160 90 200 60 Q 240 30 280 60"
+                      stroke="#A87CFF" stroke-width="2.5" fill="none"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9: Figma bet -->
+      <div class="scene scene-bet" data-id="bet-figma" data-label="Figma">
+        <div class="sceneInner">
+          <div class="betLayout">
+            <div class="betLeft">
+              <div class="betCompany fadeUp">Figma.</div>
+              <div class="betLine fadeUp fadeUp-1">Bet design belonged in the <em>browser,</em> not the desktop.</div>
+            </div>
+            <div class="betGeom fadeUp fadeUp-2">
+              <svg viewBox="0 0 320 120" fill="none">
+                <rect class="geomBefore" x="100" y="30" width="120" height="60" rx="4"
+                      stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none"/>
+                <g class="geomAfter">
+                  <rect x="40" y="40" width="60" height="40" rx="3" stroke="#A87CFF" stroke-width="1.5" fill="rgba(168,124,255,0.06)"/>
+                  <rect x="110" y="40" width="60" height="40" rx="3" stroke="#A87CFF" stroke-width="1.5" fill="rgba(168,124,255,0.06)"/>
+                  <rect x="180" y="40" width="60" height="40" rx="3" stroke="#A87CFF" stroke-width="1.5" fill="rgba(168,124,255,0.06)"/>
+                  <line x1="100" y1="60" x2="110" y2="60" stroke="rgba(168,124,255,0.5)" stroke-width="1"/>
+                  <line x1="170" y1="60" x2="180" y2="60" stroke="rgba(168,124,255,0.5)" stroke-width="1"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10: NVIDIA bet -->
+      <div class="scene scene-bet" data-id="bet-nvidia" data-label="NVIDIA">
+        <div class="sceneInner">
+          <div class="betLayout">
+            <div class="betLeft">
+              <div class="betCompany fadeUp">NVIDIA.</div>
+              <div class="betLine fadeUp fadeUp-1">Bet GPUs would matter for <em>compute,</em> not just graphics.</div>
+            </div>
+            <div class="betGeom fadeUp fadeUp-2">
+              <svg viewBox="0 0 320 120" fill="none">
+                <line class="geomBefore" x1="40" y1="60" x2="280" y2="60" stroke="rgba(255,255,255,0.5)" stroke-width="3"/>
+                <g class="geomAfter">
+                  <line x1="40" y1="30" x2="280" y2="30" stroke="#A87CFF" stroke-width="1.5"/>
+                  <line x1="40" y1="46" x2="280" y2="46" stroke="#A87CFF" stroke-width="1.5"/>
+                  <line x1="40" y1="62" x2="280" y2="62" stroke="#A87CFF" stroke-width="1.5"/>
+                  <line x1="40" y1="78" x2="280" y2="78" stroke="#A87CFF" stroke-width="1.5"/>
+                  <line x1="40" y1="94" x2="280" y2="94" stroke="#A87CFF" stroke-width="1.5"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11: GrowthOS arrives -->
+      <div class="scene scene-arrives" data-id="growthos-arrives" data-label="GrowthOS">
+        <div class="sceneInner">
+          <div class="arriveStack">
+            <div class="arriveStar fadeUp"></div>
+            <div class="arriveTitle fadeUp fadeUp-1">GrowthOS.</div>
+            <div class="arriveSub fadeUp fadeUp-2">The system to make conviction bets.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12: One place -->
+      <div class="scene scene-onePlace" data-id="one-place" data-label="One place">
+        <div class="sceneInner">
+          <div class="opStage">
+            <div class="opCard research">Research</div>
+            <div class="opCard analysis">Analysis</div>
+            <div class="opCard workflow">Workflow</div>
+            <div class="opUnified"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13: Three roles -->
+      <div class="scene scene-roles" data-id="three-roles" data-label="Three roles">
+        <div class="sceneInner">
+          <div class="rolesGrid">
+            <div class="roleCol fadeUp">
+              <div class="roleLabel">Practitioner</div>
+              <div class="roleSlot"></div>
+            </div>
+            <div class="roleCol fadeUp fadeUp-1">
+              <div class="roleLabel">Manager</div>
+              <div class="roleSlot"></div>
+            </div>
+            <div class="roleCol fadeUp fadeUp-2">
+              <div class="roleLabel">Executive</div>
+              <div class="roleSlot"></div>
+            </div>
+            <div class="artifact">
+              The case
+              <span class="tag t1">+ source</span>
+              <span class="tag t2">+ counter</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 14: Compounding network -->
+      <div class="scene scene-network" data-id="network" data-label="The moat compounds">
+        <div class="sceneInner">
+          <div class="networkStage">
+            <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet">
+              <!-- Network lines (lavender, drawing in) -->
+              <line class="netLine netLine-1" x1="150" y1="100" x2="400" y2="250" stroke="rgba(168,124,255,0.4)" stroke-width="0.8"/>
+              <line class="netLine netLine-2" x1="650" y1="120" x2="400" y2="250" stroke="rgba(168,124,255,0.4)" stroke-width="0.8"/>
+              <line class="netLine netLine-3" x1="120" y1="380" x2="400" y2="250" stroke="rgba(168,124,255,0.4)" stroke-width="0.8"/>
+              <line class="netLine netLine-4" x1="680" y1="400" x2="400" y2="250" stroke="rgba(168,124,255,0.4)" stroke-width="0.8"/>
+              <line class="netLine netLine-5" x1="280" y1="60" x2="400" y2="250" stroke="rgba(168,124,255,0.4)" stroke-width="0.8"/>
+              <line class="netLine netLine-6" x1="540" y1="440" x2="400" y2="250" stroke="rgba(168,124,255,0.4)" stroke-width="0.8"/>
+              <!-- Faint nodes -->
+              <circle cx="150" cy="100" r="5" fill="rgba(168,124,255,0.6)"/>
+              <circle cx="650" cy="120" r="5" fill="rgba(168,124,255,0.6)"/>
+              <circle cx="120" cy="380" r="4" fill="rgba(168,124,255,0.6)"/>
+              <circle cx="680" cy="400" r="4" fill="rgba(168,124,255,0.6)"/>
+              <circle cx="280" cy="60" r="4" fill="rgba(168,124,255,0.6)"/>
+              <circle cx="540" cy="440" r="4" fill="rgba(168,124,255,0.6)"/>
+              <!-- Other faint dots -->
+              <circle cx="80" cy="220" r="3" fill="rgba(168,124,255,0.35)"/>
+              <circle cx="720" cy="260" r="3" fill="rgba(168,124,255,0.35)"/>
+              <circle cx="350" cy="450" r="3" fill="rgba(168,124,255,0.35)"/>
+              <circle cx="460" cy="80" r="3" fill="rgba(168,124,255,0.35)"/>
+              <!-- Central node -->
+              <g class="netCenter">
+                <circle cx="400" cy="250" r="22" fill="#A87CFF"/>
+                <circle cx="400" cy="250" r="36" fill="none" stroke="#A87CFF" stroke-width="0.8" opacity="0.45"/>
+              </g>
+            </svg>
+          </div>
+          <div class="networkCaption">
+            Generic AI has no memory of your last project.
+            <br/><span class="accent">GrowthOS does.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 15: FY27 commitments -->
+      <div class="scene scene-commitments" data-id="commitments" data-label="FY27 commitments">
+        <div class="sceneInner">
+          <div class="commitmentsLayout">
+            <div class="commitmentsHeader">
+              <div class="commitmentsEyebrow">The work ahead</div>
+              <div class="commitmentsTitle">FY27. <span class="accent">Seven commitments.</span></div>
+            </div>
+            <div class="commitGrid">
+              <div class="cell"><div class="cellNum">01</div><div class="cellName">Make Growthmentor the conversational coach.</div></div>
+              <div class="cell"><div class="cellNum">02</div><div class="cellName">Make activation the strongest moment in the product.</div></div>
+              <div class="cell"><div class="cellNum">03</div><div class="cellName">Build for the manager and the executive.</div></div>
+              <div class="cell"><div class="cellNum">04</div><div class="cellName">Make collaboration effortless and continuous.</div></div>
+              <div class="cell"><div class="cellNum">05</div><div class="cellName">Make Foundations a live research stack.</div></div>
+              <div class="cell"><div class="cellNum">06</div><div class="cellName">Make the UDL the way GrowthOS grows smarter.</div></div>
+              <div class="cell"><div class="cellNum">07</div><div class="cellName">Win the depth fight inside every named feature.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 16: Close -->
+      <div class="scene scene-close" data-id="close" data-label="The close">
+        <div class="sceneInner">
+          <div class="closeStack">
+            <div class="closeLine close1">Closing the gap is not a feature.</div>
+            <div class="closeLine close2">It's the system that <span class="accent">makes the stack unnecessary.</span></div>
+            <div class="closeBrand">
+              <div class="word">GrowthOS</div>
+              <div class="tag">That's the year.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /sceneStack -->
+
+    <!-- Controls -->
+    <div id="controls" class="hidden">
+      <button id="prevBtn" title="Previous">←</button>
+      <button id="playPauseBtn" title="Play/Pause">⏸</button>
+      <button id="nextBtn" title="Next">→</button>
+      <div id="progress"><div id="progressBar"></div></div>
+      <span id="counter">01 / 16</span>
+    </div>
+
+  </div><!-- /stage -->
+
+  <!-- Comments section (Firebase Firestore) -->
+  <section id="commentSection">
+    <h2>Leave a thought.</h2>
+    <div class="sub">
+      Initials or a name are fine. Comments are public to anyone who opens this page.
+      Anchor to a scene if you want — the current scene is auto-tagged.
+    </div>
+    <div class="commentForm">
+      <input type="text" id="commentName" placeholder="Your name or initials" maxlength="40"/>
+      <textarea id="commentBody" placeholder="What landed? What didn't?"></textarea>
+      <button id="commentSubmit">Post comment</button>
+      <div id="commentStatus" style="font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px;"></div>
+    </div>
+    <div id="commentList"></div>
+  </section>
+
+</div><!-- /app -->
+
+<script>
+  // ─── Constellation: generate dots ───
+  (function buildConstellation() {
+    const el = document.getElementById('constellation');
+    if (!el) return;
+    const COUNT = 80;
+    for (let i = 0; i < COUNT; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot';
+      d.style.left = (Math.random() * 100) + '%';
+      d.style.top  = (Math.random() * 100) + '%';
+      d.style.animationDelay = (Math.random() * 3) + 's';
+      el.insertBefore(d, el.firstChild);
+    }
+  })();
+
+  // ─── Video player engine ───
+  const scenes = Array.from(document.querySelectorAll('#sceneStack .scene'));
+  // Per-scene durations (ms). Tuned so total runtime is around 90–100 seconds.
+  const DURATIONS = [
+    5500,  // hook
+    3500,  // stat 70%
+    3500,  // stat 95%
+    3500,  // stat 70-90%
+    6000,  // customer leaves
+    6500,  // three patterns
+    6500,  // conviction
+    4500,  // netflix
+    4500,  // figma
+    4500,  // nvidia
+    4500,  // arrives
+    6000,  // one place
+    8000,  // three roles
+    6000,  // network
+    8500,  // commitments
+    8000,  // close
+  ];
+  let currentIdx = 0;
+  let playing = false;
+  let sceneTimer = null;
+  let sceneStartTime = 0;
+  let sceneElapsed = 0;
+  let progressInterval = null;
+
+  const poster = document.getElementById('poster');
+  const controls = document.getElementById('controls');
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const progressBar = document.getElementById('progressBar');
+  const counter = document.getElementById('counter');
+  const startBtn = document.getElementById('startBtn');
+
+  function setScene(i, { restart = true } = {}) {
+    if (i < 0 || i >= scenes.length) return;
+    currentIdx = i;
+    scenes.forEach((s, idx) => {
+      s.classList.toggle('active', idx === i);
+    });
+    counter.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(scenes.length).padStart(2, '0');
+    sceneStartTime = Date.now();
+    sceneElapsed = 0;
+    if (restart) {
+      // Force reflow so CSS animations re-run on .active
+      const el = scenes[i];
+      el.classList.remove('active');
+      // eslint-disable-next-line no-unused-expressions
+      void el.offsetWidth;
+      el.classList.add('active');
+    }
+    updateProgress();
+  }
+
+  function updateProgress() {
+    if (!playing) return;
+    const totalDuration = DURATIONS[currentIdx];
+    const elapsed = sceneElapsed + (Date.now() - sceneStartTime);
+    const overall = (currentIdx + Math.min(1, elapsed / totalDuration)) / scenes.length;
+    progressBar.style.width = (overall * 100) + '%';
+  }
+
+  function startSceneTimer() {
+    clearTimeout(sceneTimer);
+    const remain = DURATIONS[currentIdx] - sceneElapsed;
+    sceneTimer = setTimeout(() => {
+      if (currentIdx + 1 >= scenes.length) {
+        pause();
+        playPauseBtn.textContent = '↻';
+        playPauseBtn.title = 'Restart';
+        return;
+      }
+      sceneElapsed = 0;
+      setScene(currentIdx + 1);
+      startSceneTimer();
+    }, remain);
+  }
+
+  function play() {
+    playing = true;
+    sceneStartTime = Date.now();
+    startSceneTimer();
+    playPauseBtn.textContent = '⏸';
+    if (progressInterval) clearInterval(progressInterval);
+    progressInterval = setInterval(updateProgress, 100);
+  }
+
+  function pause() {
+    playing = false;
+    clearTimeout(sceneTimer);
+    sceneElapsed += Date.now() - sceneStartTime;
+    if (progressInterval) clearInterval(progressInterval);
+    playPauseBtn.textContent = '▶';
+  }
+
+  function restart() {
+    sceneElapsed = 0;
+    setScene(0);
+    play();
+  }
+
+  playPauseBtn.addEventListener('click', () => {
+    if (currentIdx + 1 >= scenes.length && !playing) {
+      restart();
+    } else if (playing) {
+      pause();
+    } else {
+      sceneStartTime = Date.now();
+      play();
+    }
+  });
+  prevBtn.addEventListener('click', () => {
+    sceneElapsed = 0;
+    setScene(Math.max(0, currentIdx - 1));
+    if (playing) play();
+  });
+  nextBtn.addEventListener('click', () => {
+    sceneElapsed = 0;
+    setScene(Math.min(scenes.length - 1, currentIdx + 1));
+    if (playing) play();
+  });
+
+  startBtn.addEventListener('click', () => {
+    poster.classList.add('hidden');
+    controls.classList.remove('hidden');
+    setScene(0);
+    play();
+  });
+
+  // Keyboard controls
+  document.addEventListener('keydown', (e) => {
+    if (poster && !poster.classList.contains('hidden')) return;
+    if (e.code === 'Space') { e.preventDefault(); playPauseBtn.click(); }
+    if (e.code === 'ArrowLeft')  prevBtn.click();
+    if (e.code === 'ArrowRight') nextBtn.click();
+  });
+
+  // ─── Comments (Firebase Firestore) ───
+  const listEl = document.getElementById('commentList');
+  const nameEl = document.getElementById('commentName');
+  const bodyEl = document.getElementById('commentBody');
+  const submitEl = document.getElementById('commentSubmit');
+  const statusEl = document.getElementById('commentStatus');
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[c]));
+  }
+
+  function renderComments(comments) {
+    listEl.innerHTML = '';
+    if (!comments.length) {
+      const empty = document.createElement('div');
+      empty.style.color = 'rgba(255,255,255,0.32)';
+      empty.style.fontSize = '13px';
+      empty.style.textAlign = 'center';
+      empty.style.padding = '20px';
+      empty.textContent = 'No comments yet. Be the first.';
+      listEl.appendChild(empty);
+      return;
+    }
+    comments.forEach((c) => {
+      const div = document.createElement('div');
+      div.className = 'commentItem';
+      const sceneBadge = c.scene ? `<div class="scene">Scene · ${escapeHtml(c.scene)}</div>` : '';
+      const when = c.ts ? new Date(c.ts).toLocaleString() : '';
+      div.innerHTML = sceneBadge +
+        `<div class="who"><div class="name">${escapeHtml(c.name || 'Anonymous')}</div>` +
+        `<div class="when">${when}</div></div>` +
+        `<div class="body">${escapeHtml(c.body)}</div>`;
+      listEl.appendChild(div);
+    });
+  }
+
+  // Initialize Firebase (modular SDK via CDN)
+  const firebaseConfig = {
+    apiKey: "AIzaSyBhrrBWIfYQUhKpRse5wA2rH9MTn2mcmSQ",
+    authDomain: "growthos-manifesto.firebaseapp.com",
+    projectId: "growthos-manifesto",
+    storageBucket: "growthos-manifesto.firebasestorage.app",
+    messagingSenderId: "203721735013",
+    appId: "1:203721735013:web:aa96eaf74e82f888febf8c"
+  };
+
+  (async () => {
+    try {
+      const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js');
+      const { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } =
+        await import('https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js');
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const commentsCol = collection(db, 'comments');
+
+      // Real-time subscription — newest first
+      const q = query(commentsCol, orderBy('ts', 'desc'));
+      onSnapshot(q, (snap) => {
+        const items = [];
+        snap.forEach((doc) => {
+          const d = doc.data();
+          items.push({
+            name: d.name,
+            body: d.body,
+            scene: d.scene,
+            ts: d.ts && d.ts.toMillis ? d.ts.toMillis() : Date.now(),
+          });
+        });
+        renderComments(items);
+      }, (err) => {
+        console.error('comments listen error', err);
+        statusEl.textContent = 'Live updates unavailable. ' + (err.message || '');
+      });
+
+      submitEl.addEventListener('click', async () => {
+        const name = nameEl.value.trim();
+        const body = bodyEl.value.trim();
+        if (!body) {
+          statusEl.textContent = 'Write something first.';
+          return;
+        }
+        submitEl.disabled = true;
+        statusEl.textContent = 'Posting...';
+        try {
+          await addDoc(commentsCol, {
+            name: name || 'Anonymous',
+            body,
+            scene: scenes[currentIdx]?.dataset.label || null,
+            ts: serverTimestamp(),
+          });
+          bodyEl.value = '';
+          statusEl.textContent = 'Posted.';
+          setTimeout(() => { statusEl.textContent = ''; }, 2000);
+        } catch (err) {
+          console.error('post error', err);
+          statusEl.textContent = 'Could not post: ' + (err.message || 'unknown error');
+        } finally {
+          submitEl.disabled = false;
+        }
+      });
+    } catch (err) {
+      console.error('Firebase init failed', err);
+      statusEl.textContent = 'Comments unavailable: ' + (err.message || 'init failed');
+    }
+  })();
+</script>
+</body>
+</html>

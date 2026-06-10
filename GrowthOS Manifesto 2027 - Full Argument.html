@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>GrowthOS Manifesto 2027 — The Article</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-Light.otf') format('opentype');
+    font-weight: 300; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-Regular.otf') format('opentype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-RegularItalic.otf') format('opentype');
+    font-weight: 400; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-Semibold.otf') format('opentype');
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+  :root {
+    --bg: #120318;
+    --accent: #6936F5;
+    --accent-soft: #A87CFF;
+    --ink: #FFFFFF;
+    --ink-dim: rgba(255,255,255,0.78);
+    --ink-faint: rgba(255,255,255,0.42);
+    --ink-ghost: rgba(255,255,255,0.12);
+    --rule: rgba(255,255,255,0.12);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: 'Graphik', 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  html { scroll-behavior: smooth; }
+
+  /* Main container — narrow column for reading */
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 32px 160px;
+  }
+
+  /* Document header */
+  .docHeader {
+    margin-bottom: 80px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .docEyebrow {
+    font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 16px;
+  }
+  .docTitle {
+    font-size: 48px; line-height: 1.08; letter-spacing: -0.025em;
+    font-weight: 400;
+    margin: 0 0 24px;
+  }
+  .docMeta {
+    font-size: 14px; color: var(--ink-faint);
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .docMeta a {
+    color: var(--accent-soft); text-decoration: none;
+  }
+  .docMeta a:hover { text-decoration: underline; }
+
+  /* Section structure */
+  section.essay {
+    margin-bottom: 96px;
+  }
+  section.essay h2 {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 36px; line-height: 1.15; letter-spacing: -0.02em;
+    font-weight: 400;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+  section.essay h3 {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 22px; line-height: 1.25; letter-spacing: -0.015em;
+    font-weight: 400;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+  section.essay h4 {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 17px; letter-spacing: 0.04em; text-transform: uppercase;
+    font-weight: 400;
+    color: var(--accent-soft);
+    margin: 32px 0 14px;
+  }
+  section.essay .eyebrow {
+    font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 14px;
+  }
+  section.essay p {
+    margin: 0 0 18px;
+    color: var(--ink-dim);
+  }
+  section.essay p strong { color: var(--ink); font-weight: 500; }
+  section.essay em { color: var(--accent-soft); font-style: italic; }
+  section.essay a {
+    color: var(--accent-soft);
+    text-decoration: underline;
+    text-decoration-color: rgba(168,124,255,0.4);
+    text-underline-offset: 2px;
+  }
+  .accent { color: var(--accent-soft); }
+
+  /* Pull quote */
+  .pullQuote {
+    margin: 36px 0;
+    padding: 28px 32px;
+    border-left: 3px solid var(--accent-soft);
+    background: rgba(168,124,255,0.04);
+    border-radius: 8px;
+  }
+  .pullQuote .q {
+    font-size: 22px; line-height: 1.4; letter-spacing: -0.01em;
+    color: var(--ink); margin-bottom: 12px;
+    font-weight: 400;
+  }
+  .pullQuote .q em { color: var(--accent-soft); font-style: italic; }
+  .pullQuote .cite {
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* Stakes paragraph emphasis */
+  p .accent { font-weight: 500; }
+
+  /* Example block (for bet examples) */
+  .examples {
+    margin: 24px 0 32px;
+    padding: 0;
+  }
+  .example {
+    margin-bottom: 22px;
+    padding: 18px 22px;
+    border: 1px solid var(--rule);
+    background: rgba(168,124,255,0.03);
+    border-radius: 10px;
+  }
+  .example .head {
+    display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .example .who {
+    font-size: 16px; font-weight: 500; color: var(--ink);
+  }
+  .example .what {
+    font-size: 14px; color: var(--accent-soft); font-style: italic;
+  }
+  .example .dot { color: var(--ink-faint); }
+  .example .line {
+    font-size: 15px; color: var(--ink-dim); line-height: 1.55;
+    margin-bottom: 12px;
+  }
+  .example .stats {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(168,124,255,0.18);
+  }
+  .example .stat {
+    font-size: 11px; padding: 4px 10px;
+    background: rgba(168,124,255,0.06);
+    border: 1px solid rgba(168,124,255,0.16);
+    border-radius: 999px;
+    color: var(--accent-soft);
+  }
+
+  /* Commitments — hairline-rule manifesto list */
+  .commitmentList {
+    margin: 24px 0 12px;
+    border-top: 1px solid rgba(168,124,255,0.32);
+  }
+  .commitment {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 24px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .commitment .num {
+    font-size: 12px; letter-spacing: 0.32em;
+    color: var(--accent-soft); font-weight: 400;
+    padding-top: 10px;
+  }
+  .commitment .name {
+    font-size: 24px; line-height: 1.2; letter-spacing: -0.02em;
+    color: var(--ink); font-weight: 400;
+    margin: 0 0 14px;
+  }
+  .commitment .body {
+    font-size: 15.5px; line-height: 1.6;
+    color: var(--ink-dim);
+    margin: 0;
+  }
+  @media (max-width: 640px) {
+    .commitment { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
+    .commitment .num { padding-top: 0; }
+    .commitment .name { font-size: 19px; }
+  }
+
+  /* Principle / sub-principle */
+  .principle {
+    margin-bottom: 36px;
+  }
+  .principle .pnum {
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 8px;
+  }
+  .principle .pname {
+    font-size: 26px; font-weight: 400; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0 0 10px;
+  }
+  .principle .pintro {
+    font-size: 16px; color: var(--ink-dim); margin-bottom: 16px;
+    line-height: 1.6;
+  }
+  .subPrinciple {
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 2px solid rgba(168,124,255,0.22);
+  }
+  .subPrinciple .sn {
+    font-size: 14px; font-weight: 500; color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .subPrinciple .sb {
+    font-size: 14px; line-height: 1.55; color: var(--ink-dim);
+  }
+
+  /* Sources */
+  .sources {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    font-size: 13px;
+  }
+  .sources .srcLabel {
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 14px;
+  }
+  .sources ol {
+    list-style: none; margin: 0; padding: 0;
+  }
+  .sources li {
+    padding: 6px 0;
+    color: var(--ink-faint);
+    line-height: 1.55;
+  }
+  .sources .srcNum { color: var(--accent-soft); margin-right: 6px; }
+
+  /* Section divider */
+  .sectionRule {
+    margin: 72px 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--rule), transparent);
+  }
+
+  /* Closing */
+  .closing {
+    text-align: center;
+    margin-top: 96px;
+    padding-top: 56px;
+    border-top: 1px solid var(--rule);
+  }
+  .closing .mark {
+    font-size: 28px; color: var(--accent-soft);
+    letter-spacing: -0.02em; font-weight: 400;
+    margin-bottom: 12px;
+  }
+  .closing .tagline {
+    font-size: 18px; color: var(--ink-dim);
+  }
+  .closing .tagline em { color: var(--accent-soft); font-style: italic; }
+
+  /* Layer/audience cards */
+  .role {
+    margin-bottom: 28px;
+    padding: 22px 26px;
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+  }
+  .role .label {
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--accent-soft); margin-bottom: 8px;
+  }
+  .role .rname {
+    font-size: 22px; font-weight: 400; margin: 0 0 6px;
+    color: var(--ink);
+  }
+  .role .headline {
+    font-size: 15px; font-style: italic; color: var(--accent-soft);
+    margin-bottom: 12px;
+  }
+  .role .rbody {
+    font-size: 15px; line-height: 1.6; color: var(--ink-dim);
+    margin: 0 0 16px;
+  }
+  .roleFailure {
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: rgba(168,124,255,0.05);
+    border-left: 3px solid var(--accent-soft);
+    border-radius: 6px;
+  }
+  .roleFailureLabel {
+    font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); margin-bottom: 6px;
+  }
+  .roleFailureLine {
+    font-size: 14px; line-height: 1.55; color: var(--ink-dim);
+  }
+  .roleFailureLine strong {
+    color: var(--ink); font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    main { padding: 56px 24px 100px; }
+    .docTitle { font-size: 32px; }
+    section.essay h2 { font-size: 26px; }
+    .commitment { grid-template-columns: 1fr; gap: 10px; padding: 20px 22px; }
+    .commitment .num { font-size: 22px; }
+    .pullQuote { padding: 22px 24px; }
+    .pullQuote .q { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="docHeader">
+  <div class="docEyebrow">GrowthOS · Manifesto 2027</div>
+  <h1 class="docTitle">The article.</h1>
+  <div class="docMeta">
+    <span>Draft</span>
+    <span>·</span>
+    <a href="./GrowthOS%20Manifesto%202027.html">Interactive prototype →</a>
+  </div>
+</header>
+
+<!-- ─────────────────────────────────────────── -->
+<section class="essay" id="truth">
+  <div class="eyebrow">The Tension</div>
+  <h2>The widest gap in business is between what customers want and what companies make.</h2>
+
+  <p>
+    The cost of being wrong just spiked. Capital is expensive, tariffs are unstable, the customer is
+    walking. <span class="accent">70%</span> of Americans say they're less brand loyal than a year ago.<sup><a href="#src-1">¹</a></sup>
+    <span class="accent">95%</span> of enterprise GenAI pilots have delivered zero measurable P&amp;L impact
+    against $30–40B in spend.<sup><a href="#src-2">²</a></sup> Year-one product mortality runs
+    <span class="accent">70–90%</span> across every major industry, unchanged in a generation.<sup><a href="#src-3">³</a></sup>
+    Companies have more telemetry on the customer than at any point in history. The customer is leaving anyway.
+  </p>
+
+  <p>
+    The gap isn't a data problem. The gap is a <em>bet</em> problem. Look at any product that missed
+    its market, in any industry, and the bet behind it landed in one of three conventional patterns.
+  </p>
+</section>
+
+<!-- ─────────────────────────────────────────── -->
+<section class="essay" id="conventional-bets">
+  <div class="eyebrow">Three Conventional Bets</div>
+  <h2>How companies miss the gap.</h2>
+
+  <h3>01 — The myopic bet.</h3>
+  <p>
+    The idea came from one person's office. It reflects what they noticed, who they talked to, what
+    their team had been obsessing over for the last quarter. It looks defensible inside the building
+    until it meets the customer it was meant for. Then it dies.
+  </p>
+  <div class="examples">
+    <div class="example">
+      <div class="head"><span class="who">Apple</span><span class="dot">·</span><span class="what">Project Titan</span></div>
+      <div class="line">Built for an Apple version of mobility the mobility market never asked for. Cancelled February 2024.</div>
+      <div class="stats">
+        <span class="stat">2014–2024</span>
+        <span class="stat">~$10B spent</span>
+        <span class="stat">2,000+ engineers at peak</span>
+        <span class="stat">600+ laid off at cancellation</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">Humane</span><span class="dot">·</span><span class="what">AI Pin</span></div>
+      <div class="line">Founders' conviction in wearable AI. Returns exceeded sales within months of the $699 launch.</div>
+      <div class="stats">
+        <span class="stat">$230M raised</span>
+        <span class="stat">Launched Apr 2024</span>
+        <span class="stat">Sold to HP for $116M (Feb 2025)</span>
+        <span class="stat">Subscription required: $24/mo</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">Amazon × Berkshire × JPMorgan</span><span class="dot">·</span><span class="what">Haven</span></div>
+      <div class="line">Three CEOs' theory of how to fix US healthcare. Dissolved with no shipped product.</div>
+      <div class="stats">
+        <span class="stat">2018–2021</span>
+        <span class="stat">Atul Gawande, CEO</span>
+        <span class="stat">0 products launched</span>
+        <span class="stat">1.2M employees covered in scope</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">CNN</span><span class="dot">·</span><span class="what">CNN+</span></div>
+      <div class="line">A premium streaming news product nobody had asked for. Killed 30 days after launch.</div>
+      <div class="stats">
+        <span class="stat">Mar 29 → Apr 28, 2022</span>
+        <span class="stat">$300M+ spent pre-launch</span>
+        <span class="stat">~10K DAU at peak</span>
+        <span class="stat">350+ jobs cut</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>02 — The incremental bet.</h3>
+  <p>
+    A 3% feature added to a product already missing the 30% the customer needed in the first place.
+    The team is too busy keeping the boat in its lane to notice the lane is empty. Innovation budgets
+    get spent defending the existing roadmap from the customer's actual reality.
+  </p>
+  <div class="examples">
+    <div class="example">
+      <div class="head"><span class="who">US banks</span><span class="dot">·</span><span class="what">AI chatbots</span></div>
+      <div class="line">Conversational AI bolted into mobile apps while fraud-dispute hold times still run 30–50+ minutes.</div>
+      <div class="stats">
+        <span class="stat">$17B JPM tech spend (2024)</span>
+        <span class="stat">Erica, Cora, et al.</span>
+        <span class="stat">Wireline NPS at decade lows</span>
+        <span class="stat">Hold-time complaints up YoY</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">Salesforce, ServiceNow, Workday</span><span class="dot">·</span><span class="what">Agentic Copilot</span></div>
+      <div class="line">AI agents bolted onto existing UIs while integration sprawl, configuration cost, and license complexity sit untouched.</div>
+      <div class="stats">
+        <span class="stat">Agentforce launched Sept 2024</span>
+        <span class="stat">Avg enterprise: 100+ SaaS apps</span>
+        <span class="stat">$30–40B GenAI spend, 95% zero P&amp;L</span>
+        <span class="stat">Customer NPS at multi-year lows</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">Epic, Cerner (Oracle Health)</span><span class="dot">·</span><span class="what">AI scribe summaries</span></div>
+      <div class="line">GPT-powered note summaries shipped 2023–24. Physician burnout still at record highs.</div>
+      <div class="stats">
+        <span class="stat">63% MD burnout (AMA, 2024)</span>
+        <span class="stat">~75% of US hospital EHRs</span>
+        <span class="stat">Abridge: $250M raised (2024)</span>
+        <span class="stat">Suki, Ambience taking share</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">Verizon, AT&amp;T</span><span class="dot">·</span><span class="what">5G+ marketing tiers</span></div>
+      <div class="line">'Next-gen' tier marketing while billing complexity and coverage reliability stay broken.</div>
+      <div class="stats">
+        <span class="stat">ACSI wireless at 10-yr lows</span>
+        <span class="stat">Postpaid ARPU up 12–15% YoY</span>
+        <span class="stat">Mid-band 5G still spotty in metros</span>
+        <span class="stat">Verizon shed 68K postpaid (Q1 '24)</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>03 — The extractive bet.</h3>
+  <p>
+    Shrinkflation. Fee creep. Subscription stacking. Tier-stripping. Prior-authorization expansion.
+    The "innovation" pipeline that ships only what improves the bottom line and not what changes what
+    customers actually get. Customers can feel it, and they're saying so out loud.
+  </p>
+  <div class="examples">
+    <div class="example">
+      <div class="head"><span class="who">BMW</span><span class="dot">·</span><span class="what">Heated-seat subscription</span></div>
+      <div class="line">Monthly fee to use heated seats already installed in the car. Backlash forced a rollback in 2023.</div>
+      <div class="stats">
+        <span class="stat">$18/mo or $180/yr</span>
+        <span class="stat">Launched July 2022</span>
+        <span class="stat">Rolled back Sept 2023</span>
+        <span class="stat">Other features still gated</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">Mercedes-Benz</span><span class="dot">·</span><span class="what">Acceleration unlock</span></div>
+      <div class="line">$1,200/year subscription to unlock 0–60 acceleration on EQ models customers had already paid for.</div>
+      <div class="stats">
+        <span class="stat">$1,200/yr 'Acceleration Increase'</span>
+        <span class="stat">EQE 0–60: 6.0s → 5.1s when paid</span>
+        <span class="stat">Still active in 2024</span>
+        <span class="stat">Active class-action filings</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">Ford, GM, Tesla</span><span class="dot">·</span><span class="what">Driver-assist as service</span></div>
+      <div class="line">Hardware-already-paid-for driver-assist gated behind recurring fees.</div>
+      <div class="stats">
+        <span class="stat">Ford BlueCruise: $75/mo after 3yr</span>
+        <span class="stat">GM Super Cruise: $25/mo after 3yr</span>
+        <span class="stat">Tesla FSD: $99/mo or $8K</span>
+        <span class="stat">All same hardware regardless</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">Major streamers</span><span class="dot">·</span><span class="what">Price hikes + ad tiers + password crackdowns</span></div>
+      <div class="line">Raised prices, added ads, cracked down on sharing, all at once. Cancellations hit industry records.</div>
+      <div class="stats">
+        <span class="stat">24M+ US cancellations (2024)</span>
+        <span class="stat">Disney+ −4M subs after hike</span>
+        <span class="stat">5–6% monthly churn vs 2–3% (2022)</span>
+        <span class="stat">Netflix sharing crackdown: May 2023</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">US airlines</span><span class="dot">·</span><span class="what">Basic economy</span></div>
+      <div class="line">A smaller product, repackaged and sold for the same money. Ancillary revenue per passenger up sharply.</div>
+      <div class="stats">
+        <span class="stat">+50% ancillary/pax since 2020</span>
+        <span class="stat">35–40% of bookings on some routes</span>
+        <span class="stat">DOT moves to ban worst practices (2024)</span>
+        <span class="stat">Bag/seat/boarding fees stack</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">UnitedHealth &amp; major insurers</span><span class="dot">·</span><span class="what">Prior authorization</span></div>
+      <div class="line">Expanded denials to the point that denial-as-product became the news story of late 2024.</div>
+      <div class="stats">
+        <span class="stat">2.7B PA requests (2023, KFF)</span>
+        <span class="stat">UHC ~9% denial rate (highest)</span>
+        <span class="stat">Multiple state laws 2024–25</span>
+        <span class="stat">Public backlash post-Dec 2024</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">Adobe, Autodesk</span><span class="dot">·</span><span class="what">Annual price hikes</span></div>
+      <div class="line">Year-over-year increases. Whole markets defected to Figma, Affinity, and Blender.</div>
+      <div class="stats">
+        <span class="stat">Creative Cloud: +15–25% (2020–24)</span>
+        <span class="stat">Adobe–Figma blocked Dec 2023 ($20B)</span>
+        <span class="stat">Affinity acquired by Canva (2024)</span>
+        <span class="stat">Blender user base +50%+ same period</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sectionRule"></div>
+
+<!-- ─────────────────────────────────────────── -->
+<section class="essay" id="conviction-bet">
+  <div class="eyebrow">The Conviction Bet</div>
+  <h2>And then there's the bet that closes the gap.</h2>
+
+  <p>
+    The bet that closes the gap shares three ingredients every time. Data on the table that makes the
+    case defensible. A narrative sharp enough to convince an audience who can fund it. A specific
+    person willing to put themselves on the record before the outcome is known. The three conventional
+    bets miss because one or more of those ingredients is missing. The conviction bet does not.
+  </p>
+
+  <div class="examples">
+    <div class="example">
+      <div class="head"><span class="who">Netflix · Hastings</span><span class="dot">·</span><span class="what">Streaming pivot</span></div>
+      <div class="line">Bet broadband would kill the DVD before DVD revenue did. Survived a 75% stock collapse in 2011 when investors balked at the Qwikster split. Kept pouring capital into content while the bet remained unproven.</div>
+      <div class="stats">
+        <span class="stat">$19.1B streaming content obligations (Q3 2020)</span>
+        <span class="stat">$17B+ annual content spend by early 2020s</span>
+        <span class="stat">75% stock loss absorbed (2011)</span>
+        <span class="stat">Stock 2010 → 2021: $10 → $600+ (split-adjusted)</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">Figma · Field</span><span class="dot">·</span><span class="what">Browser-native design</span></div>
+      <div class="line">Bet designers wanted real-time collaboration in the browser, not desktop apps and file emails. Stayed in stealth for four years. Survived Adobe's attempt to absorb them and outlasted the deal.</div>
+      <div class="stats">
+        <span class="stat">~$330M raised across 9 years</span>
+        <span class="stat">4 years in stealth (2012–2016)</span>
+        <span class="stat">Adobe $20B acquisition blocked Dec 2023</span>
+        <span class="stat">Valuation: $0 → $12.5B (2024 secondary)</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">NVIDIA · Huang</span><span class="dot">·</span><span class="what">The CUDA bet</span></div>
+      <div class="line">Bet GPUs would matter for compute, not just graphics. Spent fifteen years building CUDA through analyst skepticism before the AI boom proved the bet right.</div>
+      <div class="stats">
+        <span class="stat">15+ years of sustained CUDA R&amp;D</span>
+        <span class="stat">Market cap 2014 → 2024: ~$10B → $3T+</span>
+        <span class="stat">$30B+ annual R&amp;D by 2024</span>
+        <span class="stat">Powers ~80% of AI training workloads</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">Best Buy · Joly</span><span class="dot">·</span><span class="what">Renew Blue</span></div>
+      <div class="line">Doubled down on stores when every analyst said close them. Matched online prices and ate the margin hit. Turned the showroom into the answer to showrooming.</div>
+      <div class="stats">
+        <span class="stat">$1B annual margin pressure from price-matching</span>
+        <span class="stat">$1.5B+ in store and supply-chain investment</span>
+        <span class="stat">Stock: $13 → $77 (2012 → 2019)</span>
+        <span class="stat">Market cap recovery: ~$25B</span>
+      </div>
+    </div>
+    <div class="example">
+      <div class="head"><span class="who">Stripe · Collisons</span><span class="dot">·</span><span class="what">Developer-first payment infra</span></div>
+      <div class="line">Bet that developers, not procurement teams, would choose payment infrastructure. Spent a decade competing on docs and API quality before adding sales motion.</div>
+      <div class="stats">
+        <span class="stat">~$9B raised over 13 years</span>
+        <span class="stat">$95B private valuation (2021 peak)</span>
+        <span class="stat">$1.4T processed in 2024</span>
+        <span class="stat">~50% of US adults transacted via Stripe (2023)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pullQuote">
+    <div class="q">
+      Innovation does not happen because the evidence is good.<br/>
+      It happens because <em>a specific person at a specific company decides to take a bet.</em>
+    </div>
+    <div class="cite">The tension</div>
+  </div>
+
+  <p>
+    Historically, the bets that closed the gap had to invent workarounds to do it. 3M's 15% time, the
+    rule that made the Post-it possible. Sony's PlayStation, which survived a board veto only by being
+    incubated under Sony Music. Bill Hewlett launching the HP-35 calculator over the protest of his own
+    market research. Innovation kept reaching for tricks because the system itself never gave it
+    conviction. GrowthOS gives the conviction back. Confidence the case will hold, before the bet gets
+    placed.
+  </p>
+
+  <p>
+    Which means the work of closing the gap is the work of helping that company make <em>the conviction
+    bet</em>. Feed them the customer's voice their team would have missed. Surface the market context
+    their incrementalism would have ignored. Generate the argument against the extractive option
+    before someone in finance makes it for them.
+  </p>
+
+  <p>
+    Closing the gap is not a feature. It's the work of holding research, analysis, and the workflow in
+    one place, long enough for a team to see the case clearly, make the bet, and ship. That's the
+    promise. One workbench where the customer's voice sits next to the team's plan, from the first
+    signal through the analysis all the way to in-market. Not another tool in the stack. The system
+    that makes the stack unnecessary.
+  </p>
+
+  <div class="sources">
+    <div class="srcLabel">Sources</div>
+    <ol>
+      <li id="src-1"><span class="srcNum">1.</span> Loyalty Tax study, 2026. Survey of 1,010 US adults on inflation-driven brand-loyalty decline.</li>
+      <li id="src-2"><span class="srcNum">2.</span> MIT NANDA report, August 2025. <em>The State of AI in Business</em>; 95% of enterprise GenAI pilots show no measurable P&amp;L impact.</li>
+      <li id="src-3"><span class="srcNum">3.</span> Nielsen / MIT Professional Education / HBR. Long-run benchmarks on new-product launch failure rates across CPG, consumer tech, and enterprise software (70–90% year-one mortality, stable across decades).</li>
+    </ol>
+  </div>
+</section>
+
+<div class="sectionRule"></div>
+
+<!-- ─────────────────────────────────────────── -->
+<section class="essay" id="audience">
+  <div class="eyebrow">Audience</div>
+  <h2>What are the roles of the GrowthOS?</h2>
+
+  <p>
+    GrowthOS exists to help companies make the conviction bet. The bet has three ingredients:
+    data-backed evidence, a persuasive case, the right audience for it. Each ingredient comes from a
+    different job. The practitioner produces the evidence. The manager runs the portfolio those bets
+    live in. The executive constructs the case that wins the funding.
+  </p>
+
+  <p>
+    Each FY27 commitment is a piece of the system those jobs need, so when the bet gets made it's a
+    conviction bet, not a conventional one.
+  </p>
+
+  <div class="role">
+    <div class="label">Layer 01</div>
+    <div class="rname">Practitioner</div>
+    <div class="headline">The person doing the work.</div>
+    <p class="rbody">
+      Where ideation actually happens. Researchers, designers, product strategists, account leaders
+      shaping concepts and gathering the evidence to validate them. They live in the Idea Container,
+      the Insight Map, the experiment setup. They need flow, not friction. Every artifact they create
+      should travel upstream automatically.
+    </p>
+    <div class="roleFailure">
+      <div class="roleFailureLabel">Without this job</div>
+      <div class="roleFailureLine">The bet goes <strong>myopic</strong>. Defensible inside the building, dead when it meets the customer.</div>
+    </div>
+  </div>
+
+  <div class="role">
+    <div class="label">Layer 02</div>
+    <div class="rname">Manager</div>
+    <div class="headline">The person running the portfolio.</div>
+    <p class="rbody">
+      Holds a stable of innovation efforts. Needs operational truth about all of them at once, without
+      forcing their teams to do separate reporting work. Status, evidence, blockers, next gates. The
+      view should emerge as a real-time function of what's happening in the system underneath, not as
+      a slide deck assembled on Friday afternoon.
+    </p>
+    <div class="roleFailure">
+      <div class="roleFailureLabel">Without this job</div>
+      <div class="roleFailureLine">The bet goes <strong>incremental</strong>. Teams defend the existing roadmap and never see the customer-shaped hole.</div>
+    </div>
+  </div>
+
+  <div class="role">
+    <div class="label">Layer 03</div>
+    <div class="rname">Executive</div>
+    <div class="headline">The person making the case upward.</div>
+    <p class="rbody">
+      Owns the strategy. Their job is to walk into a room and convince someone with power to fund the
+      bets that matter. Today they live in slides and gut. Tomorrow they live in a system designed to
+      help them construct the argument: mapping evidence to known objections, flagging soft spots,
+      generating counter-arguments to defeat before someone else makes them.
+    </p>
+    <div class="roleFailure">
+      <div class="roleFailureLabel">Without this job</div>
+      <div class="roleFailureLine">The bet goes <strong>extractive</strong>. Finance pre-drafted that case, and nobody else built a stronger one.</div>
+    </div>
+  </div>
+</section>
+
+<div class="sectionRule"></div>
+
+<!-- ─────────────────────────────────────────── -->
+<section class="essay" id="principles">
+  <div class="eyebrow">Our Principles</div>
+  <h2>We're adding a new guiding principle to shape FY27.</h2>
+
+  <p>
+    Three principles carry forward from prior manifestos. Sharpened, but the spirit holds. A fourth,
+    AI in Service of Judgment, is new, and it pushes against the grain of every other AI product in
+    market. We treat it separately because it deserves the space.
+  </p>
+
+  <div class="principle">
+    <div class="pnum">Principle 01</div>
+    <div class="pname">Elevate Ideas</div>
+    <div class="pintro">
+      Every feature should expand and enhance ideas. Our tools must make ideas clearer, more
+      actionable, and visibly better with each iteration.
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">Insight vs. Data.</div>
+      <div class="sb">We prioritize meaningful synthesis over raw information. GrowthOS should help users extract what matters most, not just collect more.</div>
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">Human Agency.</div>
+      <div class="sb">Tools should enhance human decision-making, not replace it. GrowthOS reinforces the user's voice, judgment, and creativity.</div>
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">Intuitive Experiences.</div>
+      <div class="sb">Using GrowthOS should feel natural and fluid: each input, idea, insight, and piece of research driving and connecting to the next possible step.</div>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="pnum">Principle 02</div>
+    <div class="pname">Intelligent Growth</div>
+    <div class="pintro">
+      The system gets smarter as it's used, and honest about where it isn't yet. Inputs sharpen
+      patterns. Patterns reveal gaps. Gaps become the next questions.
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">Compounding intelligence.</div>
+      <div class="sb">Every project leaves residue. Every test sharpens the next one. Foundations learns what this client cares about, what's already been tried, what the next bet should weigh.</div>
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">Honest sketchiness.</div>
+      <div class="sb">A solid rectangle is evidence. A dashed one is a hypothesis. A '?' is a known unknown. The system surfaces what it doesn't know so the user can do something about it.</div>
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">Validated evidence.</div>
+      <div class="sb">Decisions are driven by experimentation, robust insights, and measurable outcomes. The UDL carries the residue forward. Confidence is earned, not assumed.</div>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="pnum">Principle 03</div>
+    <div class="pname">Extensible &amp; Flexible Architecture</div>
+    <div class="pintro">
+      We don't compete with the tools. We sell the behavioral and strategic knowledge that turns inputs
+      into guidance. When something accelerates client value, we integrate it. When the novel pieces
+      don't exist yet, we build them ourselves: the interfaces that shape understanding and human agency.
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">Best tool for the job.</div>
+      <div class="sb">Designed to integrate with diverse external tools and pick the strongest one for each moment. We don't build everything ourselves; we build the system that turns signals into actions.</div>
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">Collaboration.</div>
+      <div class="sb">Frictionless collaborative experiences. Getting started and working together should feel as effortless as any mainstream tool.</div>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="pnum">Principle 04 · New</div>
+    <div class="pname">AI in Service of Judgment</div>
+    <div class="pintro">
+      The grain of most AI products today is to do the work for the user. The signals are clear about
+      where that leads. Brain capacity lowers, creative power decreases, shortcuts replace mental
+      challenges. Having AI do the thinking for you is a first-class ticket to mediocrity for life.
+    </div>
+    <div class="pintro">
+      GrowthOS makes the opposite bet. AI here is a mental coach. It knows when to push and when to
+      pause. How to activate the brain's creative and problem-solving networks. Priming, gamification,
+      behavioral design, flow inducement, sentiment coaching. We use AI to make the human sharper, not
+      lazier. <em>Plus est en vous.</em> There is more in you.
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">01 Commit first.</div>
+      <div class="sb">User names their hypothesis or writes their first draft before AI is allowed to intervene. AI then pushes back.</div>
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">02 Propose, don't generate.</div>
+      <div class="sb">The failure mode of AI is the user becoming a passenger. GrowthOS treats every AI move as a proposal: fast enough to save the cold-start cost of drafting, slow enough to leave judgment in human hands. AI proposes; the user judges.</div>
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">03 Long tail first.</div>
+      <div class="sb">AI surfaces the outlier, the unusual quote, the response that doesn't fit. The interesting answer is rarely the average.</div>
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">04 Adversarial by default.</div>
+      <div class="sb">AI generates the strongest argument against what the user is building, so the user can defeat it before someone else does.</div>
+    </div>
+    <div class="subPrinciple">
+      <div class="sn">05 Slow at decisions.</div>
+      <div class="sb">Ingest is fast. Judgment is deliberate. Friction at the thinking points is a design feature.</div>
+    </div>
+  </div>
+</section>
+
+<div class="sectionRule"></div>
+
+<!-- ─────────────────────────────────────────── -->
+<section class="essay" id="commitments">
+  <div class="eyebrow">What we're building</div>
+  <h2>FY27 commitments.</h2>
+
+  <p>
+    The commitments below are what GrowthOS will be by year-end. Each one is a stake in the ground
+    about what the system has to become, not which screen or release will get there.
+  </p>
+
+  <div class="commitmentList">
+  <div class="commitment">
+    <div class="num">01</div>
+    <div>
+      <h3 class="name">Make Growthmentor the conversational coach.</h3>
+      <p class="body">Every conversation with Growthmentor exists to make the user sharper. Each one proposes a reading the user can take or reshape. Each one surfaces an angle the team would have missed. Each one pushes back when the case is thin. The user thinks harder for having had it. The work is still theirs.</p>
+      <p class="body">Underneath the conversation, Growthmentor is the orchestrator. A well-designed system of specialized LLMs and tools coordinated by the central core, your project. It picks the best tool for the job, whether that's OpenAI, Claude, Gemini, or whatever comes next. The intelligence is in the architecture, not any single model. GrowthOS stays LLM-agnostic on purpose.</p>
+      <p class="body">The result is one always-on character. Proposing, judging-aloud, honest about what it doesn't know. There to make the human sharper, not lazier.</p>
+    </div>
+  </div>
+  <div class="commitment">
+    <div class="num">02</div>
+    <div>
+      <h3 class="name">Make activation the strongest moment in the product.</h3>
+      <p class="body">The first hour is where every enterprise platform loses its users. Forms, picklists, empty repositories, "now what?" GrowthOS reframes activation as the highest-leverage design surface we own. A user types a brief. Growthmentor proposes a structural read. An insight map fills in turn by turn, anchored to sources where they exist and explicitly marked sketchy where they don't. By the time the opening conversation ends, the user has a living artifact, not a static brief.</p>
+    </div>
+  </div>
+  <div class="commitment">
+    <div class="num">03</div>
+    <div>
+      <h3 class="name">Build for the manager and the executive as deliberately as for the practitioner.</h3>
+      <p class="body">Practitioners have GrowthOS today. Managers and executives see slivers of it. That changes this year. Operational truth about every project, in real time, no Friday slide deck. Drill-into-any-project views that surface evidence, blockers, gates, owners. Portfolio-level patterns that show where bets are concentrated, where evidence is thin. Case-building for the moment of upward persuasion: map evidence to objections, surface counterarguments before someone else makes them, walk into the room with the case already constructed.</p>
+    </div>
+  </div>
+  <div class="commitment">
+    <div class="num">04</div>
+    <div>
+      <h3 class="name">Make collaboration effortless and continuous.</h3>
+      <p class="body">No bolt-on. The same surface adapts to multiple people working at once. Activity flows up automatically. Comments, mentions, decisions, evidence reviews, all attached to the artifact they pertain to, not scattered across Slack, email, and decks. Every change has an audit trail: who added what, when, and why. Getting started and working together should feel as effortless as any mainstream tool.</p>
+    </div>
+  </div>
+  <div class="commitment">
+    <div class="num">05</div>
+    <div>
+      <h3 class="name">Make Foundations a live research stack.</h3>
+      <p class="body">Real connectors (Alphasense, web research, Accenture Thought Leadership, client internal systems). Drag-and-drop ingestion of decks, transcripts, PDFs. Structured data integrations with provenance preserved. Deep-research agents that run multi-step plans across multiple sources. Auditable end-to-end, so when the executive makes the case upward they can answer 'how do you know' without scrambling.</p>
+    </div>
+  </div>
+  <div class="commitment">
+    <div class="num">06</div>
+    <div>
+      <h3 class="name">Make the UDL the way GrowthOS grows smarter.</h3>
+      <p class="body">The moat we sell is combination. The moat that lasts is compounding. The Unified Data Layer is how everything ever learned in GrowthOS gets carried forward. A survey panel becomes a pattern library. A failed Proxi becomes a guardrail. A successful bet becomes a precedent. Surfaced when relevant. Hidden when not. Sharpened with use. Generic AI has no memory of your last project. GrowthOS does.</p>
+    </div>
+  </div>
+  <div class="commitment">
+    <div class="num">07</div>
+    <div>
+      <h3 class="name">Win the depth fight inside every named feature.</h3>
+      <p class="body">The combination of research, analysis, and workflow is the moat. But the combination only holds if every feature inside it can stand against the standalone competitor in its category. Activation, collaboration, the UDL, Foundations: each has to feel right against the best in market. Parity at minimum. Leadership where we can.</p>
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="sectionRule"></div>
+
+<!-- ─────────────────────────────────────────── -->
+<section class="essay" id="opportunity">
+  <div class="eyebrow">The Opportunity</div>
+  <h2>The category has not been built yet.</h2>
+
+  <p>
+    Three categories of tool each cover a sliver of the work. Research platforms own
+    evidence-gathering. Analysis platforms own quantitative truth. Workflow tools own the work, with
+    no native research or data layer. None of them combine all three. None of them carries a POV
+    about what good growth work actually looks like.
+  </p>
+
+  <p>
+    GrowthOS does. We bring <em>research, analysis, and the workflow</em> into one place, and we have
+    the conviction about how the work should go that turns the combination from a kit into a system.
+    That's the moat. That's the category. We will own it, internally at Accenture and externally
+    through scalable SaaS offerings.
+  </p>
+
+  <h3>The moat we sell is combination. The moat that lasts is compounding.</h3>
+
+  <p>
+    Standing up research, analysis, and workflow with a point of view is the table-stakes argument.
+    It's true, and it closes generic AI tools out, but only as a snapshot. What makes GrowthOS
+    structurally defensible is what happens to that combination over time.
+  </p>
+
+  <p>
+    Every project leaves residue. A survey panel becomes a pattern library. A failed Proxi becomes a
+    guardrail. A successful bet becomes a precedent. A counterargument that defeated a previous case
+    becomes a prompt that surfaces on the next one. The Unified Data Layer holds it all. Foundations
+    feeds it. Growthmentor reaches into it on every turn.
+  </p>
+
+  <p>
+    Generic AI has no memory of your last project. GrowthOS does. The longer it's used, the smarter
+    the starting position gets, for the next project, for the next user, for the next client in the
+    same industry.
+  </p>
+
+  <h3>Why us?</h3>
+
+  <p>
+    Commercial AI models will always be generic. No matter how many documents get uploaded, the model
+    has no focus, no context, no relationship to the work being done. The differentiator is the
+    institutional intelligence behind the system.
+  </p>
+
+  <p>
+    GrowthOS puts that intelligence to work. Not as documents AI scrapes, but as the system inside
+    which AI is asked to think. The people who built the system know the work. The system carries
+    their judgment forward.
+  </p>
+
+  <p>
+    Everybody can build a tool. Closing the gap between customers and companies is a different game.
+  </p>
+</section>
+
+<!-- ─────────────────────────────────────────── -->
+<div class="closing">
+  <div class="mark">GrowthOS</div>
+  <div class="tagline">Insight to <em>in-market</em>, fast.</div>
+</div>
+
+</main>
+</body>
+</html>
