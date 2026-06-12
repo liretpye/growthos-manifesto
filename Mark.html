@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>GrowthOS · The Mark</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-Light.otf') format('opentype');
+    font-weight: 300; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-LightItalic.otf') format('opentype');
+    font-weight: 300; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-Regular.otf') format('opentype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-RegularItalic.otf') format('opentype');
+    font-weight: 400; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-Semibold.otf') format('opentype');
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Graphik';
+    src: url('./Graphik Font/Graphik-SemiboldItalic.otf') format('opentype');
+    font-weight: 600; font-style: italic; font-display: swap;
+  }
+  :root {
+    --bg: #120318;
+    --bg-2: #1c0826;
+    --accent: #6936F5;
+    --accent-soft: #A87CFF;
+    --accent-deep: #3D1F8F;
+    --ink: #FFFFFF;
+    --ink-dim: rgba(255,255,255,0.65);
+    --ink-faint: rgba(255,255,255,0.32);
+    --rule: rgba(255,255,255,0.10);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #120318; color: var(--ink); }
+  body {
+    font-family: 'Graphik', 'Inter', system-ui, sans-serif;
+    line-height: 1.55;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+  h1 {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 72px; line-height: 1.06; margin: 0;
+    letter-spacing: -0.04em; font-weight: 400;
+  }
+  p { margin: 0 0 14px; color: var(--ink-dim); }
+  a { color: var(--accent-soft); text-decoration: none; }
+  .accent { color: var(--accent-soft); }
+
+  nav.top {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(180deg, rgba(18,3,24,0.92), rgba(18,3,24,0.55) 80%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
+  nav.top * { pointer-events: auto; }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-dim); font-weight: 400;
+    font-family: 'Graphik', 'Inter', sans-serif;
+  }
+  .navmark { width: 20px; height: auto; display: block; }
+  nav.top .pill {
+    font-size: 11px; letter-spacing: 0.18em; font-weight: 600;
+    padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--accent-soft);
+    color: var(--accent-soft);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 200ms, color 200ms;
+  }
+  nav.top .pill:hover {
+    background: var(--accent-soft);
+    color: #120318;
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 180px 56px 100px;
+  }
+  .eyebrow {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 13px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 22px;
+  }
+  .markIntro {
+    max-width: 780px;
+    margin-bottom: 56px;
+  }
+  .markLede {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+    margin-top: 18px;
+    max-width: 680px;
+  }
+  .markVideoFrame {
+    position: relative;
+    border: 1px solid rgba(168,124,255,0.22);
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(105,54,245,0.04);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+  }
+  .markVideoFrame::before {
+    content: "";
+    display: block;
+    padding-top: 55.8%;
+  }
+  .markVideoFrame iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+  .markCaption {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+    color: var(--ink-faint);
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+  .markCaption::before {
+    content: "";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent-soft);
+  }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 28px 56px;
+    color: var(--ink-faint);
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 800px) {
+    nav.top { padding: 18px 24px; }
+    main { padding: 130px 24px 60px; }
+    h1 { font-size: 44px; letter-spacing: -0.03em; }
+    .markLede { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="brand">
+    <img class="navmark" src="./GrowthOSLogo.png" alt=""/>
+    GrowthOS · The Mark
+  </div>
+  <a class="pill" href="./">← Back to manifesto</a>
+</nav>
+
+<main>
+  <div class="markIntro">
+    <div class="eyebrow">The Mark</div>
+    <h1>How the GrowthOS mark <span class="accent">evolved.</span></h1>
+    <p class="markLede">
+      A short look at the iterations behind the brandmark you see on the manifesto.
+    </p>
+  </div>
+  <div class="markVideoFrame">
+    <iframe
+      src="https://player.vimeo.com/video/1200790391?badge=0&autopause=0&player_id=0&app_id=58479"
+      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      title="GOS Logo Evolve"></iframe>
+  </div>
+  <div class="markCaption">GOS Logo Evolve · Vimeo</div>
+</main>
+
+<footer>
+  GrowthOS · Manifesto 2027 · Draft · The work is persuasion. The system is built to serve it.
+</footer>
+
+</body>
+</html>

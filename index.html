@@ -1386,59 +1386,6 @@
     letter-spacing: 0.04em;
   }
 
-  /* Mark / logo-evolution section */
-  #mark {
-    padding: 120px 56px 80px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .markIntro {
-    max-width: 720px;
-    margin-bottom: 48px;
-  }
-  .markLede {
-    font-size: 18px; line-height: 1.6;
-    color: var(--ink-dim);
-    margin-top: 14px;
-  }
-  .markVideoFrame {
-    position: relative;
-    border: 1px solid rgba(168,124,255,0.22);
-    border-radius: 16px;
-    overflow: hidden;
-    background: rgba(105,54,245,0.04);
-    box-shadow: 0 24px 60px rgba(0,0,0,0.45);
-  }
-  .markVideoFrame::before {
-    content: "";
-    display: block;
-    padding-top: 55.8%;
-  }
-  .markVideoFrame iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    border: 0;
-  }
-  .markCaption {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 16px;
-    color: var(--ink-faint);
-    font-family: 'Graphik', 'Inter', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-  }
-  .markCaption::before {
-    content: "";
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent-soft);
-  }
-  @media (max-width: 800px) {
-    #mark { padding: 80px 24px 60px; }
-  }
 </style>
 </head>
 <body>
@@ -1457,7 +1404,7 @@
     <li><a href="#judgment">AI &amp; Judgment</a></li>
     <li><a href="#future">Future</a></li>
     <li><a href="#opportunity">Opportunity</a></li>
-    <li><a href="#mark">Mark</a></li>
+    <li><a href="./Mark.html">Mark</a></li>
   </ul>
   <a class="pill pillLink" href="./GrowthOS Manifesto 2027 - Full Argument.html">Read the article ↗</a>
 </nav>
@@ -2610,32 +2557,6 @@ function VennCoverage() {
 }
 
 // ─────────────────────────────────────────────────────────
-// MARK — logo evolution video
-// ─────────────────────────────────────────────────────────
-function Mark() {
-  return (
-    <section id="mark">
-      <div className="markIntro">
-        <div className="eyebrow">The Mark</div>
-        <h2>How the GrowthOS mark <span className="accent">evolved.</span></h2>
-        <p className="markLede">
-          A short look at the iterations behind the brandmark you see on this page.
-        </p>
-      </div>
-      <div className="markVideoFrame">
-        <iframe
-          src="https://player.vimeo.com/video/1200790391?badge=0&autopause=0&player_id=0&app_id=58479"
-          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          title="GOS Logo Evolve"
-        ></iframe>
-      </div>
-      <div className="markCaption">GOS Logo Evolve · Vimeo</div>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────
 // CODA
 // ─────────────────────────────────────────────────────────
 function Coda() {
@@ -2665,7 +2586,6 @@ function App() {
       <AIJudgment />
       <Future />
       <Opportunity />
-      <Mark />
       <Coda />
     </div>
   );
