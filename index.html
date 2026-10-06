@@ -789,6 +789,54 @@
   }
   .principleCard .pcSubBody strong { color: var(--ink); font-weight: 400; }
 
+  /* Role cards (compact) */
+  .roleCard {
+    padding: 24px 26px;
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.025);
+    border-radius: 16px;
+    display: flex; flex-direction: column;
+    transition: border-color 200ms, background 200ms, transform 200ms;
+  }
+  .roleCard:hover { border-color: var(--accent-soft); background: rgba(168,124,255,0.04); transform: translateY(-2px); }
+  .roleCard .rcNum {
+    font-family: 'Graphik', 'Inter', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--accent-soft); font-weight: 400;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .roleCard h3 {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 22px; font-weight: 400; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 6px; line-height: 1.15;
+  }
+  .roleCard .rcHeadline {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 14px; color: var(--accent-soft);
+    letter-spacing: -0.01em; margin-bottom: 14px;
+  }
+  .roleCard .rcBody {
+    font-size: 13px; color: var(--ink-dim);
+    line-height: 1.6; margin: 0 0 18px;
+  }
+  .roleCard .rcFailure {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule);
+  }
+  .roleCard .rcFailureLabel {
+    font-family: 'Graphik', 'Inter', sans-serif;
+    font-size: 10px; font-weight: 600;
+    color: var(--accent-soft);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .roleCard .rcFailureLine {
+    font-size: 12px; color: var(--ink-dim); line-height: 1.55;
+  }
+  .roleCard .rcFailureLine strong { color: var(--ink); font-style: italic; font-weight: 400; }
+
   /* AI Principle interactive */
   .aiPrinciple { background: rgba(105,54,245,0.06); border: 1px solid rgba(168,124,255,0.22); border-radius: 24px; padding: 42px 44px; }
   .aiBanner {
@@ -1125,6 +1173,25 @@
     font-size: 12px;
     overflow: hidden;
   }
+  /* Real-screen variant: a Figma frame rendered as an image */
+  .cmockScreen {
+    flex: 1;
+    background: rgba(0,0,0,0.32);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    min-height: 320px;
+  }
+  .cmockScreen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+    display: block;
+  }
   .cmockEyebrow {
     font-family: 'Graphik', 'Inter', sans-serif;
     font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
@@ -1401,6 +1468,7 @@
     <li><a href="#truth">Truth</a></li>
     <li><a href="#layers">Roles</a></li>
     <li><a href="#future">Future</a></li>
+    <li><a href="#three-zero">3.0</a></li>
     <li><a href="#opportunity">Opportunity</a></li>
     <li><a href="#principles">Principles</a></li>
     <li><a href="./Mark.html">Mark</a></li>
@@ -1434,7 +1502,7 @@ function Hero() {
         <span className="accent">what companies make</span>.
       </h1>
       <div className="subhead">
-        Insight to <em>in-market</em>, fast.
+        Insight to <em>in-market</em>. Fast, with confidence.
       </div>
       <div className="northStar">
         <div className="label">North Star</div>
@@ -1793,204 +1861,67 @@ function Truth() {
 }
 
 // ─────────────────────────────────────────────────────────
-// THREE LAYERS — interactive
+// ROLES — three roles in every conviction bet
 // ─────────────────────────────────────────────────────────
-const LAYERS = [
+const ROLES = [
   {
-    id: "practitioner",
     num: "01",
-    name: "Practitioner",
-    headline: "The person doing the work.",
-    body: "Where ideation actually happens. Researchers, designers, product strategists, account leaders shaping concepts and gathering the evidence to validate them. They live in the Idea Container, the Insight Map, the experiment setup. They need flow, not friction. Every artifact they create should travel upstream automatically.",
-    needs: [
-      { strong: "Flow over friction.", t: "The seams between research, ideas, and tests have to disappear." },
-      { strong: "AI that argues back.", t: "Sharpens their thinking; doesn't replace it." },
-      { strong: "Every artifact travels.", t: "Insights become evidence. Evidence becomes the case." },
-    ],
+    name: "The Practitioner",
+    headline: "Does the work.",
+    body: "Where ideation actually happens. Researchers, designers, product strategists shaping concepts and gathering the evidence to validate them. They live in the Idea Container, the Insight Map, the experiment setup. They need flow, not friction.",
     failure: { bet: "myopic", line: "Defensible inside the building, dead when it meets the customer." },
-    mock: "practitioner",
   },
   {
-    id: "manager",
     num: "02",
-    name: "Manager",
-    headline: "The person running the portfolio.",
-    body: "Holds a stable of innovation efforts. Needs operational truth about all of them at once, without forcing their teams to do separate reporting work. Status, evidence, blockers, next gates. The view should emerge as a real-time function of what's happening in the system underneath, not as a slide deck assembled on Friday afternoon.",
-    needs: [
-      { strong: "Operational truth, free.", t: "Reporting work the system does, not the team." },
-      { strong: "Drill into any project.", t: "What evidence exists, who's working, where it's stuck." },
-      { strong: "Joints exposed.", t: "Interrogate the data before passing it on." },
-    ],
-    failure: { bet: "incremental", line: "Teams defend the existing roadmap and never see the customer-shaped hole." },
-    mock: "manager",
+    name: "The Case Builder",
+    headline: "Constructs the case.",
+    body: "Turns evidence into a bet worth funding. Their job is to walk into a room and convince someone with power. They need a system designed to help them construct the argument: mapping evidence to objections, flagging soft spots, generating counter-arguments to defeat before someone else makes them.",
+    failure: { bet: "extractive", line: "Finance pre-drafted that case, and nobody else built a stronger one." },
   },
   {
-    id: "leader",
     num: "03",
-    name: "Executive",
-    headline: "The person making the case upward.",
-    body: "Owns the strategy. Their job is to walk into a room and convince someone with power to fund the bets that matter. Today they live in slides and gut. Tomorrow they live in a system designed to help them construct the argument: mapping evidence to known objections, flagging soft spots, generating counter-arguments to defeat before someone else makes them.",
-    needs: [
-      { strong: "A system, not a slide deck.", t: "Constructing the case is the work; the system supports it." },
-      { strong: "Map evidence to objections.", t: "Know which doubts each piece of evidence answers." },
-      { strong: "Defeat the counter first.", t: "Adversarial AI generates the strongest argument against." },
-    ],
-    failure: { bet: "extractive", line: "Finance pre-drafted that case, and nobody else built a stronger one." },
-    mock: "leader",
+    name: "The Portfolio Steward",
+    headline: "Sees the whole portfolio.",
+    body: "Holds a stable of innovation efforts. Needs operational truth about all of them at once, without forcing teams to do separate reporting work. Status, evidence, blockers, next gates. The view emerges in real time from what's happening in the system, not from a slide deck assembled on Friday.",
+    failure: { bet: "incremental", line: "Teams defend the existing roadmap and never see the customer-shaped hole." },
   },
 ];
 
-function LayerMock({ kind }) {
-  if (kind === "practitioner") {
-    return (
-      <div className="layerMock">
-        <div style={{ fontFamily: 'Graphik, Inter, sans-serif', fontSize: 11, letterSpacing: '0.18em', color: 'var(--ink-faint)', textTransform: 'uppercase' }}>
-          Idea Container · Smart Sportswear
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1 }}>
-          {[
-            { l: "Insights", c: 14, p: 80 },
-            { l: "Experiments", c: 3, p: 40 },
-            { l: "Interviews", c: 28, p: 95 },
-            { l: "Documents", c: 22, p: 70 },
-          ].map((row, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12 }}>
-              <div style={{ width: 90, color: 'var(--ink-dim)', fontFamily: 'Graphik, Inter, sans-serif' }}>{row.l}</div>
-              <div style={{ flex: 1, height: 8, background: 'var(--ink-ghost)', borderRadius: 4, overflow: 'hidden' }}>
-                <div style={{ height: '100%', background: 'var(--accent-soft)', width: row.p + '%' }}/>
-              </div>
-              <div style={{ width: 28, textAlign: 'right', color: 'var(--ink)', fontFamily: 'Graphik, Inter, monospace', fontSize: 13 }}>{row.c}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ paddingTop: 10, borderTop: '1px solid var(--rule)', fontSize: 11, color: 'var(--ink-faint)', fontFamily: 'Graphik, Inter, sans-serif' }}>
-          <span style={{ color: 'var(--accent-soft)' }}>67 evidence items</span> · 3 hypotheses open
-        </div>
-      </div>
-    );
-  }
-  if (kind === "manager") {
-    return (
-      <div className="layerMock">
-        <div style={{ fontFamily: 'Graphik, Inter, sans-serif', fontSize: 11, letterSpacing: '0.18em', color: 'var(--ink-faint)', textTransform: 'uppercase' }}>
-          Portfolio · 12 active
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, flex: 1 }}>
-          {[
-            { name: "Smart Sportswear", status: "validated", color: "#22c55e" },
-            { name: "Heat Tech",        status: "exploring", color: "#A87CFF" },
-            { name: "Light Insulation", status: "blocked",   color: "#F5A623" },
-            { name: "Bio Fabric",       status: "validated", color: "#22c55e" },
-            { name: "Modular Sole",     status: "exploring", color: "#A87CFF" },
-            { name: "Climate Cushion",  status: "killed",    color: "rgba(255,255,255,0.3)" },
-          ].map((row, i) => (
-            <div key={i} style={{
-              padding: 10, background: 'rgba(255,255,255,0.04)',
-              border: '1px solid var(--rule)', borderRadius: 8,
-              display: 'flex', flexDirection: 'column', gap: 4,
-            }}>
-              <div style={{ fontSize: 11, color: 'var(--ink)', fontFamily: 'Graphik, Inter, sans-serif', fontWeight: 400 }}>{row.name}</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: row.color }}/>
-                <span style={{ fontSize: 10, color: 'var(--ink-faint)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{row.status}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-  if (kind === "leader") {
-    return (
-      <div className="layerMock">
-        <div style={{ fontFamily: 'Graphik, Inter, sans-serif', fontSize: 11, letterSpacing: '0.18em', color: 'var(--ink-faint)', textTransform: 'uppercase' }}>
-          Case Builder · Q3 Funding Ask
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
-          {[
-            { kind: "claim",    text: "Smart Sportswear is the strongest bet in the portfolio.", strength: "strong" },
-            { kind: "evidence", text: "28 interviews · 88 score · 4 supporting insights",        strength: "strong" },
-            { kind: "objection",text: "How do you know it scales beyond the early adopter cohort?", strength: "soft" },
-            { kind: "counter",  text: "Adversarial AI: 'No supply-chain stress test yet.'",       strength: "warn" },
-          ].map((row, i) => (
-            <div key={i} style={{
-              padding: '8px 10px', borderRadius: 6,
-              border: `1px solid ${row.strength === 'warn' ? 'rgba(245,166,35,0.3)' : 'var(--rule)'}`,
-              background: row.strength === 'warn' ? 'rgba(245,166,35,0.08)' : 'rgba(255,255,255,0.03)',
-              fontSize: 11, color: 'var(--ink-dim)', lineHeight: 1.45,
-            }}>
-              <div style={{ fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', color: row.strength === 'warn' ? '#F5A623' : 'var(--accent-soft)', marginBottom: 4, fontFamily: 'Graphik, Inter, sans-serif', fontWeight: 600 }}>
-                {row.kind}
-              </div>
-              <div style={{ color: 'var(--ink)' }}>{row.text}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-  return null;
-}
-
 function Layers() {
-  const [idx, setIdx] = useState(0);
-  const layer = LAYERS[idx];
   return (
     <section id="layers">
       <div className="secHeader">
-        <div className="eyebrow">Audience</div>
-        <h2>What are the roles of the <span className="accent">GrowthOS?</span></h2>
+        <div className="eyebrow">Roles</div>
+        <h2>Three roles in every conviction <span className="accent">bet.</span></h2>
         <p className="lede">
-          GrowthOS exists to help companies make the conviction bet. The bet has three ingredients:
-          data-backed evidence, a persuasive case, the right audience for it. Each ingredient comes from
-          a different job. The practitioner produces the evidence. The manager runs the portfolio those
-          bets live in. The executive constructs the case that wins the funding.
-        </p>
-        <p className="lede" style={{ marginTop: 16 }}>
-          Each FY27 commitment is a piece of the system those jobs need, so when the bet gets made it's
-          a conviction bet, not a conventional one.
+          GrowthOS exists to help companies make the conviction bet. The bet takes three roles: someone
+          to do the work, someone to help build the case, and someone who understands the whole portfolio.
+          Each FY27 commitment is a piece of the system those roles need.
         </p>
       </div>
 
-      <div className="layers">
-        <div className="layerNav">
-          {LAYERS.map((l, i) => (
-            <button key={l.id}
-              className={"layerBtn" + (i === idx ? " active" : "")}
-              onClick={() => setIdx(i)}>
-              <div className="layerNum">LAYER {l.num}</div>
-              <div className="layerName">{l.name}</div>
-            </button>
-          ))}
-        </div>
-
-        <div className="layerPanel">
-          <div className="layerBody">
-            <h3>{layer.headline}</h3>
-            <p className="lede">{layer.body}</p>
-            <div className="needs">
-              {layer.needs.map((n, i) => (
-                <div key={i} className="need">
-                  <div className="needDot"></div>
-                  <div className="needText"><strong>{n.strong}</strong> {n.t}</div>
-                </div>
-              ))}
-            </div>
-            {layer.failure && (
-              <div className="layerFailure">
-                <div className="layerFailureLabel">Without this job</div>
-                <div className="layerFailureLine">
-                  The bet goes <strong>{layer.failure.bet}</strong>. {layer.failure.line}
+      <div className="cardGrid cols-3">
+        {ROLES.map((r) => (
+          <div key={r.num} className="roleCard">
+            <div className="rcNum">Role {r.num}</div>
+            <h3>{r.name}</h3>
+            <div className="rcHeadline">{r.headline}</div>
+            <p className="rcBody">{r.body}</p>
+            {r.failure && (
+              <div className="rcFailure">
+                <div className="rcFailureLabel">Without this role</div>
+                <div className="rcFailureLine">
+                  The bet goes <strong>{r.failure.bet}</strong>. {r.failure.line}
                 </div>
               </div>
             )}
           </div>
-          <LayerMock kind={layer.mock} />
-        </div>
+        ))}
       </div>
     </section>
   );
 }
+
 
 // ─────────────────────────────────────────────────────────
 // PRINCIPLES — the first three
@@ -1999,19 +1930,24 @@ const PRINCIPLES = [
   {
     num: "01",
     name: "Elevate Ideas",
-    intro: "Every feature should expand and enhance ideas. Our tools must make ideas clearer, more actionable, and visibly better with each iteration.",
+    intro: "Every feature should expand and enhance ideas. Our tools must make ideas clearer, more actionable, and visibly better with each iteration. AI in service of judgment runs through this principle: the human commits first, AI proposes rather than generates, and the thinking points are protected by design.",
     subs: [
       { n: "Insight vs. Data", b: "We prioritize meaningful synthesis over raw information. GrowthOS should help users extract what matters most, not just collect more." },
       { n: "Human Agency",     b: "Tools should enhance human decision-making, not replace it. GrowthOS reinforces the user's voice, judgment, and creativity." },
+      { n: "Commit first",     b: "The user names their hypothesis or writes their first draft before AI is allowed to intervene. AI then pushes back." },
+      { n: "Propose, don't generate", b: "The failure mode of AI is the user becoming a passenger. GrowthOS treats every AI move as a proposal: fast enough to save the cold-start cost of drafting, slow enough to leave judgment in human hands. AI proposes; the user judges." },
+      { n: "Slow at decisions", b: "Ingest is fast. Judgment is deliberate. Friction at the thinking points is a design feature." },
       { n: "Intuitive Experiences", b: "Using GrowthOS should feel natural and fluid: each input, idea, insight, and piece of research driving and connecting to the next possible step." },
     ],
   },
   {
     num: "02",
     name: "Intelligent Growth",
-    intro: "The system gets smarter as it's used, and honest about where it isn't yet. Inputs sharpen patterns. Patterns reveal gaps. Gaps become the next questions.",
+    intro: "The system gets smarter as it's used, and honest about where it isn't yet. Inputs sharpen patterns. Patterns reveal gaps. Gaps become the next questions. AI in service of judgment shapes how that intelligence grows: outliers get surfaced, and bets get stress-tested before they ship.",
     subs: [
       { n: "Compounding intelligence", b: "Every project leaves residue. Every test sharpens the next one. Foundations learns what this client cares about, what's already been tried, what the next bet should weigh." },
+      { n: "Long tail first",          b: "AI surfaces the outlier, the unusual quote, the response that doesn't fit. The interesting answer is rarely the average." },
+      { n: "Adversarial by default",   b: "AI generates the strongest argument against what the user is building, so the user can defeat it before someone else does." },
       { n: "Honest sketchiness",       b: "A solid rectangle is evidence. A dashed one is a hypothesis. A '?' is a known unknown. The system surfaces what it doesn't know so the user can do something about it." },
       { n: "Validated evidence",       b: "Decisions are driven by experimentation, robust insights, and measurable outcomes. The UDL carries the residue forward. Confidence is earned, not assumed." },
     ],
@@ -2032,11 +1968,10 @@ function Principles() {
     <section id="principles">
       <div className="secHeader">
         <div className="eyebrow">Our Principles</div>
-        <h2>We're adding a new guiding principle to <span className="accent">shape FY27.</span></h2>
+        <h2>Three principles, sharpened for <span className="accent">FY27.</span></h2>
         <p className="lede">
-          Three principles carry forward from prior manifestos. Sharpened, but the spirit holds.
-          A fourth, AI in Service of Judgment, is new, and it pushes against the grain of every other
-          AI product in market. We treat it separately because it deserves the space.
+          Three principles carry forward from prior manifestos. AI in service of judgment runs through the
+          first two, shaping how ideas get elevated and how the system compounds intelligence.
         </p>
       </div>
       <div className="cardGrid cols-3">
@@ -2053,100 +1988,6 @@ function Principles() {
             ))}
           </div>
         ))}
-      </div>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────
-// AI IN SERVICE OF JUDGMENT — interactive principle
-// ─────────────────────────────────────────────────────────
-const AI_SUBS = [
-  { num: "01", name: "Commit first",        desc: "User names their hypothesis or writes their first draft before AI is allowed to intervene. AI then pushes back." },
-  { num: "02", name: "Propose, don't generate", desc: "The failure mode of AI is the user becoming a passenger. GrowthOS treats every AI move as a proposal: fast enough to save the cold-start cost of drafting, slow enough to leave judgment in human hands. AI proposes; the user judges." },
-  { num: "03", name: "Long tail first",     desc: "AI surfaces the outlier, the unusual quote, the response that doesn't fit. The interesting answer is rarely the average." },
-  { num: "04", name: "Adversarial by default", desc: "AI generates the strongest argument against what the user is building, so the user can defeat it before someone else does." },
-  { num: "05", name: "Slow at decisions",   desc: "Ingest is fast. Judgment is deliberate. Friction at the thinking points is a design feature." },
-];
-
-const DEMO_PROMPTS = [
-  {
-    label: "Hypothesis",
-    user: "Smart Sportswear will unlock a $40M new revenue line by year two.",
-    ai: <span><strong>Counter:</strong> The $40M projection rests on category-leadership pricing and 18% market penetration. Comparable category entrants (Lululemon ABC tech 2019, Athleta Smart Layer 2022) achieved 4–7% in year two at lower price. What specifically makes our scenario different?</span>,
-  },
-  {
-    label: "Synthesis",
-    user: "Users want a sportswear product that adapts to weather.",
-    ai: <span><strong>Widen:</strong> 22 of 28 interviews supported that. The 6 that didn't said weather adaptation was secondary to durability and recovery support. Two cohorts surfaced: performance-first and recovery-first. The synthesis "adapts to weather" may be hiding a more interesting tension.</span>,
-  },
-  {
-    label: "Experiment",
-    user: "Run a preference test between Concept A and Concept B with 200 participants.",
-    ai: <span><strong>Push back:</strong> Both concepts share the same weather-sensing language. A preference test will surface presentation bias more than concept merit. Consider a concept-refinement step on each in isolation before running them side-by-side.</span>,
-  },
-];
-
-function AIJudgment() {
-  const [demoIdx, setDemoIdx] = useState(0);
-  const demo = DEMO_PROMPTS[demoIdx];
-  return (
-    <section id="judgment">
-      <div className="secHeader">
-        <div className="eyebrow">The Fourth Principle</div>
-        <h2>AI in service of <span className="accent">judgment</span>.</h2>
-        <p className="lede">
-          The grain of most AI products today is to do the work for the user. The signals are clear about
-          where that leads. Brain capacity lowers, creative power decreases, shortcuts replace mental
-          challenges. Having AI do the thinking for you is a first-class ticket to mediocrity for life.
-        </p>
-        <p className="lede" style={{ marginTop: 16 }}>
-          GrowthOS makes the opposite bet. AI here is a mental coach. It knows when to push and when to
-          pause. How to activate the brain's creative and problem-solving networks. Priming, gamification,
-          behavioral design, flow inducement, sentiment coaching. We use AI to make the human sharper, not
-          lazier.
-        </p>
-      </div>
-
-      <div className="aiPrinciple">
-        <div className="aiBanner">
-          <div className="badge">Principle 04</div>
-          <div className="title">AI sharpens human thinking. It does not replace it.</div>
-          <div className="motto"><em>Plus est en vous.</em> There is more in you.</div>
-        </div>
-
-        <div className="aiSubPrinciples">
-          {AI_SUBS.map((s) => (
-            <div key={s.num} className="aiSub">
-              <div className="aiSubNum">{s.num}</div>
-              <div className="aiSubName">{s.name}</div>
-              <div className="aiSubDesc">{s.desc}</div>
-            </div>
-          ))}
-        </div>
-
-        <div className="adversarialDemo">
-          <div className="demoCol user">
-            <div className="demoLabel">User commits</div>
-            <div className="demoText">{demo.user}</div>
-          </div>
-          <div className="demoCol ai">
-            <div className="demoLabel">
-              <span className="star" style={{ width: 10, height: 10 }}/>
-              AI pushes back
-            </div>
-            <div className="demoText">{demo.ai}</div>
-          </div>
-          <div className="demoControls">
-            {DEMO_PROMPTS.map((d, i) => (
-              <button key={i}
-                className={i === demoIdx ? "active" : ""}
-                onClick={() => setDemoIdx(i)}>
-                {d.label}
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -2171,8 +2012,8 @@ const COMMITMENTS = [
   {
     id: "audiences",
     num: "03",
-    name: "Build for the manager and the executive as deliberately as for the practitioner.",
-    body: "Practitioners have GrowthOS today. Managers and executives see slivers of it. That changes this year. Operational truth about every project, in real time, no Friday slide deck. Drill-into-any-project views that surface evidence, blockers, gates, owners. Portfolio-level patterns that show where bets are concentrated, where evidence is thin, where this year's bet matches a past pattern the UDL already knows about. Case-building for the moment of upward persuasion: map evidence to objections, surface counterarguments before someone else makes them, walk into the room with the case already constructed.",
+    name: "Build for the case builder and the portfolio steward as deliberately as for the practitioner.",
+    body: "Practitioners have GrowthOS today. Case builders and portfolio stewards see slivers of it. That changes this year. Operational truth about every project, in real time, no Friday slide deck. Drill-into-any-project views that surface evidence, blockers, gates, owners. Portfolio-level patterns that show where bets are concentrated, where evidence is thin, where this year's bet matches a past pattern the UDL already knows about. Case-building for the moment of upward persuasion: map evidence to objections, surface counterarguments before someone else makes them, walk into the room with the case already constructed.",
   },
   {
     id: "collaboration",
@@ -2236,9 +2077,26 @@ function Future() {
 }
 
 // ─────────────────────────────────────────────────────────
-// COMMIT MOCKS — one stylized preview per commitment
+// COMMIT MOCKS — real Figma screens for 01-06, SVG for 07
 // ─────────────────────────────────────────────────────────
+const SCREEN_FOR_COMMIT = {
+  conversation:  { src: "./commit-01.png", alt: "GrowthMentor chat panel with Hater mode, Computer, MCP servers, and Personalize options" },
+  activation:    { src: "./commit-02.png", alt: "North Star project node with GrowthMentor summary and signals, findings, opportunities, and experiments" },
+  audiences:     { src: "./commit-03.png", alt: "Workspace home screen with 'Across your work' cards, Quick actions, Pinned, and Projects grid" },
+  collaboration: { src: "./commit-04.png", alt: "Project canvas with multiple user avatars collaborating on research, insights, and gaps" },
+  foundations:   { src: "./commit-05.png", alt: "Project knowledge library with Signals, Insights, Opportunities, Gaps, and Findings tabs" },
+  udl:           { src: "./commit-06.png", alt: "Add widgets flow showing cross-project overlap, reusable learning, and research coverage cards" },
+};
+
 function CommitMock({ kind }) {
+  const screen = SCREEN_FOR_COMMIT[kind];
+  if (screen) {
+    return (
+      <div className="cmockScreen">
+        <img src={screen.src} alt={screen.alt} loading="lazy" />
+      </div>
+    );
+  }
   if (kind === "conversation") {
     return (
       <div className="cmock">
@@ -2439,6 +2297,27 @@ function CommitMock({ kind }) {
 }
 
 // ─────────────────────────────────────────────────────────
+// GROWTHOS 3.0 — the shape the manifesto takes
+// ─────────────────────────────────────────────────────────
+function ThreeZero() {
+  return (
+    <section id="three-zero">
+      <div className="secHeader">
+        <div className="eyebrow">GrowthOS 3.0</div>
+        <h2>3.0 is where the manifesto <span className="accent">meets the product.</span></h2>
+        <p className="lede">
+          3.0 is the version where all of this takes shape. You stop having to pick a module when
+          you log in. You start with your project, and the tools show up when the project needs
+          them. GrowthMentor is already in there, proposing, pushing back, showing you how it got
+          to each read. The first hour, where every enterprise platform loses its users, is the one
+          we're actually designing for.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────
 // OPPORTUNITY
 // ─────────────────────────────────────────────────────────
 function Opportunity() {
@@ -2567,7 +2446,7 @@ function Coda() {
         <span className="word">GrowthOS</span>
       </div>
       <div className="rule"></div>
-      <div className="tagline">Insight to <em>in-market</em>, fast.</div>
+      <div className="tagline">Insight to <em>in-market</em>. Fast, with confidence.</div>
     </div>
   );
 }
@@ -2582,773 +2461,15 @@ function App() {
       <Truth />
       <Layers />
       <Future />
+      <ThreeZero />
       <Opportunity />
       <Principles />
-      <AIJudgment />
       <Coda />
     </div>
   );
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
-</script>
-
-<!-- ============================================================
-     INLINE COMMENTING SYSTEM
-     - Right-click anywhere → opens a comment composer at click
-     - Bottom-right toggle shows/hides all pins
-     - Pins stored in Firestore (pageComments collection)
-============================================================ -->
-<style>
-  .cmt-toggle {
-    position: fixed; right: 22px; bottom: 22px;
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    background: rgba(168,124,255,0.16);
-    border: 1px solid rgba(168,124,255,0.42);
-    color: var(--accent-soft);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    z-index: 9000;
-    transition: background 180ms, transform 180ms;
-    box-shadow: 0 10px 28px rgba(0,0,0,0.45);
-    backdrop-filter: blur(6px);
-  }
-  .cmt-toggle:hover { background: rgba(168,124,255,0.28); transform: translateY(-2px); }
-  .cmt-toggle.active { background: var(--accent-soft); color: #120318; border-color: var(--accent-soft); }
-  .cmt-toggle svg { width: 22px; height: 22px; }
-  .cmt-toggle .cmt-badge {
-    position: absolute; top: -4px; right: -4px;
-    min-width: 20px; height: 20px; padding: 0 6px;
-    border-radius: 999px;
-    background: var(--accent-soft); color: #120318;
-    font: 600 11px/20px 'Graphik','Inter',sans-serif;
-    text-align: center;
-    border: 2px solid var(--bg);
-    box-sizing: border-box;
-  }
-  .cmt-toggle.active .cmt-badge { background: #120318; color: var(--accent-soft); border-color: var(--accent-soft); }
-  .cmt-toggle .cmt-badge.empty { display: none; }
-
-  .cmt-hint {
-    position: fixed; right: 86px; bottom: 30px;
-    background: rgba(18,3,24,0.95);
-    border: 1px solid rgba(168,124,255,0.32);
-    color: var(--ink-dim);
-    padding: 8px 12px;
-    border-radius: 8px;
-    font: 11px/1.4 'Graphik','Inter',sans-serif;
-    letter-spacing: 0.04em;
-    z-index: 9000;
-    opacity: 0; pointer-events: none;
-    transform: translateX(8px);
-    transition: opacity 200ms, transform 200ms;
-    white-space: nowrap;
-  }
-  .cmt-toggle:hover + .cmt-hint { opacity: 1; transform: translateX(0); }
-
-  .cmt-pins { position: absolute; top: 0; left: 0; right: 0; pointer-events: none; z-index: 8500; }
-  .cmt-pins.hidden { display: none; }
-  .cmt-pin {
-    position: absolute;
-    width: 26px; height: 26px;
-    border-radius: 50% 50% 50% 4px;
-    transform: rotate(-45deg) translate(-13px, -13px);
-    transform-origin: 0 0;
-    background: var(--accent-soft);
-    border: 2px solid #120318;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.45);
-    cursor: pointer;
-    pointer-events: auto;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 160ms ease-out;
-  }
-  .cmt-pin:hover { transform: rotate(-45deg) translate(-13px, -13px) scale(1.18); }
-  .cmt-pin span {
-    transform: rotate(45deg);
-    font: 600 11px/1 'Graphik','Inter',sans-serif;
-    color: #120318;
-  }
-
-  .cmt-dialog, .cmt-popup {
-    position: fixed;
-    background: #1a0a26;
-    border: 1px solid rgba(168,124,255,0.42);
-    border-radius: 14px;
-    padding: 16px;
-    width: 300px;
-    z-index: 9500;
-    box-shadow: 0 18px 50px rgba(0,0,0,0.6);
-    color: var(--ink);
-    font-family: 'Graphik','Inter',sans-serif;
-    box-sizing: border-box;
-  }
-  .cmt-dialog.hidden, .cmt-popup.hidden { display: none; }
-
-  .cmt-dialog-head {
-    font-size: 10px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--accent-soft);
-    margin-bottom: 12px;
-    font-weight: 500;
-  }
-  .cmt-dialog input, .cmt-dialog textarea {
-    width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: var(--ink);
-    padding: 9px 11px;
-    border-radius: 8px;
-    font: 13px 'Graphik','Inter',sans-serif;
-    margin-bottom: 8px;
-    box-sizing: border-box;
-    outline: none;
-  }
-  .cmt-dialog input:focus, .cmt-dialog textarea:focus {
-    border-color: var(--accent-soft);
-    background: rgba(255,255,255,0.06);
-  }
-  .cmt-dialog textarea { min-height: 72px; resize: vertical; line-height: 1.5; }
-  .cmt-dialog input::placeholder, .cmt-dialog textarea::placeholder { color: var(--ink-faint); }
-
-  .cmt-dialog-row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 6px; }
-  .cmt-dialog-row button {
-    appearance: none; border: 0; background: transparent;
-    color: var(--ink-dim);
-    padding: 7px 16px;
-    border-radius: 999px;
-    cursor: pointer;
-    font: 500 12px 'Graphik','Inter',sans-serif;
-    letter-spacing: 0.02em;
-    transition: all 160ms;
-  }
-  .cmt-dialog-row .cmt-cancel:hover { color: var(--ink); }
-  .cmt-dialog-row .cmt-submit {
-    background: var(--accent-soft); color: #120318; font-weight: 500;
-  }
-  .cmt-dialog-row .cmt-submit:hover { background: #c4a4ff; }
-  .cmt-dialog-row .cmt-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .cmt-popup { padding: 14px 16px 16px; }
-  .cmt-popup-x {
-    position: absolute; top: 8px; right: 10px;
-    background: transparent; border: 0;
-    color: var(--ink-faint); cursor: pointer;
-    font-size: 18px; line-height: 1;
-    padding: 4px 8px;
-  }
-  .cmt-popup-x:hover { color: var(--ink); }
-  .cmt-popup-meta {
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 6px;
-  }
-  .cmt-popup-initials {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--accent-soft); color: #120318;
-    display: flex; align-items: center; justify-content: center;
-    font: 600 10px 'Graphik','Inter',sans-serif;
-    flex-shrink: 0;
-  }
-  .cmt-popup-name { font: 500 13px 'Graphik','Inter',sans-serif; color: var(--ink); }
-  .cmt-popup-time {
-    font: 10px 'Graphik','Inter',sans-serif;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    margin-top: 2px;
-  }
-  .cmt-popup-body {
-    font: 13px/1.55 'Graphik','Inter',sans-serif;
-    color: var(--ink-dim);
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    margin-top: 8px;
-  }
-  .cmt-popup-actions {
-    margin-top: 14px;
-    padding-top: 12px;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    display: flex; justify-content: flex-end;
-  }
-  .cmt-popup-delete {
-    appearance: none; background: transparent; border: 0;
-    color: var(--ink-faint);
-    font: 11px 'Graphik','Inter',sans-serif;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 6px;
-    transition: color 160ms, background 160ms;
-  }
-  .cmt-popup-delete:hover { color: #ff7a8a; background: rgba(255,122,138,0.08); }
-  .cmt-popup-delete.confirming { color: #ff7a8a; background: rgba(255,122,138,0.14); }
-
-  /* Stacked floating buttons: list (top) + pin-toggle (bottom) */
-  .cmt-list-btn {
-    position: fixed; right: 22px; bottom: 86px;
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    background: rgba(168,124,255,0.16);
-    border: 1px solid rgba(168,124,255,0.42);
-    color: var(--accent-soft);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    z-index: 9000;
-    transition: background 180ms, transform 180ms;
-    box-shadow: 0 10px 28px rgba(0,0,0,0.45);
-    backdrop-filter: blur(6px);
-  }
-  .cmt-list-btn:hover { background: rgba(168,124,255,0.28); transform: translateY(-2px); }
-  .cmt-list-btn.active { background: var(--accent-soft); color: #120318; border-color: var(--accent-soft); }
-  .cmt-list-btn svg { width: 20px; height: 20px; }
-
-  /* Side panel */
-  .cmt-panel {
-    position: fixed; top: 0; right: 0; bottom: 0;
-    width: 380px;
-    max-width: 92vw;
-    background: #160621;
-    border-left: 1px solid rgba(168,124,255,0.32);
-    box-shadow: -22px 0 60px rgba(0,0,0,0.55);
-    z-index: 9400;
-    display: flex; flex-direction: column;
-    transform: translateX(100%);
-    transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
-    font-family: 'Graphik','Inter',sans-serif;
-  }
-  .cmt-panel.open { transform: translateX(0); }
-
-  .cmt-panel-head {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 20px 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    flex-shrink: 0;
-  }
-  .cmt-panel-title {
-    font-size: 11px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--accent-soft);
-    font-weight: 500;
-  }
-  .cmt-panel-title span {
-    margin-left: 8px;
-    color: var(--ink-faint);
-    font-weight: 400;
-  }
-  .cmt-panel-close {
-    background: transparent; border: 0;
-    color: var(--ink-faint); cursor: pointer;
-    font-size: 22px; line-height: 1;
-    padding: 4px 10px;
-    border-radius: 6px;
-    transition: color 160ms, background 160ms;
-  }
-  .cmt-panel-close:hover { color: var(--ink); background: rgba(255,255,255,0.04); }
-
-  .cmt-panel-body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 8px 0;
-  }
-  .cmt-panel-body::-webkit-scrollbar { width: 8px; }
-  .cmt-panel-body::-webkit-scrollbar-thumb { background: rgba(168,124,255,0.16); border-radius: 4px; }
-  .cmt-panel-body::-webkit-scrollbar-thumb:hover { background: rgba(168,124,255,0.28); }
-
-  .cmt-panel-empty {
-    padding: 56px 28px;
-    text-align: center;
-    color: var(--ink-faint);
-    font-size: 13px;
-    line-height: 1.6;
-  }
-  .cmt-panel-empty strong {
-    display: block;
-    color: var(--ink-dim);
-    margin-bottom: 6px;
-    font-weight: 500;
-  }
-
-  .cmt-card {
-    padding: 14px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    cursor: pointer;
-    transition: background 160ms;
-    position: relative;
-  }
-  .cmt-card:hover { background: rgba(168,124,255,0.05); }
-  .cmt-card:hover .cmt-card-delete { opacity: 1; }
-
-  .cmt-card-meta {
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 8px;
-  }
-  .cmt-card-num {
-    width: 22px; height: 22px;
-    border-radius: 50%;
-    background: rgba(168,124,255,0.18);
-    color: var(--accent-soft);
-    display: flex; align-items: center; justify-content: center;
-    font: 600 10px 'Graphik','Inter',sans-serif;
-    flex-shrink: 0;
-  }
-  .cmt-card-name {
-    font: 500 13px 'Graphik','Inter',sans-serif;
-    color: var(--ink);
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .cmt-card-time {
-    font: 10px 'Graphik','Inter',sans-serif;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    flex-shrink: 0;
-  }
-  .cmt-card-body {
-    font: 13px/1.5 'Graphik','Inter',sans-serif;
-    color: var(--ink-dim);
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    margin-left: 32px;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .cmt-card-delete {
-    position: absolute;
-    top: 12px; right: 14px;
-    background: transparent; border: 0;
-    color: var(--ink-faint);
-    font: 10px 'Graphik','Inter',sans-serif;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 6px;
-    opacity: 0;
-    transition: opacity 160ms, color 160ms, background 160ms;
-  }
-  .cmt-card-delete:hover { color: #ff7a8a; background: rgba(255,122,138,0.08); }
-  .cmt-card-delete.confirming { color: #ff7a8a; background: rgba(255,122,138,0.14); opacity: 1; }
-
-  /* Pin pulse when card clicked */
-  @keyframes cmt-pin-pulse {
-    0%   { transform: rotate(-45deg) translate(-13px, -13px) scale(1); }
-    40%  { transform: rotate(-45deg) translate(-13px, -13px) scale(1.5); box-shadow: 0 0 0 8px rgba(168,124,255,0.4); }
-    100% { transform: rotate(-45deg) translate(-13px, -13px) scale(1); }
-  }
-  .cmt-pin.pulsing { animation: cmt-pin-pulse 1100ms ease-out; }
-
-  @media (max-width: 480px) {
-    .cmt-list-btn { right: 18px; bottom: 80px; }
-    .cmt-panel { width: 100vw; max-width: none; }
-  }
-</style>
-
-<button class="cmt-list-btn" id="cmt-list-btn" aria-label="Open comments list">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <line x1="8" y1="6" x2="20" y2="6"/>
-    <line x1="8" y1="12" x2="20" y2="12"/>
-    <line x1="8" y1="18" x2="20" y2="18"/>
-    <circle cx="4" cy="6"  r="1.2" fill="currentColor"/>
-    <circle cx="4" cy="12" r="1.2" fill="currentColor"/>
-    <circle cx="4" cy="18" r="1.2" fill="currentColor"/>
-  </svg>
-</button>
-<button class="cmt-toggle active" id="cmt-toggle" aria-label="Toggle comments">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-  </svg>
-  <span class="cmt-badge empty" id="cmt-badge">0</span>
-</button>
-<div class="cmt-hint">Right-click anywhere to leave a comment</div>
-
-<aside class="cmt-panel" id="cmt-panel" role="dialog" aria-label="All comments">
-  <div class="cmt-panel-head">
-    <div class="cmt-panel-title">Comments <span id="cmt-panel-count">0</span></div>
-    <button class="cmt-panel-close" id="cmt-panel-close" aria-label="Close">×</button>
-  </div>
-  <div class="cmt-panel-body" id="cmt-panel-body"></div>
-</aside>
-
-<div class="cmt-pins" id="cmt-pins"></div>
-
-<div class="cmt-dialog hidden" id="cmt-dialog" role="dialog" aria-label="New comment">
-  <div class="cmt-dialog-head">New comment</div>
-  <input id="cmt-name" placeholder="Your initials or name" maxlength="40" autocomplete="off" />
-  <textarea id="cmt-body" placeholder="What's on your mind?" maxlength="2000"></textarea>
-  <div class="cmt-dialog-row">
-    <button class="cmt-cancel" id="cmt-cancel">Cancel</button>
-    <button class="cmt-submit" id="cmt-submit">Post</button>
-  </div>
-</div>
-
-<div class="cmt-popup hidden" id="cmt-popup" role="dialog" aria-label="Comment"></div>
-
-<script type="module">
-  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js';
-  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, doc, deleteDoc }
-    from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBhrrBWIfYQUhKpRse5wA2rH9MTn2mcmSQ",
-    authDomain: "growthos-manifesto.firebaseapp.com",
-    projectId: "growthos-manifesto",
-    storageBucket: "growthos-manifesto.firebasestorage.app",
-    messagingSenderId: "203721735013",
-    appId: "1:203721735013:web:aa96eaf74e82f888febf8c"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const colRef = collection(db, 'pageComments');
-  const PAGE_KEY = 'manifesto-prototype';
-  const SAVED_NAME_KEY = 'gosManifestoCommenterName';
-
-  const toggleBtn = document.getElementById('cmt-toggle');
-  const badge     = document.getElementById('cmt-badge');
-  const pinsEl    = document.getElementById('cmt-pins');
-  const dialog    = document.getElementById('cmt-dialog');
-  const nameIn    = document.getElementById('cmt-name');
-  const bodyIn    = document.getElementById('cmt-body');
-  const submitBtn = document.getElementById('cmt-submit');
-  const cancelBtn = document.getElementById('cmt-cancel');
-  const popup     = document.getElementById('cmt-popup');
-  const listBtn   = document.getElementById('cmt-list-btn');
-  const panel     = document.getElementById('cmt-panel');
-  const panelBody = document.getElementById('cmt-panel-body');
-  const panelClose= document.getElementById('cmt-panel-close');
-  const panelCount= document.getElementById('cmt-panel-count');
-
-  let comments = [];
-  let pending = null;
-  let pinsVisible = true;
-
-  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-
-  function initialsOf(name) {
-    const n = (name || '').trim();
-    if (!n) return '?';
-    const parts = n.split(/\s+/).slice(0, 2);
-    return parts.map(p => p[0]).join('').toUpperCase();
-  }
-
-  function fmtTime(ms) {
-    if (!ms) return 'just now';
-    const d = new Date(ms);
-    const now = new Date();
-    const sameDay = d.toDateString() === now.toDateString();
-    if (sameDay) return d.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
-    return d.toLocaleDateString([], {month: 'short', day: 'numeric'}) + ' · ' + d.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
-  }
-
-  function pageWidth() {
-    return document.documentElement.clientWidth || window.innerWidth;
-  }
-
-  function renderPins() {
-    pinsEl.innerHTML = '';
-    if (!pinsVisible) return;
-    const w = pageWidth();
-    comments.forEach((c, i) => {
-      const pin = document.createElement('div');
-      pin.className = 'cmt-pin';
-      pin.style.left = (c.xFrac * w) + 'px';
-      pin.style.top  = c.y + 'px';
-      pin.dataset.id = c.id;
-      pin.innerHTML = '<span>' + (i + 1) + '</span>';
-      pin.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showPopup(c, pin);
-      });
-      pinsEl.appendChild(pin);
-    });
-    const count = comments.length;
-    badge.textContent = count;
-    badge.classList.toggle('empty', count === 0);
-    renderPanel();
-  }
-
-  function renderPanel() {
-    panelCount.textContent = comments.length;
-    if (!comments.length) {
-      panelBody.innerHTML = `
-        <div class="cmt-panel-empty">
-          <strong>No comments yet.</strong>
-          Right-click anywhere on the page to leave the first one.
-        </div>
-      `;
-      return;
-    }
-    // Newest first
-    const sorted = comments.slice().reverse();
-    const html = sorted.map((c) => {
-      const origIndex = comments.indexOf(c);
-      const num = origIndex + 1;
-      return `
-        <div class="cmt-card" data-id="${esc(c.id)}" data-num="${num}">
-          <button class="cmt-card-delete" data-id="${esc(c.id)}">Delete</button>
-          <div class="cmt-card-meta">
-            <div class="cmt-card-num">${num}</div>
-            <div class="cmt-card-name">${esc(c.name || 'Anonymous')}</div>
-            <div class="cmt-card-time">${esc(fmtTime(c.ts))}</div>
-          </div>
-          <div class="cmt-card-body">${esc(c.body)}</div>
-        </div>
-      `;
-    }).join('');
-    panelBody.innerHTML = html;
-  }
-
-  function pulsePin(commentId) {
-    const pin = pinsEl.querySelector(`.cmt-pin[data-id="${CSS.escape(commentId)}"]`);
-    if (!pin) return;
-    pin.classList.remove('pulsing');
-    void pin.offsetWidth;
-    pin.classList.add('pulsing');
-    setTimeout(() => pin.classList.remove('pulsing'), 1200);
-  }
-
-  function jumpToComment(commentId) {
-    const c = comments.find(x => x.id === commentId);
-    if (!c) return;
-    // Make sure pins are visible so we can pulse one
-    if (!pinsVisible) {
-      pinsVisible = true;
-      pinsEl.classList.remove('hidden');
-      toggleBtn.classList.add('active');
-    }
-    // Scroll the comment Y into view (centered)
-    const targetY = Math.max(0, c.y - window.innerHeight * 0.4);
-    window.scrollTo({ top: targetY, behavior: 'smooth' });
-    // Pulse after scroll settles
-    setTimeout(() => pulsePin(commentId), 420);
-  }
-
-  // Panel events
-  listBtn.addEventListener('click', () => {
-    const opening = !panel.classList.contains('open');
-    panel.classList.toggle('open', opening);
-    listBtn.classList.toggle('active', opening);
-    if (opening) popup.classList.add('hidden');
-  });
-  panelClose.addEventListener('click', () => {
-    panel.classList.remove('open');
-    listBtn.classList.remove('active');
-  });
-  // Card click → jump; delete button uses two-step confirm
-  panelBody.addEventListener('click', async (e) => {
-    const delBtn = e.target.closest('.cmt-card-delete');
-    if (delBtn) {
-      e.stopPropagation();
-      const id = delBtn.dataset.id;
-      if (!delBtn.classList.contains('confirming')) {
-        delBtn.classList.add('confirming');
-        delBtn.textContent = 'Confirm?';
-        setTimeout(() => {
-          delBtn.classList.remove('confirming');
-          delBtn.textContent = 'Delete';
-        }, 3000);
-        return;
-      }
-      delBtn.textContent = '…';
-      try {
-        await deleteDoc(doc(db, 'pageComments', id));
-      } catch (err) {
-        console.error('[comments] delete failed', err);
-        delBtn.classList.remove('confirming');
-        delBtn.textContent = 'Delete';
-        alert('Could not delete: ' + err.message);
-      }
-      return;
-    }
-    const card = e.target.closest('.cmt-card');
-    if (card) {
-      jumpToComment(card.dataset.id);
-    }
-  });
-
-  function showPopup(c, pin) {
-    popup.innerHTML = `
-      <button class="cmt-popup-x" aria-label="Close">×</button>
-      <div class="cmt-popup-meta">
-        <div class="cmt-popup-initials">${esc(initialsOf(c.name))}</div>
-        <div>
-          <div class="cmt-popup-name">${esc(c.name || 'Anonymous')}</div>
-          <div class="cmt-popup-time">${esc(fmtTime(c.ts))}</div>
-        </div>
-      </div>
-      <div class="cmt-popup-body">${esc(c.body)}</div>
-      <div class="cmt-popup-actions">
-        <button class="cmt-popup-delete" data-id="${esc(c.id)}">Delete</button>
-      </div>
-    `;
-    const rect = pin.getBoundingClientRect();
-    const popupW = 300;
-    let left = rect.right + 14;
-    if (left + popupW > window.innerWidth - 16) {
-      left = Math.max(16, rect.left - popupW - 14);
-    }
-    let top = rect.top;
-    if (top + 240 > window.innerHeight) {
-      top = Math.max(16, window.innerHeight - 260);
-    }
-    popup.style.left = left + 'px';
-    popup.style.top  = top + 'px';
-    popup.classList.remove('hidden');
-    popup.querySelector('.cmt-popup-x').addEventListener('click', () => {
-      popup.classList.add('hidden');
-    });
-    // Two-step delete: first click → "Click again to confirm", second click → delete
-    const delBtn = popup.querySelector('.cmt-popup-delete');
-    let confirmTimer = null;
-    delBtn.addEventListener('click', async (e) => {
-      e.stopPropagation();
-      if (!delBtn.classList.contains('confirming')) {
-        delBtn.classList.add('confirming');
-        delBtn.textContent = 'Click again to confirm';
-        confirmTimer = setTimeout(() => {
-          delBtn.classList.remove('confirming');
-          delBtn.textContent = 'Delete';
-        }, 3000);
-        return;
-      }
-      clearTimeout(confirmTimer);
-      delBtn.disabled = true;
-      delBtn.textContent = 'Deleting…';
-      try {
-        await deleteDoc(doc(db, 'pageComments', c.id));
-        popup.classList.add('hidden');
-      } catch (err) {
-        console.error('[comments] delete failed', err);
-        delBtn.classList.remove('confirming');
-        delBtn.disabled = false;
-        delBtn.textContent = 'Delete';
-        alert('Could not delete: ' + err.message);
-      }
-    });
-  }
-
-  // Right click → composer
-  document.addEventListener('contextmenu', (e) => {
-    if (dialog.contains(e.target) || popup.contains(e.target) || toggleBtn.contains(e.target) || panel.contains(e.target) || listBtn.contains(e.target)) return;
-    e.preventDefault();
-    pending = {
-      xFrac: e.pageX / pageWidth(),
-      y:     e.pageY,
-    };
-    const dW = 300, dH = 220;
-    let dx = e.clientX + 12;
-    let dy = e.clientY + 12;
-    if (dx + dW > window.innerWidth - 16)  dx = Math.max(16, e.clientX - dW - 12);
-    if (dy + dH > window.innerHeight - 16) dy = Math.max(16, window.innerHeight - dH - 16);
-    dialog.style.left = dx + 'px';
-    dialog.style.top  = dy + 'px';
-    dialog.classList.remove('hidden');
-    popup.classList.add('hidden');
-
-    const saved = localStorage.getItem(SAVED_NAME_KEY) || '';
-    nameIn.value = saved;
-    bodyIn.value = '';
-    submitBtn.disabled = false;
-    setTimeout(() => (saved ? bodyIn : nameIn).focus(), 60);
-  });
-
-  cancelBtn.addEventListener('click', () => {
-    dialog.classList.add('hidden');
-    pending = null;
-  });
-
-  async function postComment() {
-    if (!pending) return;
-    const name = nameIn.value.trim();
-    const body = bodyIn.value.trim();
-    if (!body) { bodyIn.focus(); return; }
-    submitBtn.disabled = true;
-    try {
-      if (name) localStorage.setItem(SAVED_NAME_KEY, name);
-      await addDoc(colRef, {
-        name: name || 'Anonymous',
-        body,
-        page: PAGE_KEY,
-        xFrac: pending.xFrac,
-        y: pending.y,
-        ts: serverTimestamp(),
-      });
-      dialog.classList.add('hidden');
-      pending = null;
-    } catch (err) {
-      console.error('[comments] post failed', err);
-      alert('Could not post comment: ' + err.message);
-      submitBtn.disabled = false;
-    }
-  }
-  submitBtn.addEventListener('click', postComment);
-  bodyIn.addEventListener('keydown', (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); postComment(); }
-    if (e.key === 'Escape') { dialog.classList.add('hidden'); pending = null; }
-  });
-  nameIn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') { e.preventDefault(); bodyIn.focus(); }
-    if (e.key === 'Escape') { dialog.classList.add('hidden'); pending = null; }
-  });
-
-  // Toggle pin visibility
-  toggleBtn.addEventListener('click', () => {
-    pinsVisible = !pinsVisible;
-    pinsEl.classList.toggle('hidden', !pinsVisible);
-    toggleBtn.classList.toggle('active', pinsVisible);
-    if (!pinsVisible) popup.classList.add('hidden');
-  });
-
-  // Outside click closes popup/dialog
-  document.addEventListener('mousedown', (e) => {
-    if (!popup.classList.contains('hidden')) {
-      if (!popup.contains(e.target) && !e.target.closest('.cmt-pin')) {
-        popup.classList.add('hidden');
-      }
-    }
-    if (!dialog.classList.contains('hidden')) {
-      if (!dialog.contains(e.target)) {
-        dialog.classList.add('hidden'); pending = null;
-      }
-    }
-  });
-
-  // Re-render pins on resize
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(renderPins, 80);
-  });
-
-  // Live subscribe
-  const q = query(colRef, orderBy('ts', 'asc'));
-  onSnapshot(q, (snap) => {
-    comments = [];
-    snap.forEach(doc => {
-      const d = doc.data();
-      if (d.page !== PAGE_KEY) return;
-      comments.push({
-        id: doc.id,
-        name: d.name,
-        body: d.body,
-        xFrac: typeof d.xFrac === 'number' ? d.xFrac : 0.5,
-        y:     typeof d.y === 'number' ? d.y : 0,
-        ts:    d.ts && d.ts.toMillis ? d.ts.toMillis() : null,
-      });
-    });
-    renderPins();
-  }, (err) => {
-    console.error('[comments] subscribe failed', err);
-  });
 </script>
 
 </body>
