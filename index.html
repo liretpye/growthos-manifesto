@@ -789,6 +789,26 @@
   }
   .principleCard .pcSubBody strong { color: var(--ink); font-weight: 400; }
 
+  /* 3.0 section detail grid */
+  .tzGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (max-width: 880px) { .tzGrid { grid-template-columns: 1fr; } }
+  .tzChain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: auto; }
+  .tzStep {
+    font-family: 'Graphik', 'Inter', sans-serif; font-size: 12px;
+    padding: 5px 10px; border-radius: 999px;
+    border: 1px solid var(--rule); color: var(--ink-dim);
+    background: rgba(255,255,255,0.03);
+  }
+  .tzStep.end { border-color: var(--accent-soft); color: var(--ink); background: rgba(168,124,255,0.14); }
+  .tzArrow { color: var(--accent-soft); font-size: 12px; }
+  .tzTags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+  .tzTag {
+    font-family: 'Graphik', 'Inter', sans-serif; font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 999px;
+    background: rgba(168,124,255,0.12); color: var(--accent-soft);
+  }
+
   /* Role cards (compact) */
   .roleCard {
     padding: 24px 26px;
@@ -2312,6 +2332,66 @@ function ThreeZero() {
           to each read. The first hour, where every enterprise platform loses its users, is the one
           we're actually designing for.
         </p>
+      </div>
+
+      <div className="tzGrid">
+        <div className="principleCard">
+          <div className="pcNum">THE CORE OBJECT</div>
+          <h3>Everything builds toward an opportunity.</h3>
+          <div className="pcIntro">
+            An opportunity is something worth pursuing, with the business case and the evidence
+            behind it. It's the end product of using GrowthOS. Every step on the way to it stays
+            connected, so any recommendation can be traced back to where it came from.
+          </div>
+          <div className="tzChain">
+            {["Sources","Signals","Findings","Challenges","Insights","Gaps","Ideas","Validations","Opportunities"].map((s, i, a) => (
+              <React.Fragment key={s}>
+                <span className={"tzStep" + (i === a.length - 1 ? " end" : "")}>{s}</span>
+                {i < a.length - 1 && <span className="tzArrow">→</span>}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        <div className="principleCard">
+          <div className="pcNum">GROWTHMENTOR'S VOICE</div>
+          <h3>A teammate with tough love.</h3>
+          <div className="pcIntro">
+            GrowthMentor guides you through the journey and helps you get smarter as you go. It's
+            supportive, it coaches, and it asks the Socratic question when the case is thin. In the
+            background it cleans up and connects your data, so the manual, busy work goes away.
+          </div>
+          <div className="tzTags">
+            {["Guide","Brain","Tough love","Teammate","Supportive","Socratic"].map(t => <span key={t} className="tzTag">{t}</span>)}
+          </div>
+        </div>
+
+        <div className="principleCard">
+          <div className="pcNum">CONFIDENCE</div>
+          <h3>Objective scoring for subjective calls.</h3>
+          <div className="pcIntro">
+            Most growth decisions come down to judgment. 3.0 adds confidence scoring that grounds
+            those calls in the evidence behind them, and GrowthMentor shows its reasoning so you can
+            see how it got there. That's what fast, with confidence means in practice.
+          </div>
+        </div>
+
+        <div className="principleCard">
+          <div className="pcNum">OUR ANTI-PRINCIPLES</div>
+          <h3>We've missed the mark if...</h3>
+          {[
+            ["Someone can honestly ask, “Why wouldn't I just use Claude, ChatGPT, or Copilot for this?”", "If the answer isn't obvious, we aren't creating unique value."],
+            ["We're generating more information instead of better decisions.", "GrowthOS exists to elevate ideas. Producing more content doesn't count."],
+            ["The output replaces human thinking instead of strengthening it.", "If users become less critical, less creative, or less engaged, we've broken our own principles."],
+            ["We hide uncertainty behind confident answers.", "Users should always be able to tell evidence from interpretation, assumption, and what still needs to be learned."],
+            ["Using GrowthOS feels like work.", "If understanding, collaboration, validation, or decision-making feel harder than the alternatives, we will fail."],
+          ].map(([n, b], i) => (
+            <div key={i} className="pcSub">
+              <div className="pcSubName">{String(i + 1).padStart(2, "0")}</div>
+              <div className="pcSubBody"><strong>{n}</strong> {b}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
