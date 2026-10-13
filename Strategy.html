@@ -230,7 +230,7 @@
   </ul>
   <h3>Foundations</h3>
   <ul>
-    <li><strong>Sensors.</strong> One open endpoint for outside data, built through MCP, API docs or an SDK, with a governance model for review and enablement. Launch sensors are AlphaSense, CB Insights, Luca, Wevo and Aaru, and Scout is a sensor too.</li>
+    <li><strong>Sensors.</strong> One open endpoint for outside data, built through MCP, API docs or an SDK, with a governance model for review and enablement. Launch sensors include AlphaSense, CB Insights, Wevo and Aaru, and Scout is a sensor too.</li>
     <li><strong>How sensors work in a project.</strong> A sensor connects per project and syncs on connection. After that, retrieval runs recursively, driven by user prompts. Users pick sensor results and add them to the canvas as nodes. Sensor data ladders up from project to program to org.</li>
     <li><strong>Opening sensors to everyone.</strong> Anyone can apply for a new sensor through a GrowthOS Product team application process. Accenture holds the sensor licenses.</li>
     <li><strong>Proxies</strong> grounded in better design methods, with less reliance on prompt stuffing.</li>
@@ -239,32 +239,10 @@
 
   <h2>Build, partner, integrate</h2>
   <p>We don't reinvent what others already do well. Routing everything through outside APIs would slow the product down and complicate pricing, so the default is true partnerships, with GrowthOS owning the interface and the workflow.</p>
-  <p><strong>Proxies and Luca.</strong> Today Proxies run mostly on prompt stuffing, which leaves too much of the work to GenAI. Luca, Accenture's synthetic persona tool built on YouGov data, is one of our launch sensors. Luca will:</p>
-  <ol>
-    <li>Adopt the GrowthOS interface and the system design of our refinement methods.</li>
-    <li>Bring its persona design methods into GrowthOS as the back end for Proxies.</li>
-    <li>Evaluate how complete user-built Proxies are.</li>
-  </ol>
-  <p>Users will see what kind of Proxy they're working with: one that's subjective and qualitative, or one built on a credible data set.</p>
+  <p><strong>Proxies.</strong> Today Proxies run mostly on prompt stuffing, which leaves too much of the work to GenAI. We'll bring in persona design methods from partners who already do this well and use them as the back end for Proxies. Luca, Accenture's synthetic persona tool built on YouGov data, is one example. Users will see what kind of Proxy they're working with: one that's subjective and qualitative, or one built on a credible data set.</p>
   <p><strong>Research partners.</strong> Wevo already powers Proxi concept testing and Wevo Pro inside Validate. Dovetail and dscout set the quality bar for Connect.</p>
   <p><strong>Data partners.</strong> Data providers come in as sensors through Foundations (see Priorities). Sensors give every provider one governed way into GrowthOS, so new data stops requiring a custom integration each time.</p>
 
-  <h2>Investment and what we stop</h2>
-  <p>We split capacity three ways:</p>
-  <div class="split">
-    <div><div class="pct">75%</div><div class="lbl">Foundations</div><div class="desc">UX hygiene, information architecture, performance, the object model, sensors, identity migration and integration depth. This is how we earn the right to the rest.</div></div>
-    <div><div class="pct">25%</div><div class="lbl">Differentiators</div><div class="desc">Testing quality, Proxies, the Idea Container and importance scoring.</div></div>
-    <div><div class="pct">Sliver</div><div class="lbl">Experiments</div><div class="desc">Agentic plays and flagship moments.</div></div>
-  </div>
-  <p>A plan that adds this much has to name what it drops. Proposed cuts, to confirm with the team:</p>
-  <div class="tableWrap"><table>
-    <tr><th>We stop</th><th>Why</th></tr>
-    <tr><td>Asking users to pick a module on entry</td><td>Tools surface based on what the project needs</td></tr>
-    <tr><td>Treating Experiment Central as the place tests are set up</td><td>It becomes the home where every experiment is collected</td></tr>
-    <tr><td>Building our own persona engine from scratch</td><td>Luca and partners bring persona design methods</td></tr>
-    <tr><td>One-off integrations for each new data source</td><td>Sensors give every provider one governed way in</td></tr>
-    <tr><td>Physical-product prototyping</td><td>Out of scope for what GrowthOS can solve today</td></tr>
-  </table></div>
 
   <h2>Phasing</h2>
   <div class="figure">
@@ -315,17 +293,6 @@
     <tr><td>Foundations</td><td>Time from first intake to first useful output</td></tr>
     <tr><td>Foundations</td><td>Projects with a sensor connected, and sensor results added to canvases</td></tr>
   </table></div>
-
-  <h2>Open questions</h2>
-  <ul class="questions">
-    <li><strong>Does the Signal hold as our atom?</strong> We've landed on the Signal as the shared unit every output normalizes to. We should confirm it holds once GrowthMentor and sensors are live.</li>
-    <li><strong>Importance or confidence?</strong> Lock the naming for signal scores before it ships in the interface.</li>
-    <li><strong>How good are our Proxies?</strong> We need a way to show users when a Proxy is grounded in credible data and when it's subjective.</li>
-    <li><strong>How do we focus inside the dual model?</strong> Consultants and in-house client teams are both in scope, with different pricing, sales and support needs.</li>
-    <li><strong>How do we prototype physical products?</strong> Today this is out of scope. Is an image rendering enough?</li>
-    <li><strong>How do we measure in market?</strong> We need a readiness method that predicts next steps and market trajectory, plus a better frame than "portfolio."</li>
-    <li><strong>What evidence backs the current pains?</strong> User research and telemetry should replace observation before we commit the 75% to Foundations.</li>
-  </ul>
 </main>
 
 <footer>
