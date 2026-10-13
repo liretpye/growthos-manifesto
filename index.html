@@ -146,12 +146,28 @@
   }
   nav.top ul {
     list-style: none; margin: 0; padding: 0;
-    display: flex; gap: 24px;
+    display: flex; gap: 26px;
   }
   nav.top a {
     color: var(--ink-dim);
     font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
     font-weight: 400; transition: color 200ms;
+    white-space: nowrap;
+  }
+  nav.top .brand { white-space: nowrap; color: var(--ink); }
+  nav.top .brandSub {
+    color: var(--ink-faint);
+    padding-left: 12px; border-left: 1px solid var(--rule);
+  }
+  nav.top { gap: 36px; }
+  .navPages { display: flex; align-items: center; gap: 22px; }
+  .navPages > a:not(.pill) { color: var(--ink-faint); }
+  @media (max-width: 1500px) { nav.top .brandSub { display: none; } }
+  @media (max-width: 1360px) { nav.top ul.navSections { display: none; } }
+  @media (max-width: 600px) {
+    nav.top { padding: 16px 20px; }
+    .navPages { gap: 14px; }
+    .navPages > a:not(.pill) { display: none; }
   }
   nav.top a:hover { color: var(--ink); }
   nav.top .pill {
@@ -1482,19 +1498,21 @@
 <nav class="top">
   <div class="brand">
     <img class="navmark" src="./GrowthOSLogo.png" alt=""/>
-    GrowthOS · Manifesto 2027
+    <span>GrowthOS</span><span class="brandSub">Manifesto 2027</span>
   </div>
-  <ul>
+  <ul class="navSections">
     <li><a href="#truth">Truth</a></li>
     <li><a href="#layers">Roles</a></li>
     <li><a href="#future">Future</a></li>
     <li><a href="#three-zero">3.0</a></li>
-    <li><a href="./Strategy.html">Strategy</a></li>
     <li><a href="#opportunity">Opportunity</a></li>
     <li><a href="#principles">Principles</a></li>
-    <li><a href="./Mark.html">Mark</a></li>
   </ul>
-  <a class="pill pillLink" href="./GrowthOS Manifesto 2027 - Full Argument.html">Read the article ↗</a>
+  <div class="navPages">
+    <a href="./Strategy.html">Strategy</a>
+    <a href="./Mark.html">Mark</a>
+    <a class="pill pillLink" href="./GrowthOS Manifesto 2027 - Full Argument.html">Read the article ↗</a>
+  </div>
 </nav>
 
 <div id="root"></div>
