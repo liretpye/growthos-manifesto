@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>GrowthOS 3.0 Product Strategy</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family: 'Graphik'; src: url('./Graphik Font/Graphik-Light.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Graphik'; src: url('./Graphik Font/Graphik-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Graphik'; src: url('./Graphik Font/Graphik-RegularItalic.otf') format('opentype'); font-weight: 400; font-style: italic; font-display: swap; }
+  @font-face { font-family: 'Graphik'; src: url('./Graphik Font/Graphik-Semibold.otf') format('opentype'); font-weight: 600; font-style: normal; font-display: swap; }
+  :root {
+    --bg: #120318;
+    --accent: #6936F5;
+    --accent-soft: #A87CFF;
+    --ink: #FFFFFF;
+    --ink-dim: rgba(255,255,255,0.72);
+    --ink-faint: rgba(255,255,255,0.42);
+    --rule: rgba(255,255,255,0.12);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body { font-family: 'Graphik', 'Inter', system-ui, sans-serif; line-height: 1.6; font-size: 17px; overflow-x: hidden; }
+  html { scroll-behavior: smooth; }
+  a { color: var(--accent-soft); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  strong { color: var(--ink); font-weight: 600; }
+
+  nav.top {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 22px 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(180deg, rgba(18,3,24,0.94), rgba(18,3,24,0.6) 80%, transparent);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  .brand { display: flex; align-items: center; gap: 12px; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-dim); }
+  .navmark { width: 20px; height: auto; display: block; }
+  .pill {
+    font-size: 11px; letter-spacing: 0.18em; font-weight: 600; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px; border: 1px solid var(--accent-soft); color: var(--accent-soft);
+  }
+  .pill:hover { background: var(--accent-soft); color: #120318; text-decoration: none; }
+
+  main { max-width: 820px; margin: 0 auto; padding: 170px 32px 100px; }
+  .eyebrow { font-size: 13px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--accent-soft); margin-bottom: 22px; }
+  h1 { font-size: 60px; line-height: 1.06; margin: 0; letter-spacing: -0.04em; font-weight: 400; }
+  .meta { margin-top: 20px; font-size: 14px; color: var(--ink-faint); }
+  .meta a { color: var(--accent-soft); }
+  h2 {
+    font-size: 34px; line-height: 1.15; letter-spacing: -0.03em; font-weight: 400;
+    margin: 88px 0 20px; padding-top: 28px; border-top: 1px solid var(--rule);
+  }
+  h3 { font-size: 13px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent-soft); font-weight: 400; margin: 36px 0 12px; }
+  p { margin: 0 0 18px; color: var(--ink-dim); }
+  p.lead { font-size: 21px; line-height: 1.55; color: var(--ink); }
+  ul, ol { margin: 0 0 22px; padding-left: 22px; color: var(--ink-dim); }
+  li { margin-bottom: 8px; padding-left: 4px; }
+  li::marker { color: var(--accent-soft); }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 8px 0 26px; }
+  .stat { border: 1px solid var(--rule); border-radius: 14px; padding: 18px 18px 16px; background: rgba(255,255,255,0.025); }
+  .stat .n { font-size: 30px; letter-spacing: -0.03em; color: var(--accent-soft); line-height: 1.1; margin-bottom: 8px; }
+  .stat .t { font-size: 14px; color: var(--ink-dim); line-height: 1.5; }
+
+  .figure { margin: 28px 0 30px; border: 1px solid var(--rule); border-radius: 16px; background: rgba(255,255,255,0.025); padding: 14px; }
+  .figure svg { display: block; width: 100%; height: auto; }
+  .figure .cap { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); padding: 6px 10px 2px; }
+
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 28px; font-size: 15px; }
+  th { text-align: left; font-weight: 400; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-soft); padding: 10px 14px; border-bottom: 1px solid rgba(168,124,255,0.35); }
+  td { padding: 12px 14px; border-bottom: 1px solid var(--rule); color: var(--ink-dim); vertical-align: top; }
+  td:first-child { color: var(--ink); white-space: nowrap; }
+  .tableWrap { overflow-x: auto; }
+
+  .split { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 10px 0 26px; }
+  .split div { border: 1px solid var(--rule); border-radius: 14px; padding: 18px; background: rgba(255,255,255,0.025); }
+  .split .pct { font-size: 34px; letter-spacing: -0.03em; color: var(--accent-soft); line-height: 1; margin-bottom: 8px; }
+  .split .lbl { font-size: 15px; color: var(--ink); margin-bottom: 6px; }
+  .split .desc { font-size: 14px; color: var(--ink-dim); line-height: 1.5; }
+
+  .questions { list-style: none; padding: 0; }
+  .questions li { border: 1px solid var(--rule); border-radius: 12px; padding: 14px 18px 14px 46px; position: relative; margin-bottom: 10px; background: rgba(255,255,255,0.02); }
+  .questions li::before { content: ""; position: absolute; left: 18px; top: 19px; width: 14px; height: 14px; border: 1.5px solid var(--accent-soft); border-radius: 4px; }
+
+  footer { border-top: 1px solid var(--rule); padding: 28px 56px; color: var(--ink-faint); font-size: 12px; text-align: center; letter-spacing: 0.04em; }
+
+  @media (max-width: 760px) {
+    nav.top { padding: 18px 20px; }
+    main { padding: 130px 20px 60px; }
+    h1 { font-size: 40px; }
+    h2 { font-size: 28px; }
+    .stats, .split { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="brand">
+    <img class="navmark" src="./GrowthOSLogo.png" alt=""/>
+    GrowthOS · 3.0 Strategy
+  </div>
+  <a class="pill" href="./">← Back to manifesto</a>
+</nav>
+
+<main>
+  <div class="eyebrow">GrowthOS 3.0</div>
+  <h1>3.0 Product Strategy</h1>
+  <div class="meta">Updated October 13, 2026 · <a href="https://claude.ai/artifact/PLVrVF3gaBPJpQcfUqni2g" target="_blank" rel="noopener">Open the living doc ↗</a></div>
+
+  <h2>Summary</h2>
+  <p class="lead">GrowthOS brings research, analysis, and the workflow together to close the gap between what customers want and what companies make. 3.0 is how we get there.</p>
+  <p>3.0 turns GrowthOS into one connected system that takes teams from raw market observations to board-ready growth opportunities, with a clear, traceable chain of evidence behind every recommendation. Sources become signals, signals become findings, findings get challenged and become insights, insights reveal gaps, gaps inspire ideas, ideas get validated, and validated ideas become opportunities. GrowthMentor orchestrates that chain. The legacy modules collapse into three workspaces (Insights, Ideas, Tests) over a shared Foundations layer, where sensors bring outside data into every project.</p>
+  <p>Testing is our moat. Plenty of tools can synthesize research and generate ideas. Our edge is tying those ideas to synthetic and human testing inside the enterprise context, data and integrations that Accenture brings. The next two years go to making every part of that loop best in class, then connecting it to the market.</p>
+
+  <h2>Why now</h2>
+  <p>The gap between what customers want and what companies make is getting wider:</p>
+  <div class="stats">
+    <div class="stat"><div class="n">70%</div><div class="t">of Americans say they're less brand loyal than a year ago.</div></div>
+    <div class="stat"><div class="n">95%</div><div class="t">of enterprise GenAI pilots have delivered zero measurable P&amp;L impact, against $30 to 40 billion in spend.</div></div>
+    <div class="stat"><div class="n">70 to 90%</div><div class="t">year-one product mortality across major industries, unchanged in a generation.</div></div>
+  </div>
+  <p>Companies have more customer data than ever. What keeps failing is the bet. The manifesto names three kinds of bad bets: <strong>myopic</strong> (built for one office, missing the customer), <strong>incremental</strong> (a 3% feature on a product missing the 30%) and <strong>extractive</strong> (innovation that takes from customers). GrowthOS exists to catch those bets before companies commit millions to them.</p>
+  <p>GrowthOS has delivered real value across 220+ clients, and it was scaled fast. The current architecture can't carry it forward. The pains we've named are:</p>
+  <ol>
+    <li>Fragmentation across seven modules</li>
+    <li>A locked workflow where users pick a module before they've seen any value</li>
+    <li>Inconsistent output quality</li>
+    <li>No memory across projects</li>
+    <li>Tech debt</li>
+    <li>Missing voice of the user</li>
+    <li>Tension between running as a delivery engine and running as a product org</li>
+    <li>Resources that arrive in bursts</li>
+  </ol>
+  <p>We still need user research and telemetry behind these pains. Today they come from what the team has observed.</p>
+
+  <h2>The system</h2>
+  <p>3.0 is one evidence chain, built at the hackathon and orchestrated by GrowthMentor. It takes teams from raw market observations to board-ready growth opportunities, and every recommendation can be traced back to the sources behind it.</p>
+
+  <div class="figure">
+    <svg viewBox="0 0 760 488" role="img" aria-label="Every opportunity is validated and traceable to its sources" font-size="13" font-family="Graphik, Inter, sans-serif">
+      <defs><marker id="arr1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="rgba(255,255,255,0.4)"/></marker></defs>
+      <text x="24" y="34" font-size="15" font-weight="600" fill="#fff">Every opportunity is validated and traceable to its sources</text>
+      <text x="24" y="54" font-size="11.5" fill="rgba(255,255,255,0.55)">The GrowthOS 3.0 evidence chain, orchestrated by GrowthMentor</text>
+      <g fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.25">
+        <path d="M224 120H280" marker-end="url(#arr1)"/><path d="M480 120H536" marker-end="url(#arr1)"/>
+        <path d="M636 160V210" marker-end="url(#arr1)"/><path d="M536 250H480" marker-end="url(#arr1)"/>
+        <path d="M280 250H224" marker-end="url(#arr1)"/><path d="M124 290V340" marker-end="url(#arr1)"/>
+        <path d="M224 380H280" marker-end="url(#arr1)"/><path d="M480 380H536" marker-end="url(#arr1)"/>
+        <path d="M380 420V456H124V420" marker-end="url(#arr1)"/>
+      </g>
+      <g fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.25">
+        <rect x="24" y="80" width="200" height="80" rx="8"/><rect x="280" y="80" width="200" height="80" rx="8"/><rect x="536" y="80" width="200" height="80" rx="8"/>
+        <rect x="536" y="210" width="200" height="80" rx="8"/><rect x="280" y="210" width="200" height="80" rx="8"/><rect x="24" y="210" width="200" height="80" rx="8"/>
+        <rect x="24" y="340" width="200" height="80" rx="8"/><rect x="536" y="340" width="200" height="80" rx="8"/>
+      </g>
+      <rect x="280" y="340" width="200" height="80" rx="8" fill="rgba(168,124,255,0.16)" stroke="#A87CFF" stroke-width="2"/>
+      <g text-anchor="middle">
+        <text x="124" y="108" font-weight="600" fill="#fff">Sources</text><text x="124" y="128" font-size="11.5" fill="rgba(255,255,255,0.6)">Documents, interviews,</text><text x="124" y="144" font-size="11.5" fill="rgba(255,255,255,0.6)">surveys, Proxies, sensors</text>
+        <text x="380" y="108" font-weight="600" fill="#fff">Signals</text><text x="380" y="128" font-size="11.5" fill="rgba(255,255,255,0.6)">Needs, pain points,</text><text x="380" y="144" font-size="11.5" fill="rgba(255,255,255,0.6)">assumptions, evidence, risks</text>
+        <text x="636" y="108" font-weight="600" fill="#fff">Findings</text><text x="636" y="128" font-size="11.5" fill="rgba(255,255,255,0.6)">Neutral patterns</text><text x="636" y="144" font-size="11.5" fill="rgba(255,255,255,0.6)">across signals</text>
+        <text x="636" y="238" font-weight="600" fill="#fff">Challenge</text><text x="636" y="258" font-size="11.5" fill="rgba(255,255,255,0.6)">Findings pressure-tested</text><text x="636" y="274" font-size="11.5" fill="rgba(255,255,255,0.6)">before interpretation</text>
+        <text x="380" y="238" font-weight="600" fill="#fff">Insights</text><text x="380" y="258" font-size="11.5" fill="rgba(255,255,255,0.6)">Findings plus an</text><text x="380" y="274" font-size="11.5" fill="rgba(255,255,255,0.6)">explanatory mechanism</text>
+        <text x="124" y="238" font-weight="600" fill="#fff">Gaps</text><text x="124" y="258" font-size="11.5" fill="rgba(255,255,255,0.6)">Friction between a need</text><text x="124" y="274" font-size="11.5" fill="rgba(255,255,255,0.6)">and existing solutions</text>
+        <text x="124" y="368" font-weight="600" fill="#fff">Ideas</text><text x="124" y="388" font-size="11.5" fill="rgba(255,255,255,0.6)">Concept, prototype,</text><text x="124" y="404" font-size="11.5" fill="rgba(255,255,255,0.6)">solution</text>
+        <text x="380" y="368" font-weight="600" fill="#fff">Validations</text><text x="380" y="388" font-size="11.5" fill="#fff">Hypotheses tested with</text><text x="380" y="404" font-size="11.5" fill="#fff">Proxies and real humans</text>
+        <text x="636" y="368" font-weight="600" fill="#fff">Opportunities</text><text x="636" y="388" font-size="11.5" fill="rgba(255,255,255,0.6)">Board-ready, with a</text><text x="636" y="404" font-size="11.5" fill="rgba(255,255,255,0.6)">traceable evidence chain</text>
+        <text x="252" y="448" font-size="11.5" fill="rgba(255,255,255,0.6)">iterate on what validation shows</text>
+      </g>
+    </svg>
+    <div class="cap">GrowthOS 3.0 evidence chain · 9 objects, 1 iteration loop</div>
+  </div>
+
+  <p>The Signal is the shared atomic unit. Every GrowthOS output normalizes to one: a structured record carrying the signal, its subtype (need, pain point, user assumption, evidence or risk), a score, the feature that produced it and references back to its sources. That is what makes the chain traceable.</p>
+  <p>Signals have to be truthful, because everything above them depends on them. Every summary risks changing what the data meant. "75% of people love cheeseburgers" already compresses hundreds of slightly different open-ended answers, and every inference built on it adds distance. GenAI also over-indexes on whatever it was told last. Scoring every signal lets the system rank what matters, and the Challenge step tests findings before anyone interprets them.</p>
+
+  <h2>Product structure</h2>
+  <p>The legacy modules collapse into three workspaces over one shared layer. Empower, Learn and Make are dropped. Foundations is data, Insights and Ideas are generation, and Tests are research and validation.</p>
+  <div class="tableWrap"><table>
+    <tr><th>Layer</th><th>Job</th><th>Objects in the chain</th></tr>
+    <tr><td>Foundations</td><td>Hold the project's data and context</td><td>Sources: documents, interviews, surveys, Proxies, sensors</td></tr>
+    <tr><td>Insights</td><td>Turn data into evidence and meaning</td><td>Signals, Findings, Challenge, Insights, Gaps</td></tr>
+    <tr><td>Ideas</td><td>Turn gaps into ideas worth testing</td><td>Ideas, from concept to prototype to solution</td></tr>
+    <tr><td>Tests</td><td>Find out whether an idea is any good</td><td>Validations through Proxi tests, Connect, Surveys and Experiment Central</td></tr>
+    <tr><td>Outcome</td><td>Package what holds up</td><td>Opportunities, with the evidence chain attached</td></tr>
+    <tr><td>GrowthMentor</td><td>Orchestrate the chain end to end</td><td>Every object, linked back to its sources</td></tr>
+  </table></div>
+  <p>Two principles carry across the product:</p>
+  <ul>
+    <li><strong>Extract over collect.</strong> Users paste a brief, drop a file or describe the work, and Foundations fills itself in. They see a useful output before we ask for company details or success metrics.</li>
+    <li><strong>Users never pick a module.</strong> Tools surface based on what the project needs next. The framing for this is Connected, Adaptive and Proactive: signal flows end to end, the workflow and memory carry across projects, and the system anticipates the next step.</li>
+  </ul>
+
+  <h2>Where we win</h2>
+  <p>Testing is the moat. Many tools can synthesize research, build a business case and even prototype. GrowthOS ties ideas to a ladder of tests that builds confidence one step at a time, and it does that inside Accenture's enterprise context, data and integrations.</p>
+  <div class="tableWrap"><table>
+    <tr><th>Step</th><th>Synthetic (Proxies)</th><th>Human</th></tr>
+    <tr><td>Interview</td><td>Synthetic IDI with one Proxy</td><td>Real IDIs through Connect</td></tr>
+    <tr><td>Group or open-ended</td><td>One session with many Proxies</td><td>Real surveys</td></tr>
+    <tr><td>Concept</td><td>Proxies react to the idea's details</td><td>Real concept tests</td></tr>
+    <tr><td>Journey</td><td>Proxies move through multiple touchpoints (next)</td><td>Real journey tests</td></tr>
+    <tr><td>Market</td><td>None yet</td><td>Small market tests</td></tr>
+  </table></div>
+  <p>Each synthetic test has a human counterpart, which lets users start cheap and fast and graduate to real people as confidence grows.</p>
+  <p>We hold ourselves to a defensible claim. Qualtrics, Synthetic Users and Remesh can all credibly say they deliver end to end. Our claim is that nobody else does it with our enterprise and consulting context and our integration depth. Positioning leads with that: Accenture data and key integrations.</p>
+  <p>The goal is confidence. Business is more subjective than objective, and teams need enough evidence to make a good bet. Like Jira, GrowthOS won't hand a team every tool to get an idea to market. It gives them the framework and the place to manage that idea on its way there.</p>
+
+  <h2>Priorities</h2>
+  <p>Every part of the loop has to be best in class. A weak link anywhere breaks confidence in everything after it.</p>
+  <h3>Insights</h3>
+  <ul>
+    <li>Reliable extraction of signals from any source, with importance scores on every signal and inference.</li>
+    <li>Settle the naming: "importance" for how much a signal matters, "confidence" for how sure we are about an idea.</li>
+    <li>Ship Insight Map 2.0 and Opportunity Map as core surfaces.</li>
+  </ul>
+  <h3>Ideas</h3>
+  <ul>
+    <li>Make the Idea Container the home for every idea: problem, solution, audience, assumptions, business case and evidence, with a readiness score that moves over time.</li>
+    <li>Prototyping for digital products using existing generative tools. Physical-product prototyping stays out of scope for now.</li>
+  </ul>
+  <h3>Tests</h3>
+  <ul>
+    <li>An IDI interviewer as good as any human interviewer, with screening, participant-quality checks and analysis on every interview.</li>
+    <li>Connect as good as Dovetail at analysis and theming, and as strong as dscout at recruiting.</li>
+    <li>Surveys beyond Likert and open text: MaxDiff, longitudinal multi-session studies and stronger screening.</li>
+    <li>Proxy journey tests across multiple touchpoints.</li>
+  </ul>
+  <h3>Foundations</h3>
+  <ul>
+    <li><strong>Sensors.</strong> One open endpoint for outside data, built through MCP, API docs or an SDK, with a governance model for review and enablement. Launch sensors are AlphaSense, CB Insights, Luca, Wevo and Aaru, and Scout is a sensor too.</li>
+    <li><strong>How sensors work in a project.</strong> A sensor connects per project and syncs on connection. After that, retrieval runs recursively, driven by user prompts. Users pick sensor results and add them to the canvas as nodes. Sensor data ladders up from project to program to org.</li>
+    <li><strong>Opening sensors to everyone.</strong> Anyone can apply for a new sensor through a GrowthOS Product team application process. Accenture holds the sensor licenses.</li>
+    <li><strong>Proxies</strong> grounded in better design methods, with less reliance on prompt stuffing.</li>
+    <li><strong>Extract-over-collect onboarding</strong>, with an agentic intake that works out which sources a project needs across the document repository and the web.</li>
+  </ul>
+
+  <h2>Build, partner, integrate</h2>
+  <p>We don't reinvent what others already do well. Routing everything through outside APIs would slow the product down and complicate pricing, so the default is true partnerships, with GrowthOS owning the interface and the workflow.</p>
+  <p><strong>Proxies and Luca.</strong> Today Proxies run mostly on prompt stuffing, which leaves too much of the work to GenAI. Luca, Accenture's synthetic persona tool built on YouGov data, is one of our launch sensors. Luca will:</p>
+  <ol>
+    <li>Adopt the GrowthOS interface and the system design of our refinement methods.</li>
+    <li>Bring its persona design methods into GrowthOS as the back end for Proxies.</li>
+    <li>Evaluate how complete user-built Proxies are.</li>
+  </ol>
+  <p>Users will see what kind of Proxy they're working with: one that's subjective and qualitative, or one built on a credible data set.</p>
+  <p><strong>Research partners.</strong> Wevo already powers Proxi concept testing and Wevo Pro inside Validate. Dovetail and dscout set the quality bar for Connect.</p>
+  <p><strong>Data partners.</strong> Data providers come in as sensors through Foundations (see Priorities). Sensors give every provider one governed way into GrowthOS, so new data stops requiring a custom integration each time.</p>
+
+  <h2>Investment and what we stop</h2>
+  <p>We split capacity three ways:</p>
+  <div class="split">
+    <div><div class="pct">75%</div><div class="lbl">Foundations</div><div class="desc">UX hygiene, information architecture, performance, the object model, sensors, identity migration and integration depth. This is how we earn the right to the rest.</div></div>
+    <div><div class="pct">25%</div><div class="lbl">Differentiators</div><div class="desc">Testing quality, Proxies, the Idea Container and importance scoring.</div></div>
+    <div><div class="pct">Sliver</div><div class="lbl">Experiments</div><div class="desc">Agentic plays and flagship moments.</div></div>
+  </div>
+  <p>A plan that adds this much has to name what it drops. Proposed cuts, to confirm with the team:</p>
+  <div class="tableWrap"><table>
+    <tr><th>We stop</th><th>Why</th></tr>
+    <tr><td>Asking users to pick a module on entry</td><td>Tools surface based on what the project needs</td></tr>
+    <tr><td>Treating Experiment Central as the place tests are set up</td><td>It becomes the home where every experiment is collected</td></tr>
+    <tr><td>Building our own persona engine from scratch</td><td>Luca and partners bring persona design methods</td></tr>
+    <tr><td>One-off integrations for each new data source</td><td>Sensors give every provider one governed way in</td></tr>
+    <tr><td>Physical-product prototyping</td><td>Out of scope for what GrowthOS can solve today</td></tr>
+  </table></div>
+
+  <h2>Phasing</h2>
+  <div class="figure">
+    <svg viewBox="0 0 760 312" role="img" aria-label="3.0 builds the loop before GrowthOS takes ideas to market" font-size="13" font-family="Graphik, Inter, sans-serif">
+      <text x="24" y="34" font-size="15" font-weight="600" fill="#fff">3.0 builds the loop before GrowthOS takes ideas to market</text>
+      <text x="24" y="54" font-size="11.5" fill="rgba(255,255,255,0.55)">Three phases, each opened by a gate</text>
+      <rect x="24" y="72" width="208" height="160" rx="8" fill="rgba(168,124,255,0.16)" stroke="#A87CFF" stroke-width="2"/>
+      <rect x="276" y="72" width="208" height="160" rx="8" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.25"/>
+      <rect x="528" y="72" width="208" height="160" rx="8" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.25"/>
+      <text x="40" y="100" font-size="15" font-weight="600" fill="#fff">Build the loop</text>
+      <text x="40" y="120" font-size="11.5" fill="#A87CFF">Now: GrowthOS 3.0</text>
+      <text x="40" y="152" font-size="11.5" fill="#fff">Foundations and sensors</text>
+      <text x="40" y="172" font-size="11.5" fill="#fff">Insights, Ideas, Tests</text>
+      <text x="40" y="192" font-size="11.5" fill="#fff">Importance scoring</text>
+      <text x="40" y="212" font-size="11.5" fill="#fff">Best-in-class testing</text>
+      <text x="292" y="100" font-size="15" font-weight="600" fill="#fff">Go to market</text>
+      <text x="292" y="120" font-size="11.5" fill="rgba(255,255,255,0.55)">Next</text>
+      <text x="292" y="152" font-size="11.5" fill="rgba(255,255,255,0.8)">Shopify integration</text>
+      <text x="292" y="172" font-size="11.5" fill="rgba(255,255,255,0.8)">Ad platform integrations</text>
+      <text x="292" y="192" font-size="11.5" fill="rgba(255,255,255,0.8)">CRM integrations</text>
+      <text x="544" y="100" font-size="15" font-weight="600" fill="#fff">Measure in market</text>
+      <text x="544" y="120" font-size="11.5" fill="rgba(255,255,255,0.55)">In about two years</text>
+      <text x="544" y="152" font-size="11.5" fill="rgba(255,255,255,0.8)">Mass-market readiness</text>
+      <text x="544" y="172" font-size="11.5" fill="rgba(255,255,255,0.8)">Next iteration steps</text>
+      <text x="544" y="192" font-size="11.5" fill="rgba(255,255,255,0.8)">Predicted market trajectory</text>
+      <polygon points="240,152 254,138 268,152 254,166" fill="#120318" stroke="rgba(255,255,255,0.5)" stroke-width="1.25"/>
+      <polygon points="492,152 506,138 520,152 506,166" fill="#120318" stroke="rgba(255,255,255,0.5)" stroke-width="1.25"/>
+      <g text-anchor="middle" font-size="11.5" fill="rgba(255,255,255,0.6)">
+        <text x="254" y="260">Gate: testing, data, analysis</text><text x="254" y="276">and generative systems built</text>
+        <text x="506" y="260">Gate: ideas can go</text><text x="506" y="276">live in market</text>
+      </g>
+    </svg>
+    <div class="cap">GrowthOS phasing · 3 phases, 2 gates</div>
+  </div>
+  <p>Measuring in market is the hardest phase. A small market test of 5,000 units at $10 is $50,000, which means nothing to Levi's, Procter &amp; Gamble, TD Bank or Pfizer, so raw revenue is the wrong way to show results. "Portfolio" is the wrong frame too, because portfolios rarely change. New businesses need iteration and optimization before they're profitable, so the method has to place an idea on its path to mass-market readiness and predict two things: the next steps to take, and the trajectory of market performance. Both are non-deterministic.</p>
+
+  <h2>How we'll measure progress</h2>
+  <p>Proposed measures for each layer. Baselines and targets still need to be set with the team, ideally from PostHog telemetry and user research.</p>
+  <div class="tableWrap"><table>
+    <tr><th>Layer</th><th>Measure</th></tr>
+    <tr><td>Insights</td><td>Share of extracted signals that reviewers accept as accurate to the source</td></tr>
+    <tr><td>Insights</td><td>Share of high-importance signals that users act on</td></tr>
+    <tr><td>Ideas</td><td>Ideas created per project, and how many reach a test</td></tr>
+    <tr><td>Ideas</td><td>Share of opportunities with a complete evidence chain back to their sources</td></tr>
+    <tr><td>Tests</td><td>Synthetic tests that graduate to a human test</td></tr>
+    <tr><td>Tests</td><td>Agreement between synthetic and human results on the same idea</td></tr>
+    <tr><td>Tests</td><td>Interview and survey quality against Dovetail and dscout benchmarks</td></tr>
+    <tr><td>Foundations</td><td>Time from first intake to first useful output</td></tr>
+    <tr><td>Foundations</td><td>Projects with a sensor connected, and sensor results added to canvases</td></tr>
+  </table></div>
+
+  <h2>Open questions</h2>
+  <ul class="questions">
+    <li><strong>Does the Signal hold as our atom?</strong> We've landed on the Signal as the shared unit every output normalizes to. We should confirm it holds once GrowthMentor and sensors are live.</li>
+    <li><strong>Importance or confidence?</strong> Lock the naming for signal scores before it ships in the interface.</li>
+    <li><strong>How good are our Proxies?</strong> We need a way to show users when a Proxy is grounded in credible data and when it's subjective.</li>
+    <li><strong>How do we focus inside the dual model?</strong> Consultants and in-house client teams are both in scope, with different pricing, sales and support needs.</li>
+    <li><strong>How do we prototype physical products?</strong> Today this is out of scope. Is an image rendering enough?</li>
+    <li><strong>How do we measure in market?</strong> We need a readiness method that predicts next steps and market trajectory, plus a better frame than "portfolio."</li>
+    <li><strong>What evidence backs the current pains?</strong> User research and telemetry should replace observation before we commit the 75% to Foundations.</li>
+  </ul>
+</main>
+
+<footer>
+  GrowthOS · Manifesto 2027 · Draft · The work is persuasion. The system is built to serve it.
+</footer>
+
+</body>
+</html>
